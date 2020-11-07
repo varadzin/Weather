@@ -48,13 +48,13 @@ class WTFavoritesVC: UIViewController {
     }
     
     
-    func configureDataSource() {
-        dataSource = UICollectionViewDiffableDataSourceReferenceCellProvider<Section, Follower>(collectionView: collectionView, cellProvider: { (collectionView, indexPath, follower )})
-        
-        
-        
-    }
-    
-    
+//    func configureDataSource() {
+//        dataSource = UICollectionViewDiffableDataSourceReferenceCellProvider<Section, Follower>(collectionView: collectionView, cellProvider: { (collectionView, indexPath, follower )})
+//        
+//        
+//        
+//    }
+//    
+//    
     
 }
