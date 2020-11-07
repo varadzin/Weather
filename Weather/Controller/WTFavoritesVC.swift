@@ -47,23 +47,33 @@ class WTFavoritesVC: UIViewController {
         return flowLayout
     }
     
-//
-//    func configureDataSource() {
-//        dataSource = UICollectionViewDiffableDataSource<Section, Follower>(collectionView: collectionView, cellProvider: { (collectionView, indexPath, weatherFollower) -> UICollectionViewCell? in
-//            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FollowerCell.reuseID, for: IndexPath) as! FollowerCell
-//            cell.set(weatherFollower: weatherFollower)
-//            return cell
-//
-//
-//        })
+
+    func configureDataSource() {
+        dataSource = UICollectionViewDiffableDataSource<Section, Follower>(collectionView: collectionView, cellProvider: { (collectionView, indexPath, follower) -> UICollectionViewCell? in
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WTCell.reuseID, for: indexPath) as! WTCell
+            cell.set(follower: follower)
+            return cell
+
+
+        })
         
         
         
     }
     
-    func
+func updateData() {
+    var snapshot = NSDiffableDataSourceSnapshot<Section, Follower>()
+    snapshot.appendSections([.main])
+    snapshot.appendItems([.init(weatherIcon: "10d", favoriteCitys: "Tokio")])
+    DispatchQueue.main.async {
+        self.dataSource.apply(snapshot, animatingDifferences: true)
+    }
     
     
     
     
+    
+    
+    
+}
 }

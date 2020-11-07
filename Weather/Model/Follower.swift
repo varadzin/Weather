@@ -9,4 +9,5 @@ import Foundation
 
 struct Follower: Codable, Hashable {
     let weatherIcon: String
+    let favoriteCitys: String
 }

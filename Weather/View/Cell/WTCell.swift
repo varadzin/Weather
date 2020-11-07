@@ -25,8 +25,8 @@ class WTCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func set(weatherFollower: Follower) {
-        cityLabel.text = "Tokio"
+    func set(follower: Follower) {
+        cityLabel.text = follower.favoriteCitys
     }
     
     private func configure() {
