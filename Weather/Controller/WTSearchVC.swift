@@ -207,7 +207,7 @@ class WTSearchVC: UIViewController {
     @objc func favBtnPressed(_ sender: UIButton) {
         let favoritesVC = WTFavoritesVC()
         favoritesVC.title = "Favorites Cities"
-        print("btn pressed")
+        
         
         navigationController?.pushViewController(favoritesVC, animated: true)
         

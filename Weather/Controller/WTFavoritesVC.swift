@@ -7,43 +7,93 @@
 
 import UIKit
 
-class WTFavoritesVC: UIViewController {
-
-    let dataSource: [String] = ["Kosice", "Tokio", "Paris", "Toronto", "Revuca"]
-
+class WTFavoritesVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+   
+    
+ 
+    private var collectionView: UICollectionView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.backgroundColor = .cyan
+        configureCollectionView()
         
     }
-
+    
+    
     func configureCollectionView() {
-    
- func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dataSource.count
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        
+        guard let collectionView = collectionView else {
+            return
+        }
+        collectionView.register(UICollectionView.self, forCellWithReuseIdentifier: "WTCell")
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        view.addSubview(collectionView)
+        
         
     }
     
- func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        var cell = WTCell()
-        
-        if let cityCell = collectionView.dequeueReusableCell(withReuseIdentifier: "WTCell", for: indexPath) as? WTCell {
-            cityCell.configureWTCell(with: dataSource[indexPath.row])
-            
-            cell = cityCell
-        }
-        
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 7
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WTCell", for: indexPath)
+        cell.contentView.backgroundColor = .systemBlue
         return cell
     }
-    }
-    
-    
     
 }
+    
+    
 
-
+//    let dataSource: [String] = ["Kosice", "Tokio", "Paris", "Toronto", "Revuca"]
+//
+//    var collectionView: UICollectionView!
+//
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//        navigationController?.navigationBar.prefersLargeTitles = true
+//
+//        configureCollectionView()
+//    }
+//
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        navigationController?.setNavigationBarHidden(false, animated: true)
+//    }
+//
+//    func configureCollectionView() {
+//        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createThreeColumnFlowLayout())
+//        view.addSubview(collectionView)
+//        collectionView.backgroundColor = .systemPink
+//        collectionView.register(WTCell.self, forCellWithReuseIdentifier: WTCell.reuseID)
+//    }
+//
+//
+//    func createThreeColumnFlowLayout() -> UICollectionViewFlowLayout {
+//        let width                       = view.bounds.width
+//        let padding: CGFloat            = 12
+//        let minimumItemSpacing: CGFloat = 10
+//        let availableWidth              = width - (padding * 2) - (minimumItemSpacing * 2)
+//        let itemWidth                   = availableWidth / 3
+//
+//        let flowLayout                  = UICollectionViewFlowLayout()
+//        flowLayout.sectionInset         = UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
+//        flowLayout.itemSize             = CGSize(width: itemWidth, height: itemWidth + 40)
+//
+//        return flowLayout
+//    }
+//
+//
+//
+//}
+//
+//
 
 
 
