@@ -47,14 +47,23 @@ class WTFavoritesVC: UIViewController {
         return flowLayout
     }
     
-    
+//
 //    func configureDataSource() {
-//        dataSource = UICollectionViewDiffableDataSourceReferenceCellProvider<Section, Follower>(collectionView: collectionView, cellProvider: { (collectionView, indexPath, follower )})
-//        
-//        
-//        
-//    }
-//    
-//    
+//        dataSource = UICollectionViewDiffableDataSource<Section, Follower>(collectionView: collectionView, cellProvider: { (collectionView, indexPath, weatherFollower) -> UICollectionViewCell? in
+//            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FollowerCell.reuseID, for: IndexPath) as! FollowerCell
+//            cell.set(weatherFollower: weatherFollower)
+//            return cell
+//
+//
+//        })
+        
+        
+        
+    }
+    
+    func
+    
+    
+    
     
 }

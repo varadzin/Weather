@@ -26,7 +26,7 @@ class WTCell: UICollectionViewCell {
     }
     
     func set(weatherFollower: Follower) {
-        
+        cityLabel.text = "Tokio"
     }
     
     private func configure() {
