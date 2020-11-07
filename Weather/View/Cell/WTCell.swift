@@ -13,7 +13,7 @@ class WTCell: UICollectionViewCell {
     var WTImage = UIImageView()
  var cityLabel = UILabel()
   var tempLabel = UILabel()
-    
+    var cityTestName: UILabel!
     
     
     override init(frame: CGRect) {
@@ -25,8 +25,9 @@ class WTCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func set(follower: Follower) {
-        cityLabel.text = follower.favoriteCitys
+    func configureWTCell(with cityLabel: String) {
+        cityTestName.text = cityLabel
+        
     }
     
     private func configure() {

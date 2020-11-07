@@ -8,72 +8,134 @@
 import UIKit
 
 class WTFavoritesVC: UIViewController {
+
+    let dataSource: [String] = ["Kosice", "Tokio", "Paris", "Toronto", "Revuca"]
+
     
-    enum Section {
-        case main
-        
-    }
-    
-    var collectionView: UICollectionView!
-    var dataSource: UICollectionViewDiffableDataSource<Section, Follower>!
     override func viewDidLoad() {
         super.viewDidLoad()
-       configureCollectionView()
-
-        navigationController?.navigationBar.prefersLargeTitles = true
-
+        
+        view.backgroundColor = .cyan
+        
     }
 
     func configureCollectionView() {
-        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createThreeColumnFlowLayout())
-        view.addSubview(collectionView)
-        collectionView.backgroundColor = .systemPink
-        collectionView.register(WTCell.self, forCellWithReuseIdentifier: WTCell.reuseID)
-        
-    }
-
-
-    func createThreeColumnFlowLayout() -> UICollectionViewFlowLayout {
-        let width = view.bounds.width
-        let padding: CGFloat = 12
-        let minimumItemSpacing: CGFloat = 10
-        let availableWidth = width - (padding * 2) - (minimumItemSpacing * 2)
-        let itemWidth = availableWidth / 3
-        
-        let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.sectionInset = UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
-        flowLayout.itemSize = CGSize(width: itemWidth, height: itemWidth + 40)
-         
-        return flowLayout
-    }
     
-
-    func configureDataSource() {
-        dataSource = UICollectionViewDiffableDataSource<Section, Follower>(collectionView: collectionView, cellProvider: { (collectionView, indexPath, follower) -> UICollectionViewCell? in
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WTCell.reuseID, for: indexPath) as! WTCell
-            cell.set(follower: follower)
-            return cell
-
-
-        })
-        
-        
+ func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return dataSource.count
         
     }
     
-func updateData() {
-    var snapshot = NSDiffableDataSourceSnapshot<Section, Follower>()
-    snapshot.appendSections([.main])
-    snapshot.appendItems([.init(weatherIcon: "10d", favoriteCitys: "Tokio")])
-    DispatchQueue.main.async {
-        self.dataSource.apply(snapshot, animatingDifferences: true)
+ func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        var cell = WTCell()
+        
+        if let cityCell = collectionView.dequeueReusableCell(withReuseIdentifier: "WTCell", for: indexPath) as? WTCell {
+            cityCell.configureWTCell(with: dataSource[indexPath.row])
+            
+            cell = cityCell
+        }
+        
+        return cell
     }
-    
-    
-    
-    
+    }
     
     
     
 }
-}
+
+
+
+
+
+
+
+
+
+
+//    enum Section {
+//        case main
+//
+//    }
+//    var cityName: String!
+//    var followers: [Follower] = []
+//
+//    var collectionView: UICollectionView!
+//    var dataSource: UICollectionViewDiffableDataSource<Section, Follower>!
+//
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//       configureCollectionView()
+//        configureDataSource()
+//
+//        navigationController?.navigationBar.prefersLargeTitles = true
+//
+//    }
+//
+//    func configureCollectionView() {
+//        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createThreeColumnFlowLayout())
+//        view.addSubview(collectionView)
+//        collectionView.backgroundColor = .systemPink
+//        collectionView.register(WTCell.self, forCellWithReuseIdentifier: WTCell.reuseID)
+//
+//    }
+//
+//
+//    func createThreeColumnFlowLayout() -> UICollectionViewFlowLayout {
+//        let width = view.bounds.width
+//        let padding: CGFloat = 12
+//        let minimumItemSpacing: CGFloat = 10
+//        let availableWidth = width - (padding * 2) - (minimumItemSpacing * 2)
+//        let itemWidth = availableWidth / 3
+//
+//        let flowLayout = UICollectionViewFlowLayout()
+//        flowLayout.sectionInset = UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
+//        flowLayout.itemSize = CGSize(width: itemWidth, height: itemWidth + 40)
+//
+//        return flowLayout
+//    }
+//
+//
+//    func getFollowers() {
+//        WTManager.fetchWeather(cityName: "Tokio", page: 1 ) { result in
+//
+//            switch result {
+//            case .success(let followers):
+//                self.followers = followers
+//                self.updateData()
+//
+//            case .failure: print("error")
+//
+//            }
+//        }
+//    }
+//
+//
+//    func configureDataSource() {
+//        dataSource = UICollectionViewDiffableDataSource<Section, Follower>(collectionView: collectionView, cellProvider: { (collectionView, indexPath, follower) -> UICollectionViewCell? in
+//            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WTCell.reuseID, for: indexPath) as! WTCell
+//            cell.set(follower: follower)
+//            return cell
+//
+//
+//        })
+//
+//
+//
+//    }
+//
+//func updateData() {
+//    var snapshot = NSDiffableDataSourceSnapshot<Section, Follower>()
+//    snapshot.appendSections([.main])
+//    snapshot.appendItems([.init(weatherIcon: "10d", favoriteCitys: "Tokio")])
+//    DispatchQueue.main.async {
+//        self.dataSource.apply(snapshot, animatingDifferences: true)
+//    }
+//
+//
+//
+//
+//
+//
+//
+//}
+

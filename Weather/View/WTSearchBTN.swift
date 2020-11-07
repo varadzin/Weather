@@ -19,14 +19,24 @@ class WTSearchBTN: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
+    init(backgroundColor: UIColor, title: String, titleColor: UIColor) {
+        super.init(frame: .zero)
+        self.backgroundColor = backgroundColor
+        self.setTitle(title, for: .normal)
+        self.setTitleColor(titleColor, for: .normal)
+        configure()
+        
+        
+    }
+    
     
     private func configure() {
         
         layer.cornerRadius = 10
         layer.borderColor = UIColor.systemBlue.cgColor
         layer.borderWidth = 0.5
-        setTitle("search", for: .normal)
-        setTitleColor(.systemBlue, for: .normal)
+//        setTitle("search", for: .normal)
+//        setTitleColor(.systemBlue, for: .normal)
         titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
         
         

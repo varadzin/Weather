@@ -10,7 +10,7 @@ import UIKit
 class WTSearchVC: UIViewController {
     
     var searchTF = WTSearchTF()
-    var searchBtn = WTSearchBTN()
+    var searchBtn = WTSearchBTN(backgroundColor: .systemBackground, title: "search", titleColor: .systemBlue)
     var weatherImage = UIImageView()
     var cityAndTempLabel = WTCityLabel()
     var conditionLabel = WTConditionLabel()
@@ -19,7 +19,7 @@ class WTSearchVC: UIViewController {
     var dayLabel3 = WTDayLabel()
     var dayLabel4 = WTDayLabel()
     var dayLabel5 = WTDayLabel()
-    
+    var favButton = WTSearchBTN(backgroundColor: .systemBackground, title: "favorites cities", titleColor: .systemBlue)
     
     
     
@@ -52,11 +52,12 @@ class WTSearchVC: UIViewController {
         configureDayLabel3()
         configureDayLabel4()
         configureDayLabel5()
+        configureFavButton()
         
         
         
     }
-    // test
+
     
     
     func configureSearchTF() {
@@ -186,6 +187,37 @@ class WTSearchVC: UIViewController {
             dayLabel5.widthAnchor.constraint(equalToConstant: 100)
                     ])
             }
+    
+    
+    func configureFavButton() {
+        view.addSubview(favButton)
+        
+        favButton.addTarget(self, action: #selector(favBtnPressed), for: .touchUpInside)
+        favButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            favButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -30),
+            favButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            favButton.widthAnchor.constraint(equalToConstant: 150)
+        
+        ])
+          
+    }
+    
+    @objc func favBtnPressed(_ sender: UIButton) {
+        let favoritesVC = WTFavoritesVC()
+        favoritesVC.title = "Favorites Cities"
+        print("btn pressed")
+        
+        navigationController?.pushViewController(favoritesVC, animated: true)
+        
+        
+        
+        
+        
+    }
+    
+    
     
 }
 
