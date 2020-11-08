@@ -16,7 +16,7 @@ class WTFavoritesVC: UIViewController, UICollectionViewDelegate, UICollectionVie
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
-        
+
     }
     
     
@@ -24,32 +24,58 @@ class WTFavoritesVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         
+        view.backgroundColor = .white
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        
+       
+        
+        
+        
         
         guard let collectionView = collectionView else {
             return
         }
-        collectionView.register(UICollectionView.self, forCellWithReuseIdentifier: "WTCell")
+        collectionView.register(WTCell.self, forCellWithReuseIdentifier: WTCell.identifier)
         collectionView.dataSource = self
         collectionView.delegate = self
         view.addSubview(collectionView)
+        collectionView.frame = view.bounds
         
         
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 7
+        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WTCell", for: indexPath)
-        cell.contentView.backgroundColor = .systemBlue
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WTCell.identifier, for: indexPath)
+    
         return cell
     }
     
+   
 }
     
-    
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //    let dataSource: [String] = ["Kosice", "Tokio", "Paris", "Toronto", "Revuca"]
 //
