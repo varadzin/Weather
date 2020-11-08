@@ -19,8 +19,8 @@ class WTSearchVC: UIViewController {
     var dayLabel3 = WTDayLabel()
     var dayLabel4 = WTDayLabel()
     var dayLabel5 = WTDayLabel()
-    var favButton = WTSearchBTN(backgroundColor: .systemBackground, title: "favorites cities", titleColor: .systemBlue)
-    
+    var favButton = WTSearchBTN(backgroundColor: .systemBackground, title: "Add to favorites", titleColor: .systemBlue)
+    var cityToFavorites: String!
     
     
     var iconImage = UIImageView()
@@ -41,6 +41,7 @@ class WTSearchVC: UIViewController {
         
         weatherManager.delegate = self
         searchTF.delegate = self
+
         
         configureSearchTF()
         configureSearchBtn()
@@ -204,22 +205,23 @@ class WTSearchVC: UIViewController {
           
     }
     
-    @objc func favBtnPressed(_ sender: UIButton) {
+    @objc func favBtnPressed() {
         let favoritesVC = WTFavoritesVC()
         favoritesVC.title = "Favorites Cities"
-        
-        
+        favoritesVC.cityToFavoritesValue = cityToFavorites
+   
+     
+                
         navigationController?.pushViewController(favoritesVC, animated: true)
         
+        }
+        }
         
         
-        
-        
-    }
+
     
     
-    
-}
+
 
 
 
@@ -251,7 +253,7 @@ extension WTSearchVC: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         if let city = searchTF.text {
             weatherManager.fetchWeather(cityName: city)
-            
+          
         }
         searchTF.text = ""
         
@@ -268,6 +270,7 @@ extension WTSearchVC: WTManagerDelegate {
             self.weatherImage.image = UIImage(named: weather.weatherIcon)
             self.cityAndTempLabel.text = "\(weather.cityName) \(weather.temperatureString)°C"
             self.conditionLabel.text = "\(weather.weatherDescription),  wind: \(weather.windSpeedString) m/s"
+            self.cityToFavorites = weather.cityName
         }
     }
     

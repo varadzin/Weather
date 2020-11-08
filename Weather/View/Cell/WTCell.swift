@@ -50,5 +50,16 @@ class WTCell: UICollectionViewCell {
                                     height: contentView.frame.size.height-50)
     }
     
+    public func configureCellLabel(label: String) {
+        cityLabel.text = label
+        
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        cityLabel.text = nil
+    }
+    
+    
 }
 
