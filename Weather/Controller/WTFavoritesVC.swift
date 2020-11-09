@@ -10,13 +10,15 @@ import UIKit
 class WTFavoritesVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
   
-    var cityToFavoritesValue: String!
-    var weatherManager = WTManager()
+  
+ 
    var weatherImage = UIImageView()
-    var temperature = "24C"
+    var temperature = String()
     var clearButton = WTSearchBTN(backgroundColor: .red, title: "Clear", titleColor: .white)
     let defaults = UserDefaults.standard
     var savedArray : [String] = []
+    var savedTempArray : [String] = []
+    var savedIconArray : [String] = []
     
     private var collectionView: UICollectionView?
     
@@ -24,16 +26,23 @@ class WTFavoritesVC: UIViewController, UICollectionViewDelegate, UICollectionVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        weatherManager.delegate = self
+        navigationController?.setNavigationBarHidden(true, animated: true)
         savedArray = defaults.object(forKey: "SavedArray") as? [String] ?? [String]()
-   
-       print(savedArray)
-        if let city = cityToFavoritesValue {
-            weatherManager.fetchWeather(cityName: city)
-        }
+        savedTempArray = defaults.object(forKey: "SavedTempArray") as? [String] ?? [String]()
+        savedIconArray = defaults.object(forKey: "SavedIconArray") as? [String] ?? [String]()
+        print(savedArray)
+       
         
+       
+  
         configureCollectionView()
-
+       
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
        
     }
     
@@ -61,7 +70,7 @@ class WTFavoritesVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         collectionView.dataSource = self
         collectionView.delegate = self
         view.addSubview(collectionView)
-        
+   
         collectionView.frame = view.bounds
         
         
@@ -73,9 +82,13 @@ class WTFavoritesVC: UIViewController, UICollectionViewDelegate, UICollectionVie
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WTCell.identifier, for: indexPath) as! WTCell
-        
+
         cell.configureCellLabel(label: savedArray[indexPath.row])
-        cell.configureTempLabel(tempLabel: temperature)
+        cell.configureTempLabel(tempLabel: savedTempArray[indexPath.row])
+        cell.configureWeatherImage(imageView: UIImage(named: savedIconArray[indexPath.row])!)
+   
+
+        
         
         return cell
     }
@@ -85,20 +98,3 @@ class WTFavoritesVC: UIViewController, UICollectionViewDelegate, UICollectionVie
 }
   
     
-//MARK: - WTManagerDelegate
-
-extension WTFavoritesVC: WTManagerDelegate {
-    func didUpdateWeather(_ weatherManager: WTManager, weather: WTModel) {
-        DispatchQueue.main.async {
-            self.weatherImage.image = UIImage(named: weather.weatherIcon)
-//            self.temperature = "\(weather.temperatureString)°C"
-
-
-        }
-    }
-
-    func didFailWithError(error: Error) {
-        print(error)
-    }
-}
-

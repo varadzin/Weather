@@ -12,7 +12,7 @@ class WTCell: UICollectionViewCell {
     
     private let weatherImage: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "01d.png")
+       
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         return imageView
@@ -31,7 +31,6 @@ class WTCell: UICollectionViewCell {
       
         tempLabel.textAlignment = .center
         tempLabel.tintColor = .label
-        
         tempLabel.font = UIFont.systemFont(ofSize: 12)
           return tempLabel
     }()
@@ -75,11 +74,15 @@ class WTCell: UICollectionViewCell {
         temperatureLabel.text = tempLabel
     }
     
+    public func configureWeatherImage(imageView: UIImage) {
+        weatherImage.image = imageView
+    }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         cityLabel.text = nil
         temperatureLabel.text = nil
+        weatherImage.image = nil
     }
     
     

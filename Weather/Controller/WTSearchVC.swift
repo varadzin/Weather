@@ -20,10 +20,12 @@ class WTSearchVC: UIViewController {
     var dayLabel4 = WTDayLabel()
     var dayLabel5 = WTDayLabel()
     var favButton = WTSearchBTN(backgroundColor: .systemBackground, title: "Add to favorites", titleColor: .systemBlue)
-    var cityToFavorites: String!
+    var cityToFavorites = String()
     var favoritesArray : [String] = []
-
-    
+    var temperatureLabel = String()
+    var tempArray : [String] = []
+    var iconArray : [String] = []
+    var icon = String()
     
 //    var emptyDoubles: [Double] = []
     
@@ -213,11 +215,14 @@ class WTSearchVC: UIViewController {
     @objc func favBtnPressed() {
         let favoritesVC = WTFavoritesVC()
         favoritesVC.title = "Favorites Cities"
-        favoritesVC.cityToFavoritesValue = cityToFavorites
+   
         favoritesArray.append(cityToFavorites)
+        tempArray.append(temperatureLabel)
+        iconArray.append(icon)
         
         defaults.set(favoritesArray, forKey: "SavedArray")
-        
+        defaults.set(tempArray, forKey: "SavedTempArray")
+        defaults.set(iconArray, forKey: "SavedIconArray")
       print(favoritesArray)
  
         navigationController?.pushViewController(favoritesVC, animated: true)
@@ -276,7 +281,9 @@ extension WTSearchVC: WTManagerDelegate {
     func didUpdateWeather(_ weatherManager: WTManager, weather: WTModel) {
         DispatchQueue.main.async {
             self.weatherImage.image = UIImage(named: weather.weatherIcon)
+            self.icon = "\(weather.weatherIcon)"
             self.cityAndTempLabel.text = "\(weather.cityName) \(weather.temperatureString)°C"
+            self.temperatureLabel = "\(weather.temperatureString)°C"
             self.conditionLabel.text = "\(weather.weatherDescription),  wind: \(weather.windSpeedString) m/s"
             self.cityToFavorites = weather.cityName
         }
