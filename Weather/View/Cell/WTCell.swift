@@ -20,17 +20,29 @@ class WTCell: UICollectionViewCell {
     
     private let cityLabel: UILabel = {
         let label = UILabel()
-        label.text = "Tokio"
         label.textAlignment = .center
+            label.tintColor = .label
         
         return label
     }()
+    
+    private let temperatureLabel: UILabel = {
+        var tempLabel = UILabel()
+      
+        tempLabel.textAlignment = .center
+        tempLabel.tintColor = .label
+        
+        tempLabel.font = UIFont.systemFont(ofSize: 12)
+          return tempLabel
+    }()
+    
     
     override init(frame:CGRect) {
         super.init(frame: frame)
         contentView.backgroundColor = .systemBackground
         contentView.addSubview(weatherImage)
         contentView.addSubview(cityLabel)
+        contentView.addSubview(temperatureLabel)
         contentView.clipsToBounds = true
         
     }
@@ -44,10 +56,14 @@ class WTCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        cityLabel.frame = CGRect(x: 5, y: contentView.frame.size.height-50, width: contentView.frame.size.width-10, height: 50)
+        
         weatherImage.frame = CGRect(x: 5, y:0,
                                     width: contentView.frame.size.width-10,
                                     height: contentView.frame.size.height-50)
+        cityLabel.frame = CGRect(x: 5, y: contentView.frame.size.height-60, width: contentView.frame.size.width-10, height: 50)
+        temperatureLabel.frame = CGRect(x: 5, y: contentView.frame.size.height-45, width: contentView.frame.size.width-10, height: 50)
+        
+        
     }
     
     public func configureCellLabel(label: String) {
@@ -55,9 +71,15 @@ class WTCell: UICollectionViewCell {
         
     }
     
+    public func configureTempLabel(tempLabel: String) {
+        temperatureLabel.text = tempLabel
+    }
+    
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         cityLabel.text = nil
+        temperatureLabel.text = nil
     }
     
     

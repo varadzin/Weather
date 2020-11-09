@@ -22,6 +22,8 @@ class WTSearchVC: UIViewController {
     var favButton = WTSearchBTN(backgroundColor: .systemBackground, title: "Add to favorites", titleColor: .systemBlue)
     var cityToFavorites: String!
     var favoritesArray : [String] = []
+
+    
     
 //    var emptyDoubles: [Double] = []
     
@@ -211,22 +213,13 @@ class WTSearchVC: UIViewController {
     @objc func favBtnPressed() {
         let favoritesVC = WTFavoritesVC()
         favoritesVC.title = "Favorites Cities"
-        let savedArray = defaults.object(forKey: "SavedArray") as? [String] ?? [String]()
-        
-        
-        
-
-        
-        print("savedArray is \(savedArray)")
-        favoritesArray.append(contentsOf: savedArray)
+        favoritesVC.cityToFavoritesValue = cityToFavorites
         favoritesArray.append(cityToFavorites)
-        print("favoritesArray is \(favoritesArray)")
-        favoritesVC.favoritesArray2 = favoritesArray
         
-   
-   
-     
-                
+        defaults.set(favoritesArray, forKey: "SavedArray")
+        
+      print(favoritesArray)
+ 
         navigationController?.pushViewController(favoritesVC, animated: true)
         
         }

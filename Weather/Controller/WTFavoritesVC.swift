@@ -11,25 +11,30 @@ class WTFavoritesVC: UIViewController, UICollectionViewDelegate, UICollectionVie
     
   
     var cityToFavoritesValue: String!
-    var favoritesArray2 : [String] = []
+    var weatherManager = WTManager()
+   var weatherImage = UIImageView()
+    var temperature = "24C"
     var clearButton = WTSearchBTN(backgroundColor: .red, title: "Clear", titleColor: .white)
     let defaults = UserDefaults.standard
-    
+    var savedArray : [String] = []
     
     private var collectionView: UICollectionView?
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        configureCollectionView()
-        configureClearButton()
 
     
-        let citiesArray = favoritesArray2
-        defaults.set(citiesArray, forKey: "SavedArray")
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        weatherManager.delegate = self
+        savedArray = defaults.object(forKey: "SavedArray") as? [String] ?? [String]()
+   
+       print(savedArray)
+        if let city = cityToFavoritesValue {
+            weatherManager.fetchWeather(cityName: city)
+        }
+        
+        configureCollectionView()
 
-
-        print(favoritesArray2)
+       
     }
     
     
@@ -63,53 +68,37 @@ class WTFavoritesVC: UIViewController, UICollectionViewDelegate, UICollectionVie
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return savedArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WTCell.identifier, for: indexPath) as! WTCell
         
-        cell.configureCellLabel(label: "Mesto \(indexPath.row)")
+        cell.configureCellLabel(label: savedArray[indexPath.row])
+        cell.configureTempLabel(tempLabel: temperature)
         
         return cell
     }
     
    
-    func configureClearButton() {
-        view.addSubview(clearButton)
-        
-        clearButton.addTarget(self, action: #selector(clearBtnPressed), for: .touchUpInside)
-        clearButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            clearButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -30),
-            clearButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            clearButton.widthAnchor.constraint(equalToConstant: 150)
-        
-        ])
-          
-    }
-        
-    @objc func clearBtnPressed() {
-        favoritesArray2.removeAll()
-        defaults.removeObject(forKey: "SavedArray")
-        let searchVC = WTSearchVC()
-        searchVC.favoritesArray = favoritesArray2
-        
-        
-    }
-    }
+   
+}
+  
     
+//MARK: - WTManagerDelegate
+
+extension WTFavoritesVC: WTManagerDelegate {
+    func didUpdateWeather(_ weatherManager: WTManager, weather: WTModel) {
+        DispatchQueue.main.async {
+            self.weatherImage.image = UIImage(named: weather.weatherIcon)
+//            self.temperature = "\(weather.temperatureString)°C"
 
 
+        }
+    }
 
-
-
-
-
-
-
-
-
-
+    func didFailWithError(error: Error) {
+        print(error)
+    }
+}
 
