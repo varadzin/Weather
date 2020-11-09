@@ -9,23 +9,27 @@ import UIKit
 
 class WTFavoritesVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
-    var favoritesArray = ["Kosice", "Presov"]
+  
     var cityToFavoritesValue: String!
+    var favoritesArray2 : [String] = []
+    var clearButton = WTSearchBTN(backgroundColor: .red, title: "Clear", titleColor: .white)
+    let defaults = UserDefaults.standard
+    
     
     private var collectionView: UICollectionView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        favoritesArray.append(cityToFavoritesValue)
-//        print(favoritesArray)
-        configureCollectionView()
 
-        let defaults = UserDefaults.standard
-        let citiesArray = favoritesArray
+        configureCollectionView()
+        configureClearButton()
+
+    
+        let citiesArray = favoritesArray2
         defaults.set(citiesArray, forKey: "SavedArray")
-        let savedArray = defaults.object(forKey: "SavedArray") as? [String] ?? [String]()
-        print(savedArray)
-        print(citiesArray)
+
+
+        print(favoritesArray2)
     }
     
     
@@ -71,9 +75,29 @@ class WTFavoritesVC: UIViewController, UICollectionViewDelegate, UICollectionVie
     }
     
    
-
+    func configureClearButton() {
+        view.addSubview(clearButton)
+        
+        clearButton.addTarget(self, action: #selector(clearBtnPressed), for: .touchUpInside)
+        clearButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            clearButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -30),
+            clearButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            clearButton.widthAnchor.constraint(equalToConstant: 150)
+        
+        ])
+          
+    }
+        
+    @objc func clearBtnPressed() {
+        favoritesArray2.removeAll()
+        defaults.removeObject(forKey: "SavedArray")
+        let searchVC = WTSearchVC()
+        searchVC.favoritesArray = favoritesArray2
         
         
+    }
     }
     
 

@@ -21,18 +21,21 @@ class WTSearchVC: UIViewController {
     var dayLabel5 = WTDayLabel()
     var favButton = WTSearchBTN(backgroundColor: .systemBackground, title: "Add to favorites", titleColor: .systemBlue)
     var cityToFavorites: String!
+    var favoritesArray : [String] = []
     
+//    var emptyDoubles: [Double] = []
     
     var iconImage = UIImageView()
     var smallTempLabel = UILabel()
     var date = 10/10/2020
-
+    let defaults = UserDefaults.standard
     
     
     var weatherManager = WTManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+      
         
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.isHidden = true
@@ -208,7 +211,19 @@ class WTSearchVC: UIViewController {
     @objc func favBtnPressed() {
         let favoritesVC = WTFavoritesVC()
         favoritesVC.title = "Favorites Cities"
-        favoritesVC.cityToFavoritesValue = cityToFavorites
+        let savedArray = defaults.object(forKey: "SavedArray") as? [String] ?? [String]()
+        
+        
+        
+
+        
+        print("savedArray is \(savedArray)")
+        favoritesArray.append(contentsOf: savedArray)
+        favoritesArray.append(cityToFavorites)
+        print("favoritesArray is \(favoritesArray)")
+        favoritesVC.favoritesArray2 = favoritesArray
+        
+   
    
      
                 
