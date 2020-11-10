@@ -85,7 +85,7 @@ class WTFavoritesVC: UIViewController, UICollectionViewDelegate, UICollectionVie
 
         cell.configureCellLabel(label: savedArray[indexPath.row])
         cell.configureTempLabel(tempLabel: savedTempArray[indexPath.row])
-        cell.configureWeatherImage(imageView: UIImage(named: savedIconArray[indexPath.row])!)
+        cell.configureWeatherImage(imageView: (UIImage(named: savedIconArray[indexPath.row])!))
    
 
         

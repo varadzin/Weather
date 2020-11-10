@@ -26,47 +26,33 @@ class WTSearchVC: UIViewController {
     var tempArray : [String] = []
     var iconArray : [String] = []
     var icon = String()
-    
-//    var emptyDoubles: [Double] = []
-    
+    var textFieldNotEmpty = Bool()
     var iconImage = UIImageView()
     var smallTempLabel = UILabel()
-    var date = 10/10/2020
-    let defaults = UserDefaults.standard
-    
-    
+    let defaults = UserDefaults.standard //declaration for using Userdefaults 
     var weatherManager = WTManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      
-        
-        view.backgroundColor = .systemBackground
-        navigationController?.navigationBar.isHidden = true
-        
-        weatherImage.image = UIImage(named: "02d.png")
         
         weatherManager.delegate = self
         searchTF.delegate = self
-
         
+        configureScreen()
         configureSearchTF()
         configureSearchBtn()
         configureWTImageView()
         configureCityLabel()
         configureConditionLabel()
-        configureDayLabel()
-        configureDayLabel2()
-        configureDayLabel3()
-        configureDayLabel4()
-        configureDayLabel5()
         configureFavButton()
         
-        
-        
     }
-
     
+    func configureScreen() {
+        view.backgroundColor = .systemBackground
+        navigationController?.navigationBar.isHidden = true
+        weatherImage.image = UIImage(named: "02d.png")
+    }
     
     func configureSearchTF() {
         view.addSubview(searchTF)
@@ -134,67 +120,6 @@ class WTSearchVC: UIViewController {
             conditionLabel.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
-
-    func configureDayLabel() {
-        view.addSubview(dayLabel)
-       
-        dayLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            dayLabel.topAnchor.constraint(equalTo: conditionLabel.bottomAnchor, constant: 50),
-            dayLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
-            dayLabel.widthAnchor.constraint(equalToConstant: 100)
-                    ])
-            }
-    
-    func configureDayLabel2() {
-        view.addSubview(dayLabel2)
-       
-        dayLabel2.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            dayLabel2.topAnchor.constraint(equalTo: conditionLabel.bottomAnchor, constant: 50),
-            dayLabel2.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 95),
-            dayLabel2.widthAnchor.constraint(equalToConstant: 100)
-                    ])
-            }
-    
-    func configureDayLabel3() {
-        view.addSubview(dayLabel3)
-       
-        dayLabel3.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            dayLabel3.topAnchor.constraint(equalTo: conditionLabel.bottomAnchor, constant: 50),
-            dayLabel3.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 160),
-            dayLabel3.widthAnchor.constraint(equalToConstant: 100)
-                    ])
-            }
-    
-    func configureDayLabel4() {
-        view.addSubview(dayLabel4)
-       
-        dayLabel4.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            dayLabel4.topAnchor.constraint(equalTo: conditionLabel.bottomAnchor, constant: 50),
-            dayLabel4.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 230),
-            dayLabel4.widthAnchor.constraint(equalToConstant: 100)
-                    ])
-            }
- 
-    
-    func configureDayLabel5() {
-        view.addSubview(dayLabel5)
-       
-        dayLabel5.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            dayLabel5.topAnchor.constraint(equalTo: conditionLabel.bottomAnchor, constant: 50),
-            dayLabel5.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 295),
-            dayLabel5.widthAnchor.constraint(equalToConstant: 100)
-                    ])
-            }
     
     
     func configureFavButton() {
@@ -207,39 +132,31 @@ class WTSearchVC: UIViewController {
             favButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -30),
             favButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             favButton.widthAnchor.constraint(equalToConstant: 150)
-        
         ])
-          
     }
     
     @objc func favBtnPressed() {
-        let favoritesVC = WTFavoritesVC()
-        favoritesVC.title = "Favorites Cities"
-   
-        favoritesArray.append(cityToFavorites)
-        tempArray.append(temperatureLabel)
-        iconArray.append(icon)
-        
-        defaults.set(favoritesArray, forKey: "SavedArray")
-        defaults.set(tempArray, forKey: "SavedTempArray")
-        defaults.set(iconArray, forKey: "SavedIconArray")
-      print(favoritesArray)
- 
-        navigationController?.pushViewController(favoritesVC, animated: true)
-        
+        if textFieldNotEmpty == false {
+            searchTF.placeholder = "Type something"
+        } else {
+            
+            let favoritesVC = WTFavoritesVC()
+            favoritesVC.title = "Favorites Cities"
+            
+            
+            //MARK: - append value to array
+            favoritesArray.append(cityToFavorites)
+            tempArray.append(temperatureLabel)
+            iconArray.append(icon)
+            
+            //MARK: - saving arrays to UserDefaults "Memory"
+            defaults.set(favoritesArray, forKey: "SavedArray")
+            defaults.set(tempArray, forKey: "SavedTempArray")
+            defaults.set(iconArray, forKey: "SavedIconArray")
+            navigationController?.pushViewController(favoritesVC, animated: true)
         }
-        }
-        
-        
-
-    
-    
-
-
-
-
-
-
+    }
+}
 
 //MARK: - UITextFieldDelegate
 
@@ -256,9 +173,11 @@ extension WTSearchVC: UITextFieldDelegate {
     
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         if textField.text != "" {
+            textFieldNotEmpty = true
             return true
         } else {
             textField.placeholder = "Type something"
+            textFieldNotEmpty = false
             return false
         }
     }
@@ -266,13 +185,9 @@ extension WTSearchVC: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         if let city = searchTF.text {
             weatherManager.fetchWeather(cityName: city)
-          
         }
         searchTF.text = ""
-        
     }
-    
-    
 }
 
 //MARK: - WTManagerDelegate
@@ -306,3 +221,74 @@ extension WTSearchVC: WTManagerDelegate {
 //    }
 //
 //}
+
+
+
+//        configureDayLabel()
+//        configureDayLabel2()
+//        configureDayLabel3()
+//        configureDayLabel4()
+//        configureDayLabel5()
+
+
+
+//    func configureDayLabel() {
+//        view.addSubview(dayLabel)
+//
+//        dayLabel.translatesAutoresizingMaskIntoConstraints = false
+//
+//        NSLayoutConstraint.activate([
+//            dayLabel.topAnchor.constraint(equalTo: conditionLabel.bottomAnchor, constant: 50),
+//            dayLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
+//            dayLabel.widthAnchor.constraint(equalToConstant: 100)
+//                    ])
+//            }
+//
+//    func configureDayLabel2() {
+//        view.addSubview(dayLabel2)
+//
+//        dayLabel2.translatesAutoresizingMaskIntoConstraints = false
+//
+//        NSLayoutConstraint.activate([
+//            dayLabel2.topAnchor.constraint(equalTo: conditionLabel.bottomAnchor, constant: 50),
+//            dayLabel2.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 95),
+//            dayLabel2.widthAnchor.constraint(equalToConstant: 100)
+//                    ])
+//            }
+//
+//    func configureDayLabel3() {
+//        view.addSubview(dayLabel3)
+//
+//        dayLabel3.translatesAutoresizingMaskIntoConstraints = false
+//
+//        NSLayoutConstraint.activate([
+//            dayLabel3.topAnchor.constraint(equalTo: conditionLabel.bottomAnchor, constant: 50),
+//            dayLabel3.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 160),
+//            dayLabel3.widthAnchor.constraint(equalToConstant: 100)
+//                    ])
+//            }
+//
+//    func configureDayLabel4() {
+//        view.addSubview(dayLabel4)
+//
+//        dayLabel4.translatesAutoresizingMaskIntoConstraints = false
+//
+//        NSLayoutConstraint.activate([
+//            dayLabel4.topAnchor.constraint(equalTo: conditionLabel.bottomAnchor, constant: 50),
+//            dayLabel4.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 230),
+//            dayLabel4.widthAnchor.constraint(equalToConstant: 100)
+//                    ])
+//            }
+//
+//
+//    func configureDayLabel5() {
+//        view.addSubview(dayLabel5)
+//
+//        dayLabel5.translatesAutoresizingMaskIntoConstraints = false
+//
+//        NSLayoutConstraint.activate([
+//            dayLabel5.topAnchor.constraint(equalTo: conditionLabel.bottomAnchor, constant: 50),
+//            dayLabel5.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 295),
+//            dayLabel5.widthAnchor.constraint(equalToConstant: 100)
+//                    ])
+//            }
