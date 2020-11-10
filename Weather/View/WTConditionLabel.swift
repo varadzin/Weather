@@ -12,7 +12,6 @@ class WTConditionLabel: UILabel {
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
-        
     }
     
     required init?(coder: NSCoder) {
@@ -21,12 +20,9 @@ class WTConditionLabel: UILabel {
     
     
     private func configure() {
- 
         textColor = .label
         font = UIFont.preferredFont(forTextStyle: .body)
         
-        
     }
-    
     
 }

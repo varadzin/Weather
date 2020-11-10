@@ -12,7 +12,6 @@ class WTCityLabel: UILabel {
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
-        
     }
     
     required init?(coder: NSCoder) {
@@ -24,9 +23,7 @@ class WTCityLabel: UILabel {
         textColor = .label
         font = UIFont.preferredFont(forTextStyle: .largeTitle)
         adjustsFontSizeToFitWidth = true
-  
     }
-    
     
 }
 

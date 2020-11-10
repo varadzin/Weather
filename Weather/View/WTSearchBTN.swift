@@ -25,8 +25,6 @@ class WTSearchBTN: UIButton {
         self.setTitle(title, for: .normal)
         self.setTitleColor(titleColor, for: .normal)
         configure()
-        
-        
     }
     
     
@@ -35,12 +33,8 @@ class WTSearchBTN: UIButton {
         layer.cornerRadius = 10
         layer.borderColor = UIColor.systemBlue.cgColor
         layer.borderWidth = 0.5
-//        setTitle("search", for: .normal)
-//        setTitleColor(.systemBlue, for: .normal)
         titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
         
-        
     }
-    
     
 }

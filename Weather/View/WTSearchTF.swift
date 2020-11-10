@@ -20,7 +20,6 @@ class WTSearchTF: UITextField {
     
     
     private func configure() {
-        
         layer.cornerRadius = 10
         layer.borderWidth = 0.5
         layer.borderColor = UIColor.systemGray3.cgColor
@@ -35,8 +34,6 @@ class WTSearchTF: UITextField {
         returnKeyType = .search
         keyboardType = .default
         placeholder = "Enter city"
-
         
     }
-    
 }
