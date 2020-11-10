@@ -21,7 +21,6 @@ class WTCell: UICollectionViewCell {
         let label = UILabel()
         label.textAlignment = .center
         label.tintColor = .label
-        
         return label
     }()
     

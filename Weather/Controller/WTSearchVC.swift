@@ -45,7 +45,7 @@ class WTSearchVC: UIViewController {
         configureCityLabel()
         configureConditionLabel()
         configureFavButton()
-        
+       loadArrays()
     }
     
     func configureScreen() {
@@ -135,28 +135,49 @@ class WTSearchVC: UIViewController {
         ])
     }
     
+    func showAlert() {
+        print("error")
+        
+    }
+    //MARK: - Loading saved arrays in UserDefaults
+    func loadArrays() {
+       favoritesArray = defaults.object(forKey: "SavedArray") as? [String] ?? [String]()
+        tempArray = defaults.object(forKey: "SavedTempArray") as? [String] ?? [String]()
+        iconArray = defaults.object(forKey: "SavedIconArray") as? [String] ?? [String]()
+        print("savedArray: \(favoritesArray), savedTempArray: \(tempArray), savedIconArray\(iconArray)")
+    }
+    
+    
     @objc func favBtnPressed() {
         if textFieldNotEmpty == false {
             searchTF.placeholder = "Type something"
         } else {
             
-            let favoritesVC = WTFavoritesVC()
-            favoritesVC.title = "Favorites Cities"
-            
-            
-            //MARK: - append value to array
-            favoritesArray.append(cityToFavorites)
-            tempArray.append(temperatureLabel)
-            iconArray.append(icon)
-            
-            //MARK: - saving arrays to UserDefaults "Memory"
-            defaults.set(favoritesArray, forKey: "SavedArray")
-            defaults.set(tempArray, forKey: "SavedTempArray")
-            defaults.set(iconArray, forKey: "SavedIconArray")
-            navigationController?.pushViewController(favoritesVC, animated: true)
+            if favoritesArray.contains(cityToFavorites) {
+                showAlert()
+                
+            } else {
+                let favoritesVC = WTFavoritesVC()
+                favoritesVC.title = "Favorites Cities"
+                
+                
+                //MARK: - append value to array
+                favoritesArray.append(cityToFavorites)
+                tempArray.append(temperatureLabel)
+                iconArray.append(icon)
+                
+                //MARK: - saving arrays to UserDefaults "Memory"
+                defaults.set(favoritesArray, forKey: "SavedArray")
+                defaults.set(tempArray, forKey: "SavedTempArray")
+                defaults.set(iconArray, forKey: "SavedIconArray")
+                
+                navigationController?.pushViewController(favoritesVC, animated: true)
+                  
+            }
         }
     }
 }
+
 
 //MARK: - UITextFieldDelegate
 

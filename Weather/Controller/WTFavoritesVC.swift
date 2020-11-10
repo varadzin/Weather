@@ -17,12 +17,13 @@ class WTFavoritesVC: UIViewController, UICollectionViewDelegate, UICollectionVie
     var savedTempArray : [String] = []
     var savedIconArray : [String] = []
     private var collectionView: UICollectionView?
-    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(true, animated: true)
-        configureCollectionView()
+   
+    
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -30,6 +31,8 @@ class WTFavoritesVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         savedArray = defaults.object(forKey: "SavedArray") as? [String] ?? [String]()
         savedTempArray = defaults.object(forKey: "SavedTempArray") as? [String] ?? [String]()
         savedIconArray = defaults.object(forKey: "SavedIconArray") as? [String] ?? [String]()
+        configureCollectionView()
+        print("savedArray: \(savedArray), savedTempArray: \(savedTempArray), savedIconArray\(savedIconArray)")
     }
     
     
@@ -66,4 +69,7 @@ class WTFavoritesVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         return cell
     }
     
+    
 }
+
+
