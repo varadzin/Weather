@@ -12,18 +12,15 @@ protocol WTManagerDelegate {
     func didFailWithError(error: Error)
 }
 
-
 struct WTManager {
     
     let weatherURL = "https://api.openweathermap.org/data/2.5/weather?appid=1513074b04afcac9adc59f2ce25f6755&units=metric"
-    
     var delegate: WTManagerDelegate?
     
     func fetchWeather(cityName: String) {
         let urlString = "\(weatherURL)&q=\(cityName)"
         performRequest(with: urlString)
     }
-    
     
     func performRequest(with urlString: String) {
         if let url = URL(string: urlString) {
@@ -55,7 +52,7 @@ struct WTManager {
             let icon = decodedData.weather[0].icon
             
             let weather = WTModel(weatherDescription: description, cityName: name, temperature: temp, windSpeed: speed, weatherIcon: icon)
- 
+            
             return weather
         } catch {
             delegate?.didFailWithError(error: error)
@@ -63,5 +60,4 @@ struct WTManager {
             
         }
     }
-    
 }

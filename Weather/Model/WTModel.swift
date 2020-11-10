@@ -15,7 +15,6 @@ struct WTModel {
     let windSpeed: Double
     let weatherIcon: String
 
-    
     var temperatureString: String {
         return String(format: "%.1f", temperature)
     }
@@ -23,8 +22,5 @@ struct WTModel {
     var windSpeedString: String {
         return String(format: "%.1f", windSpeed)
     }
-    
-    
-    
     
 }
