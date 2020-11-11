@@ -228,6 +228,12 @@ extension WTSearchVC: WTManagerDelegate {
     func didFailWithError(error: Error) {
         print(error)
     }
+
+//    var pocasie = ["Praha": ["24C","01d"], "Presov": ["30C","02d"]]()
+
+    
+    
+
 }
 
 //MARK: - Name of Day
