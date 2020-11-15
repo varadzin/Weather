@@ -22,10 +22,17 @@ class WTFavoritesVC: UIViewController, UICollectionViewDelegate, UICollectionVie
     var cityInArray = String()
     var weatherManager = WTManager()
     
+    var dictionaryCityTemp : [String : String] = [:]
+    var dictionaryCityIcon : [String : String] = [:]
+    var cityName = String()
+    var icon = String()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(true, animated: true)
         weatherManager.delegate = self
+
     
     }
     
@@ -37,7 +44,9 @@ class WTFavoritesVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         configureCollectionView()
         print("savedArray: \(savedArray), savedTempArray: \(savedTempArray), savedIconArray\(savedIconArray)")
         collectionView?.reloadData()
-        updateWeatherValues()
+     
+   
+    
     }
     
     
@@ -75,17 +84,19 @@ class WTFavoritesVC: UIViewController, UICollectionViewDelegate, UICollectionVie
     }
     
     func updateWeatherValues() {
+        tempArray.removeAll()
+      cityInArray = ""
         for i in savedArray {
             let cityInArray = i
              weatherManager.fetchWeather(cityName: cityInArray)
     
 
             
-  print(cityInArray)
+ 
    
         
     }
-    
+       
     
 }
 }
@@ -94,14 +105,24 @@ extension WTFavoritesVC: WTManagerDelegate {
     func didUpdateWeather(_ weatherManager: WTManager, weather: WTModel) {
         DispatchQueue.main.async {
             self.temperature = "\(weather.temperatureString)°C"
-            print(self.temperature)
-
-//            self.weatherImage.image = UIImage(named: weather.weatherIcon)
-//            self.icon = "\(weather.weatherIcon)"
-//            self.cityAndTempLabel.text = "\(weather.cityName) \(weather.temperatureString)°C"
-//            self.temperatureLabel = "\(weather.temperatureString)°C"
-//            self.conditionLabel.text = "\(weather.weatherDescription),  wind: \(weather.windSpeedString) m/s"
-//            self.cityToFavorites = weather.cityName
+            self.cityName = weather.cityName
+            self.icon = "\(weather.weatherIcon)"
+            
+            self.dictionaryCityTemp.updateValue(self.temperature, forKey: self.cityName)
+            self.dictionaryCityIcon.updateValue(self.icon, forKey: self.cityName)
+            
+            self.defaults.set(self.dictionaryCityTemp[self.cityName], forKey: "SavedTempArray")
+            self.defaults.set(self.dictionaryCityIcon[self.cityName], forKey: "SavedIconArray")
+            
+            
+            
+            print(self.dictionaryCityTemp)
+            print(self.dictionaryCityIcon)
+//            if self.cityName == "Presov" {
+//            print(self.dictionaryCityTemp["Presov"]! + self.dictionaryCityIcon["Presov"]!)
+//            }
+            
+            
         }
     }
 
