@@ -17,12 +17,15 @@ class WTFavoritesVC: UIViewController, UICollectionViewDelegate, UICollectionVie
     var savedTempArray : [String] = []
     var savedIconArray : [String] = []
     private var collectionView: UICollectionView?
-
+    var tempArray : [String] = []
+    var iconArray : [String] = []
+    var cityInArray = String()
+    var weatherManager = WTManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(true, animated: true)
-   
+        weatherManager.delegate = self
     
     }
     
@@ -33,6 +36,8 @@ class WTFavoritesVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         savedIconArray = defaults.object(forKey: "SavedIconArray") as? [String] ?? [String]()
         configureCollectionView()
         print("savedArray: \(savedArray), savedTempArray: \(savedTempArray), savedIconArray\(savedIconArray)")
+        collectionView?.reloadData()
+        updateWeatherValues()
     }
     
     
@@ -69,7 +74,39 @@ class WTFavoritesVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         return cell
     }
     
+    func updateWeatherValues() {
+        for i in savedArray {
+            let cityInArray = i
+             weatherManager.fetchWeather(cityName: cityInArray)
+    
+
+            
+  print(cityInArray)
+   
+        
+    }
+    
     
 }
+}
 
+extension WTFavoritesVC: WTManagerDelegate {
+    func didUpdateWeather(_ weatherManager: WTManager, weather: WTModel) {
+        DispatchQueue.main.async {
+            self.temperature = "\(weather.temperatureString)°C"
+            print(self.temperature)
+
+//            self.weatherImage.image = UIImage(named: weather.weatherIcon)
+//            self.icon = "\(weather.weatherIcon)"
+//            self.cityAndTempLabel.text = "\(weather.cityName) \(weather.temperatureString)°C"
+//            self.temperatureLabel = "\(weather.temperatureString)°C"
+//            self.conditionLabel.text = "\(weather.weatherDescription),  wind: \(weather.windSpeedString) m/s"
+//            self.cityToFavorites = weather.cityName
+        }
+    }
+
+    func didFailWithError(error: Error) {
+        print(error)
+    }
+}
 
