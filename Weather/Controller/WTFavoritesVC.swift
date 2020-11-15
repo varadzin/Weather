@@ -32,13 +32,19 @@ class WTFavoritesVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(true, animated: true)
         weatherManager.delegate = self
-
+        updateWeatherValues()
+       
     
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        updateWeatherValues()
+      
+        
         savedArray = defaults.object(forKey: "SavedArray") as? [String] ?? [String]()
+
+
         savedTempArray = defaults.object(forKey: "SavedTempArray") as? [String] ?? [String]()
         savedIconArray = defaults.object(forKey: "SavedIconArray") as? [String] ?? [String]()
         configureCollectionView()
@@ -51,6 +57,9 @@ class WTFavoritesVC: UIViewController, UICollectionViewDelegate, UICollectionVie
     
     
     func configureCollectionView() {
+      
+       
+        
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 1
@@ -71,6 +80,7 @@ class WTFavoritesVC: UIViewController, UICollectionViewDelegate, UICollectionVie
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        updateWeatherValues()
         return savedArray.count
     }
     
@@ -79,13 +89,13 @@ class WTFavoritesVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         
         cell.configureCellLabel(label: savedArray[indexPath.row])
         cell.configureTempLabel(tempLabel: savedTempArray[indexPath.row])
-        cell.configureWeatherImage(imageView: (UIImage(named: savedIconArray[indexPath.row])!))
+            cell.configureWeatherImage(imageView: (UIImage(named: savedIconArray[indexPath.row])!))
         return cell
     }
     
     func updateWeatherValues() {
-        tempArray.removeAll()
-      cityInArray = ""
+    
+        cityInArray = ""
         for i in savedArray {
             let cityInArray = i
              weatherManager.fetchWeather(cityName: cityInArray)
@@ -99,30 +109,29 @@ class WTFavoritesVC: UIViewController, UICollectionViewDelegate, UICollectionVie
        
     
 }
-}
 
+}
 extension WTFavoritesVC: WTManagerDelegate {
     func didUpdateWeather(_ weatherManager: WTManager, weather: WTModel) {
         DispatchQueue.main.async {
             self.temperature = "\(weather.temperatureString)°C"
             self.cityName = weather.cityName
             self.icon = "\(weather.weatherIcon)"
-            
+
             self.dictionaryCityTemp.updateValue(self.temperature, forKey: self.cityName)
             self.dictionaryCityIcon.updateValue(self.icon, forKey: self.cityName)
-            
-            self.defaults.set(self.dictionaryCityTemp[self.cityName], forKey: "SavedTempArray")
-            self.defaults.set(self.dictionaryCityIcon[self.cityName], forKey: "SavedIconArray")
-            
-            
-            
+
+          
+
+
+
             print(self.dictionaryCityTemp)
             print(self.dictionaryCityIcon)
 //            if self.cityName == "Presov" {
 //            print(self.dictionaryCityTemp["Presov"]! + self.dictionaryCityIcon["Presov"]!)
 //            }
-            
-            
+
+
         }
     }
 
@@ -130,4 +139,5 @@ extension WTFavoritesVC: WTManagerDelegate {
         print(error)
     }
 }
+
 

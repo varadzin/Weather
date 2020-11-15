@@ -20,6 +20,7 @@ class WTSearchVC: UIViewController {
     var dayLabel4 = WTDayLabel()
     var dayLabel5 = WTDayLabel()
     var favButton = WTSearchBTN(backgroundColor: .systemBackground, title: "Add to favorites", titleColor: .systemBlue)
+    var clearButton = WTSearchBTN(backgroundColor: .systemBackground, title: "Clear Favorites", titleColor: .systemPink)
     var cityToFavorites = String()
     var favoritesArray : [String] = []
     var temperatureLabel = String()
@@ -45,6 +46,7 @@ class WTSearchVC: UIViewController {
         configureCityLabel()
         configureConditionLabel()
         configureFavButton()
+        configureClearButton()
        loadArrays()
     }
     
@@ -130,10 +132,24 @@ class WTSearchVC: UIViewController {
         
         NSLayoutConstraint.activate([
             favButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -30),
-            favButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            favButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
             favButton.widthAnchor.constraint(equalToConstant: 150)
         ])
     }
+    
+    func configureClearButton() {
+        view.addSubview(clearButton)
+        
+        clearButton.addTarget(self, action: #selector(clearFavorites), for: .touchUpInside)
+        clearButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            clearButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -30),
+            clearButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
+            clearButton.widthAnchor.constraint(equalToConstant: 150)
+        ])
+    }
+    
     
     func showAlert() {
         print("error")
@@ -141,9 +157,13 @@ class WTSearchVC: UIViewController {
     }
     //MARK: - Loading saved arrays in UserDefaults
     func loadArrays() {
+        
        favoritesArray = defaults.object(forKey: "SavedArray") as? [String] ?? [String]()
+
         tempArray = defaults.object(forKey: "SavedTempArray") as? [String] ?? [String]()
+      
         iconArray = defaults.object(forKey: "SavedIconArray") as? [String] ?? [String]()
+
         print("savedArray: \(favoritesArray), savedTempArray: \(tempArray), savedIconArray\(iconArray)")
     }
     
@@ -175,6 +195,16 @@ class WTSearchVC: UIViewController {
                   
             }
         }
+    }
+    
+    @objc func clearFavorites() {
+        defaults.dictionaryRepresentation().keys.forEach(defaults.removeObject(forKey:))
+        favoritesArray.removeAll()
+        tempArray.removeAll()
+        iconArray.removeAll()
+        
+        
+        
     }
 }
 
@@ -209,6 +239,9 @@ extension WTSearchVC: UITextFieldDelegate {
         }
         searchTF.text = ""
     }
+    
+    
+    
 }
 
 //MARK: - WTManagerDelegate
