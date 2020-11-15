@@ -44,7 +44,7 @@ class WTFavoritesVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         
         savedArray = defaults.object(forKey: "SavedArray") as? [String] ?? [String]()
 
-
+//
         savedTempArray = defaults.object(forKey: "SavedTempArray") as? [String] ?? [String]()
         savedIconArray = defaults.object(forKey: "SavedIconArray") as? [String] ?? [String]()
         configureCollectionView()
@@ -100,11 +100,6 @@ class WTFavoritesVC: UIViewController, UICollectionViewDelegate, UICollectionVie
             let cityInArray = i
              weatherManager.fetchWeather(cityName: cityInArray)
     
-
-            
- 
-   
-        
     }
        
     
@@ -118,8 +113,15 @@ extension WTFavoritesVC: WTManagerDelegate {
             self.cityName = weather.cityName
             self.icon = "\(weather.weatherIcon)"
 
-            self.dictionaryCityTemp.updateValue(self.temperature, forKey: self.cityName)
-            self.dictionaryCityIcon.updateValue(self.icon, forKey: self.cityName)
+            self.savedTempArray.append(self.temperature)
+            self.savedIconArray.append(self.icon)
+
+            print(self.savedTempArray)
+            print(self.savedIconArray)
+            
+            
+//            self.dictionaryCityTemp.updateValue(self.temperature, forKey: self.cityName)
+//            self.dictionaryCityIcon.updateValue(self.icon, forKey: self.cityName)
 
           
 
