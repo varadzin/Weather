@@ -127,15 +127,14 @@ class WTSearchVC: UIViewController {
     func configureFavButton() {
         view.addSubview(favButton)
         
-        favButton.isSelected = true
-        
         favButton.addTarget(self, action: #selector(favBtnPressed), for: .touchUpInside)
         favButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             favButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
             favButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            favButton.widthAnchor.constraint(equalToConstant: 150)
+            favButton.widthAnchor.constraint(equalToConstant: 150),
+            favButton.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
     
