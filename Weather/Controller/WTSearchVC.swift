@@ -10,7 +10,7 @@ import UIKit
 class WTSearchVC: UIViewController {
     
     var searchTF = WTSearchTF()
-    var searchBtn = WTSearchBTN(backgroundColor: .systemBackground, title: "search", titleColor: .systemBlue)
+    var searchBtn = WTSearchBTN(backgroundColor: .systemBackground, title: "Search", titleColor: .systemBlue)
     var weatherImage = UIImageView()
     var cityAndTempLabel = WTCityLabel()
     var conditionLabel = WTConditionLabel()
@@ -19,8 +19,8 @@ class WTSearchVC: UIViewController {
     var dayLabel3 = WTDayLabel()
     var dayLabel4 = WTDayLabel()
     var dayLabel5 = WTDayLabel()
-    var favButton = WTSearchBTN(backgroundColor: .systemBackground, title: "Add to favorites", titleColor: .systemBlue)
-    var clearButton = WTSearchBTN(backgroundColor: .systemBackground, title: "Clear Favorites", titleColor: .systemPink)
+    var favButton = WTSearchBTN(backgroundColor: .systemBackground, title: "Add to Favorites", titleColor: .systemBlue)
+//    var clearButton = WTSearchBTN(backgroundColor: .systemBackground, title: "Clear Favorites", titleColor: .systemPink)
     var cityToFavorites = String()
     var favoritesArray : [String] = []
     var temperatureLabel = String()
@@ -38,7 +38,7 @@ class WTSearchVC: UIViewController {
         
         weatherManager.delegate = self
         searchTF.delegate = self
-        
+        welcomeScreen()
         configureScreen()
         configureSearchTF()
         configureSearchBtn()
@@ -46,7 +46,7 @@ class WTSearchVC: UIViewController {
         configureCityLabel()
         configureConditionLabel()
         configureFavButton()
-        configureClearButton()
+//        configureClearButton()
        loadArrays()
     }
     
@@ -127,28 +127,36 @@ class WTSearchVC: UIViewController {
     func configureFavButton() {
         view.addSubview(favButton)
         
+        favButton.isSelected = true
+        
         favButton.addTarget(self, action: #selector(favBtnPressed), for: .touchUpInside)
         favButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            favButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -30),
-            favButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
+            favButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            favButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             favButton.widthAnchor.constraint(equalToConstant: 150)
         ])
     }
     
-    func configureClearButton() {
-        view.addSubview(clearButton)
+    func welcomeScreen() {
+        cityAndTempLabel.text = "Weather Today"
+        conditionLabel.text = "in your favorites cities"
         
-        clearButton.addTarget(self, action: #selector(clearFavorites), for: .touchUpInside)
-        clearButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            clearButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -30),
-            clearButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
-            clearButton.widthAnchor.constraint(equalToConstant: 150)
-        ])
     }
+    
+//    func configureClearButton() {
+//        view.addSubview(clearButton)
+//
+//        clearButton.addTarget(self, action: #selector(clearFavorites), for: .touchUpInside)
+//        clearButton.translatesAutoresizingMaskIntoConstraints = false
+//
+//        NSLayoutConstraint.activate([
+//            clearButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -30),
+//            clearButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
+//            clearButton.widthAnchor.constraint(equalToConstant: 150)
+//        ])
+//    }
     
     
     func showAlert() {
@@ -191,21 +199,21 @@ class WTSearchVC: UIViewController {
                 defaults.set(tempArray, forKey: "SavedTempArray")
                 defaults.set(iconArray, forKey: "SavedIconArray")
                 
-                navigationController?.pushViewController(favoritesVC, animated: true)
+//                navigationController?.pushViewController(favoritesVC, animated: true)
                   
             }
         }
     }
     
-    @objc func clearFavorites() {
-        defaults.dictionaryRepresentation().keys.forEach(defaults.removeObject(forKey:))
-        favoritesArray.removeAll()
-        tempArray.removeAll()
-        iconArray.removeAll()
-        
-        
-        
-    }
+//    @objc func clearFavorites() {
+//        defaults.dictionaryRepresentation().keys.forEach(defaults.removeObject(forKey:))
+//        favoritesArray.removeAll()
+//        tempArray.removeAll()
+//        iconArray.removeAll()
+//
+//
+//
+//    }
 }
 
 

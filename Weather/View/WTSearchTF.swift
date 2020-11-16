@@ -21,7 +21,7 @@ class WTSearchTF: UITextField {
     
     private func configure() {
         layer.cornerRadius = 10
-        layer.borderWidth = 0.5
+        layer.borderWidth = 1
         layer.borderColor = UIColor.systemGray3.cgColor
         autocorrectionType = .no
         autocapitalizationType = .words

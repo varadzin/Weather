@@ -32,8 +32,9 @@ class WTSearchBTN: UIButton {
         
         layer.cornerRadius = 10
         layer.borderColor = UIColor.systemBlue.cgColor
-        layer.borderWidth = 0.5
+        layer.borderWidth = 1
         titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
+    
         
     }
     
