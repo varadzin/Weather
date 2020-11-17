@@ -18,8 +18,10 @@ class WTSearchVC: UIViewController {
     var dayLabel2 = WTDayLabel(text: "Tue")
     var dayLabel3 = WTDayLabel(text: "Wed")
     var dayLabel4 = WTDayLabel(text: "Thu")
-    
-    
+    var dayWTImage1 = UIImageView()
+    var dayWTImage2 = UIImageView()
+    var dayWTImage3 = UIImageView()
+    var dayWTImage4 = UIImageView()
     
     
     
@@ -58,9 +60,10 @@ class WTSearchVC: UIViewController {
         configureDayLabel2()
         configureDayLabel3()
         configureDayLabel4()
-     
-        
-        
+     configureDayWTImage1()
+        configureDayWTImage2()
+        configureDayWTImage3()
+        configureDayWTImage4()
     }
     
     func configureScreen() {
@@ -264,8 +267,68 @@ class WTSearchVC: UIViewController {
                         ])
                 }
     
-    
+    func configureDayWTImage1() {
+        view.addSubview(dayWTImage1)
+
+        dayWTImage1.image = UIImage(named: "01d")
+        dayWTImage1.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            dayWTImage1.bottomAnchor.constraint(equalTo: favButton.topAnchor, constant: -60),
+            dayWTImage1.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 60),
+            dayWTImage1.widthAnchor.constraint(equalToConstant: 30),
+            dayWTImage1.heightAnchor.constraint(equalToConstant: 30)
+                    ])
         
+    }
+    
+    func configureDayWTImage2() {
+        view.addSubview(dayWTImage2)
+
+        dayWTImage2.image = UIImage(named: "01d")
+        dayWTImage2.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            dayWTImage2.bottomAnchor.constraint(equalTo: favButton.topAnchor, constant: -60),
+            dayWTImage2.leadingAnchor.constraint(equalTo: dayWTImage1.trailingAnchor, constant: 45),
+            dayWTImage2.widthAnchor.constraint(equalToConstant: 30),
+            dayWTImage2.heightAnchor.constraint(equalToConstant: 30)
+                    ])
+        
+    }
+    
+    func configureDayWTImage3() {
+        view.addSubview(dayWTImage3)
+
+        dayWTImage3.image = UIImage(named: "01d")
+        dayWTImage3.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            dayWTImage3.bottomAnchor.constraint(equalTo: favButton.topAnchor, constant: -60),
+            dayWTImage3.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -135),
+            dayWTImage3.widthAnchor.constraint(equalToConstant: 30),
+            dayWTImage3.heightAnchor.constraint(equalToConstant: 30)
+                    ])
+        
+    }
+    
+    func configureDayWTImage4() {
+        view.addSubview(dayWTImage4)
+
+        dayWTImage4.image = UIImage(named: "01d")
+        dayWTImage4.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            dayWTImage4.bottomAnchor.constraint(equalTo: favButton.topAnchor, constant: -60),
+            dayWTImage4.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -60),
+            dayWTImage4.widthAnchor.constraint(equalToConstant: 30),
+            dayWTImage4.heightAnchor.constraint(equalToConstant: 30)
+                    ])
+        
+    }
+    
+    
+    
     }
     
     //    @objc func clearFavorites() {
