@@ -20,7 +20,7 @@ class WTSearchVC: UIViewController {
     var dayLabel4 = WTDayLabel()
     var dayLabel5 = WTDayLabel()
     var favButton = WTSearchBTN(backgroundColor: .systemBackground, title: "Add to Favorites", titleColor: .systemBlue)
-//    var clearButton = WTSearchBTN(backgroundColor: .systemBackground, title: "Clear Favorites", titleColor: .systemPink)
+    //    var clearButton = WTSearchBTN(backgroundColor: .systemBackground, title: "Clear Favorites", titleColor: .systemPink)
     var cityToFavorites = String()
     var favoritesArray : [String] = []
     var temperatureLabel = String()
@@ -46,8 +46,15 @@ class WTSearchVC: UIViewController {
         configureCityLabel()
         configureConditionLabel()
         configureFavButton()
-//        configureClearButton()
-       loadArrays()
+        //        configureClearButton()
+        loadArrays()
+        configureDayLabel()
+        configureDayLabel2()
+        configureDayLabel3()
+        configureDayLabel4()
+     
+        
+        
     }
     
     func configureScreen() {
@@ -144,18 +151,18 @@ class WTSearchVC: UIViewController {
         
     }
     
-//    func configureClearButton() {
-//        view.addSubview(clearButton)
-//
-//        clearButton.addTarget(self, action: #selector(clearFavorites), for: .touchUpInside)
-//        clearButton.translatesAutoresizingMaskIntoConstraints = false
-//
-//        NSLayoutConstraint.activate([
-//            clearButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -30),
-//            clearButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
-//            clearButton.widthAnchor.constraint(equalToConstant: 150)
-//        ])
-//    }
+    //    func configureClearButton() {
+    //        view.addSubview(clearButton)
+    //
+    //        clearButton.addTarget(self, action: #selector(clearFavorites), for: .touchUpInside)
+    //        clearButton.translatesAutoresizingMaskIntoConstraints = false
+    //
+    //        NSLayoutConstraint.activate([
+    //            clearButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -30),
+    //            clearButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
+    //            clearButton.widthAnchor.constraint(equalToConstant: 150)
+    //        ])
+    //    }
     
     
     func showAlert() {
@@ -165,12 +172,12 @@ class WTSearchVC: UIViewController {
     //MARK: - Loading saved arrays in UserDefaults
     func loadArrays() {
         
-       favoritesArray = defaults.object(forKey: "SavedArray") as? [String] ?? [String]()
-
+        favoritesArray = defaults.object(forKey: "SavedArray") as? [String] ?? [String]()
+        
         tempArray = defaults.object(forKey: "SavedTempArray") as? [String] ?? [String]()
-      
+        
         iconArray = defaults.object(forKey: "SavedIconArray") as? [String] ?? [String]()
-
+        
         print("savedArray: \(favoritesArray), savedTempArray: \(tempArray), savedIconArray\(iconArray)")
     }
     
@@ -198,22 +205,73 @@ class WTSearchVC: UIViewController {
                 defaults.set(tempArray, forKey: "SavedTempArray")
                 defaults.set(iconArray, forKey: "SavedIconArray")
                 
-//                navigationController?.pushViewController(favoritesVC, animated: true)
-                  
+                //                navigationController?.pushViewController(favoritesVC, animated: true)
+                
             }
         }
     }
+        func configureDayLabel() {
+            view.addSubview(dayLabel)
     
-//    @objc func clearFavorites() {
-//        defaults.dictionaryRepresentation().keys.forEach(defaults.removeObject(forKey:))
-//        favoritesArray.removeAll()
-//        tempArray.removeAll()
-//        iconArray.removeAll()
-//
-//
-//
-//    }
-}
+            dayLabel.translatesAutoresizingMaskIntoConstraints = false
+    
+            NSLayoutConstraint.activate([
+                dayLabel.topAnchor.constraint(equalTo: conditionLabel.bottomAnchor, constant: 50),
+                dayLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
+                dayLabel.widthAnchor.constraint(equalToConstant: 100)
+                        ])
+                }
+    
+        func configureDayLabel2() {
+            view.addSubview(dayLabel2)
+    
+            dayLabel2.translatesAutoresizingMaskIntoConstraints = false
+    
+            NSLayoutConstraint.activate([
+                dayLabel2.topAnchor.constraint(equalTo: conditionLabel.bottomAnchor, constant: 50),
+                dayLabel2.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 95),
+                dayLabel2.widthAnchor.constraint(equalToConstant: 100)
+                        ])
+                }
+    
+        func configureDayLabel3() {
+            view.addSubview(dayLabel3)
+    
+            dayLabel3.translatesAutoresizingMaskIntoConstraints = false
+    
+            NSLayoutConstraint.activate([
+                dayLabel3.topAnchor.constraint(equalTo: conditionLabel.bottomAnchor, constant: 50),
+                dayLabel3.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 160),
+                dayLabel3.widthAnchor.constraint(equalToConstant: 100)
+                        ])
+                }
+    
+        func configureDayLabel4() {
+            view.addSubview(dayLabel4)
+    
+            dayLabel4.translatesAutoresizingMaskIntoConstraints = false
+    
+            NSLayoutConstraint.activate([
+                dayLabel4.topAnchor.constraint(equalTo: conditionLabel.bottomAnchor, constant: 50),
+                dayLabel4.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
+                dayLabel4.widthAnchor.constraint(equalToConstant: 100)
+                        ])
+                }
+    
+    
+        
+    }
+    
+    //    @objc func clearFavorites() {
+    //        defaults.dictionaryRepresentation().keys.forEach(defaults.removeObject(forKey:))
+    //        favoritesArray.removeAll()
+    //        tempArray.removeAll()
+    //        iconArray.removeAll()
+    //
+    //
+    //
+    //    }
+
 
 
 //MARK: - UITextFieldDelegate
@@ -247,7 +305,7 @@ extension WTSearchVC: UITextFieldDelegate {
         searchTF.text = ""
     }
     
-    
+       
     
 }
 
@@ -268,12 +326,12 @@ extension WTSearchVC: WTManagerDelegate {
     func didFailWithError(error: Error) {
         print(error)
     }
-
-//    var pocasie = ["Praha": ["24C","01d"], "Presov": ["30C","02d"]]()
-
+    
+    //    var pocasie = ["Praha": ["24C","01d"], "Presov": ["30C","02d"]]()
     
     
-
+    
+    
 }
 
 //MARK: - Name of Day
@@ -291,71 +349,8 @@ extension WTSearchVC: WTManagerDelegate {
 
 
 
-//        configureDayLabel()
-//        configureDayLabel2()
-//        configureDayLabel3()
-//        configureDayLabel4()
-//        configureDayLabel5()
+//
 
 
 
-//    func configureDayLabel() {
-//        view.addSubview(dayLabel)
-//
-//        dayLabel.translatesAutoresizingMaskIntoConstraints = false
-//
-//        NSLayoutConstraint.activate([
-//            dayLabel.topAnchor.constraint(equalTo: conditionLabel.bottomAnchor, constant: 50),
-//            dayLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
-//            dayLabel.widthAnchor.constraint(equalToConstant: 100)
-//                    ])
-//            }
-//
-//    func configureDayLabel2() {
-//        view.addSubview(dayLabel2)
-//
-//        dayLabel2.translatesAutoresizingMaskIntoConstraints = false
-//
-//        NSLayoutConstraint.activate([
-//            dayLabel2.topAnchor.constraint(equalTo: conditionLabel.bottomAnchor, constant: 50),
-//            dayLabel2.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 95),
-//            dayLabel2.widthAnchor.constraint(equalToConstant: 100)
-//                    ])
-//            }
-//
-//    func configureDayLabel3() {
-//        view.addSubview(dayLabel3)
-//
-//        dayLabel3.translatesAutoresizingMaskIntoConstraints = false
-//
-//        NSLayoutConstraint.activate([
-//            dayLabel3.topAnchor.constraint(equalTo: conditionLabel.bottomAnchor, constant: 50),
-//            dayLabel3.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 160),
-//            dayLabel3.widthAnchor.constraint(equalToConstant: 100)
-//                    ])
-//            }
-//
-//    func configureDayLabel4() {
-//        view.addSubview(dayLabel4)
-//
-//        dayLabel4.translatesAutoresizingMaskIntoConstraints = false
-//
-//        NSLayoutConstraint.activate([
-//            dayLabel4.topAnchor.constraint(equalTo: conditionLabel.bottomAnchor, constant: 50),
-//            dayLabel4.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 230),
-//            dayLabel4.widthAnchor.constraint(equalToConstant: 100)
-//                    ])
-//            }
-//
-//
-//    func configureDayLabel5() {
-//        view.addSubview(dayLabel5)
-//
-//        dayLabel5.translatesAutoresizingMaskIntoConstraints = false
-//
-//        NSLayoutConstraint.activate([
-//            dayLabel5.topAnchor.constraint(equalTo: conditionLabel.bottomAnchor, constant: 50),
-//            dayLabel5.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 295),
-//            dayLabel5.widthAnchor.constraint(equalToConstant: 100)
-//                    ])
-//            }
+
