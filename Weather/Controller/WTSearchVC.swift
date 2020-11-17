@@ -52,8 +52,9 @@ class WTSearchVC: UIViewController {
         configureScreen()
         configureSearchTF()
         configureSearchBtn()
-        configureWTImageView()
         configureCityLabel()
+        configureWTImageView()
+
         configureConditionLabel()
         configureFavButton()
         //        configureClearButton()
@@ -68,6 +69,8 @@ class WTSearchVC: UIViewController {
         configureDayWTImage4()
         configureTempLabel1()
         configureTempLabel2()
+        configureTempLabel3()
+        configureTempLabel4()
     }
     
     func configureScreen() {
@@ -104,31 +107,33 @@ class WTSearchVC: UIViewController {
         ])
     }
     
-    func configureWTImageView() {
-        view.addSubview(weatherImage)
-        
-        weatherImage.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            weatherImage.topAnchor.constraint(equalTo: searchTF.bottomAnchor, constant: 30),
-            weatherImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            weatherImage.widthAnchor.constraint(equalToConstant: 190),
-            weatherImage.heightAnchor.constraint(equalToConstant: 190)
-        ])
-    }
-    
     func configureCityLabel() {
         view.addSubview(cityAndTempLabel)
         
         cityAndTempLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            cityAndTempLabel.topAnchor.constraint(equalTo: weatherImage.bottomAnchor, constant: 10),
+            cityAndTempLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             cityAndTempLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             cityAndTempLabel.heightAnchor.constraint(equalToConstant: 40),
             cityAndTempLabel.widthAnchor.constraint(equalToConstant: 250)
         ])
     }
+    
+    func configureWTImageView() {
+        view.addSubview(weatherImage)
+        
+        weatherImage.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            weatherImage.bottomAnchor.constraint(equalTo: cityAndTempLabel.topAnchor, constant: -30),
+            weatherImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            weatherImage.widthAnchor.constraint(equalToConstant: 190),
+            weatherImage.heightAnchor.constraint(equalToConstant: 190)
+        ])
+    }
+    
+    
     
     
     func configureConditionLabel() {
@@ -242,7 +247,7 @@ class WTSearchVC: UIViewController {
     
             NSLayoutConstraint.activate([
                 dayLabel2.bottomAnchor.constraint(equalTo: favButton.topAnchor, constant: -100),
-                dayLabel2.leadingAnchor.constraint(equalTo: dayLabel.trailingAnchor, constant: 38),
+                dayLabel2.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 138),
                 dayLabel2.widthAnchor.constraint(equalToConstant: 40)
                         ])
                 }
@@ -294,7 +299,7 @@ class WTSearchVC: UIViewController {
 
         NSLayoutConstraint.activate([
             dayWTImage2.bottomAnchor.constraint(equalTo: favButton.topAnchor, constant: -60),
-            dayWTImage2.leadingAnchor.constraint(equalTo: dayWTImage1.trailingAnchor, constant: 45),
+            dayWTImage2.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 135),
             dayWTImage2.widthAnchor.constraint(equalToConstant: 30),
             dayWTImage2.heightAnchor.constraint(equalToConstant: 30)
                     ])
@@ -349,8 +354,32 @@ class WTSearchVC: UIViewController {
 
         NSLayoutConstraint.activate([
             dayTempLabel2.bottomAnchor.constraint(equalTo: favButton.topAnchor, constant: -40),
-            dayTempLabel2.leadingAnchor.constraint(equalTo: dayTempLabel1.leadingAnchor, constant: 78),
+            dayTempLabel2.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 140),
             dayTempLabel2.widthAnchor.constraint(equalToConstant: 40)
+                    ])
+            }
+    
+    func configureTempLabel3() {
+        view.addSubview(dayTempLabel3)
+
+        dayTempLabel3.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            dayTempLabel3.bottomAnchor.constraint(equalTo: favButton.topAnchor, constant: -40),
+            dayTempLabel3.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -125),
+            dayTempLabel3.widthAnchor.constraint(equalToConstant: 40)
+                    ])
+            }
+    
+    func configureTempLabel4() {
+        view.addSubview(dayTempLabel4)
+
+        dayTempLabel4.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            dayTempLabel4.bottomAnchor.constraint(equalTo: favButton.topAnchor, constant: -40),
+            dayTempLabel4.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
+            dayTempLabel4.widthAnchor.constraint(equalToConstant: 40)
                     ])
             }
     
