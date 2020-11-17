@@ -14,9 +14,11 @@ class WTDayLabel: UILabel {
         configure()
     }
     
-    init (text: String) {
+    init (text: String, fontSize: CGFloat) {
         super.init(frame: .zero)
         self.text = text
+        self.font = UIFont.systemFont(ofSize: fontSize)
+        
         configure()
         
     }
@@ -28,7 +30,8 @@ class WTDayLabel: UILabel {
     
     private func configure() {
       
-        font = UIFont.preferredFont(forTextStyle: .subheadline)
+//        font = UIFont.systemFont(ofSize: 12)
+      
         tintColor = .label
     }
 }
