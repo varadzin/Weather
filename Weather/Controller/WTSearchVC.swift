@@ -14,11 +14,17 @@ class WTSearchVC: UIViewController {
     var weatherImage = UIImageView()
     var cityAndTempLabel = WTCityLabel()
     var conditionLabel = WTConditionLabel()
-    var dayLabel = WTDayLabel()
-    var dayLabel2 = WTDayLabel()
-    var dayLabel3 = WTDayLabel()
-    var dayLabel4 = WTDayLabel()
-    var dayLabel5 = WTDayLabel()
+    var dayLabel = WTDayLabel(text: "Mon")
+    var dayLabel2 = WTDayLabel(text: "Tue")
+    var dayLabel3 = WTDayLabel(text: "Wed")
+    var dayLabel4 = WTDayLabel(text: "Thu")
+    
+    
+    
+    
+    
+    
+
     var favButton = WTSearchBTN(backgroundColor: .systemBackground, title: "Add to Favorites", titleColor: .systemBlue)
     //    var clearButton = WTSearchBTN(backgroundColor: .systemBackground, title: "Clear Favorites", titleColor: .systemPink)
     var cityToFavorites = String()
@@ -216,9 +222,9 @@ class WTSearchVC: UIViewController {
             dayLabel.translatesAutoresizingMaskIntoConstraints = false
     
             NSLayoutConstraint.activate([
-                dayLabel.topAnchor.constraint(equalTo: conditionLabel.bottomAnchor, constant: 50),
-                dayLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
-                dayLabel.widthAnchor.constraint(equalToConstant: 100)
+                dayLabel.bottomAnchor.constraint(equalTo: favButton.topAnchor, constant: -100),
+                dayLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 60),
+                dayLabel.widthAnchor.constraint(equalToConstant: 40)
                         ])
                 }
     
@@ -228,9 +234,9 @@ class WTSearchVC: UIViewController {
             dayLabel2.translatesAutoresizingMaskIntoConstraints = false
     
             NSLayoutConstraint.activate([
-                dayLabel2.topAnchor.constraint(equalTo: conditionLabel.bottomAnchor, constant: 50),
-                dayLabel2.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 95),
-                dayLabel2.widthAnchor.constraint(equalToConstant: 100)
+                dayLabel2.bottomAnchor.constraint(equalTo: favButton.topAnchor, constant: -100),
+                dayLabel2.leadingAnchor.constraint(equalTo: dayLabel.trailingAnchor, constant: 35),
+                dayLabel2.widthAnchor.constraint(equalToConstant: 40)
                         ])
                 }
     
@@ -240,9 +246,9 @@ class WTSearchVC: UIViewController {
             dayLabel3.translatesAutoresizingMaskIntoConstraints = false
     
             NSLayoutConstraint.activate([
-                dayLabel3.topAnchor.constraint(equalTo: conditionLabel.bottomAnchor, constant: 50),
-                dayLabel3.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 160),
-                dayLabel3.widthAnchor.constraint(equalToConstant: 100)
+                dayLabel3.bottomAnchor.constraint(equalTo: favButton.topAnchor, constant: -100),
+                dayLabel3.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -125),
+                dayLabel3.widthAnchor.constraint(equalToConstant: 40)
                         ])
                 }
     
@@ -252,9 +258,9 @@ class WTSearchVC: UIViewController {
             dayLabel4.translatesAutoresizingMaskIntoConstraints = false
     
             NSLayoutConstraint.activate([
-                dayLabel4.topAnchor.constraint(equalTo: conditionLabel.bottomAnchor, constant: 50),
-                dayLabel4.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
-                dayLabel4.widthAnchor.constraint(equalToConstant: 100)
+                dayLabel4.bottomAnchor.constraint(equalTo: favButton.topAnchor, constant: -100),
+                dayLabel4.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
+                dayLabel4.widthAnchor.constraint(equalToConstant: 40)
                         ])
                 }
     

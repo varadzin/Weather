@@ -14,12 +14,20 @@ class WTDayLabel: UILabel {
         configure()
     }
     
+    init (text: String) {
+        super.init(frame: .zero)
+        self.text = text
+        configure()
+        
+    }
+    
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     private func configure() {
-        text = "Mon"
+      
         font = UIFont.preferredFont(forTextStyle: .subheadline)
         tintColor = .label
     }
