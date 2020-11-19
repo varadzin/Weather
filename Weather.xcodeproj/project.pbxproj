@@ -24,6 +24,7 @@
 		C68D7A782551B8FC0051BE09 /* WTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68D7A772551B8FC0051BE09 /* WTCell.swift */; };
 		C68D7A7B2553331E0051BE09 /* Follower.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68D7A7A2553331E0051BE09 /* Follower.swift */; };
 		C6D97C262567003600CD90BD /* Fmanager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D97C252567003600CD90BD /* Fmanager.swift */; };
+		C6D97C29256703B900CD90BD /* FModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D97C28256703B900CD90BD /* FModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		C68D7A772551B8FC0051BE09 /* WTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WTCell.swift; sourceTree = "<group>"; };
 		C68D7A7A2553331E0051BE09 /* Follower.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Follower.swift; sourceTree = "<group>"; };
 		C6D97C252567003600CD90BD /* Fmanager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fmanager.swift; sourceTree = "<group>"; };
+		C6D97C28256703B900CD90BD /* FModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,7 +64,6 @@
 		C6516B13254EB3350043FFAC = {
 			isa = PBXGroup;
 			children = (
-				C6D97C252567003600CD90BD /* Fmanager.swift */,
 				C6516B1E254EB3350043FFAC /* Weather */,
 				C6516B1D254EB3350043FFAC /* Products */,
 			);
@@ -102,6 +103,8 @@
 		C6516B3D254EC8F90043FFAC /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				C6D97C28256703B900CD90BD /* FModel.swift */,
+				C6D97C252567003600CD90BD /* Fmanager.swift */,
 				C678BAA7254F0349002F2A62 /* WTData.swift */,
 				C678BAAA254F0779002F2A62 /* WTModel.swift */,
 				C678BAAD254F0CF1002F2A62 /* WTManager.swift */,
@@ -223,6 +226,7 @@
 				C678BAAE254F0CF1002F2A62 /* WTManager.swift in Sources */,
 				C6516B37254EC4740043FFAC /* WTSearchVC.swift in Sources */,
 				C678BAA8254F0349002F2A62 /* WTData.swift in Sources */,
+				C6D97C29256703B900CD90BD /* FModel.swift in Sources */,
 				C6516B22254EB3350043FFAC /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
