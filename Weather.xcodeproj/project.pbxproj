@@ -23,8 +23,9 @@
 		C68D7A73255094AC0051BE09 /* WTDayLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68D7A72255094AC0051BE09 /* WTDayLabel.swift */; };
 		C68D7A782551B8FC0051BE09 /* WTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68D7A772551B8FC0051BE09 /* WTCell.swift */; };
 		C68D7A7B2553331E0051BE09 /* Follower.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68D7A7A2553331E0051BE09 /* Follower.swift */; };
-		C6D97C262567003600CD90BD /* Fmanager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D97C252567003600CD90BD /* Fmanager.swift */; };
+		C6D97C262567003600CD90BD /* FManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D97C252567003600CD90BD /* FManager.swift */; };
 		C6D97C29256703B900CD90BD /* FModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D97C28256703B900CD90BD /* FModel.swift */; };
+		C6D97C2D256856DA00CD90BD /* FData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D97C2C256856DA00CD90BD /* FData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,8 +47,9 @@
 		C68D7A72255094AC0051BE09 /* WTDayLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WTDayLabel.swift; sourceTree = "<group>"; };
 		C68D7A772551B8FC0051BE09 /* WTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WTCell.swift; sourceTree = "<group>"; };
 		C68D7A7A2553331E0051BE09 /* Follower.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Follower.swift; sourceTree = "<group>"; };
-		C6D97C252567003600CD90BD /* Fmanager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fmanager.swift; sourceTree = "<group>"; };
+		C6D97C252567003600CD90BD /* FManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FManager.swift; sourceTree = "<group>"; };
 		C6D97C28256703B900CD90BD /* FModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FModel.swift; sourceTree = "<group>"; };
+		C6D97C2C256856DA00CD90BD /* FData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,7 +106,8 @@
 			isa = PBXGroup;
 			children = (
 				C6D97C28256703B900CD90BD /* FModel.swift */,
-				C6D97C252567003600CD90BD /* Fmanager.swift */,
+				C6D97C252567003600CD90BD /* FManager.swift */,
+				C6D97C2C256856DA00CD90BD /* FData.swift */,
 				C678BAA7254F0349002F2A62 /* WTData.swift */,
 				C678BAAA254F0779002F2A62 /* WTModel.swift */,
 				C678BAAD254F0CF1002F2A62 /* WTManager.swift */,
@@ -212,7 +215,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C6D97C262567003600CD90BD /* Fmanager.swift in Sources */,
+				C6D97C262567003600CD90BD /* FManager.swift in Sources */,
+				C6D97C2D256856DA00CD90BD /* FData.swift in Sources */,
 				C6516B20254EB3350043FFAC /* AppDelegate.swift in Sources */,
 				C68D7A7B2553331E0051BE09 /* Follower.swift in Sources */,
 				C6516B3A254EC4860043FFAC /* WTFavoritesVC.swift in Sources */,
