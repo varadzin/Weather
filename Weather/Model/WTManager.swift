@@ -14,7 +14,7 @@ protocol WTManagerDelegate {
 
 struct WTManager {
     
-    let weatherURL = "https://api.openweathermap.org/data/2.5/weather?appid=1513074b04afcac9adc59f2ce25f6755&units=metric"
+    let weatherURL = "https://api.openweathermap.org/data/2.5/forecast?appid=1513074b04afcac9adc59f2ce25f6755&units=metric"
     
     // forecast: https://api.openweathermap.org/data/2.5/forecast?appid=1513074b04afcac9adc59f2ce25f6755&units=metric&q=london
     var delegate: WTManagerDelegate?
@@ -47,11 +47,11 @@ struct WTManager {
         
         do {
             let decodedData = try decoder.decode(WTData.self, from: weatherData)
-            let temp = decodedData.main.temp
+            let temp = decodedData.temp
             let name = decodedData.name
-            let description = decodedData.weather[0].description
-            let speed = decodedData.wind.speed
-            let icon = decodedData.weather[0].icon
+            let description = decodedData.description
+            let speed = decodedData.speed
+            let icon = decodedData.icon
             
             let weather = WTModel(weatherDescription: description, cityName: name, temperature: temp, windSpeed: speed, weatherIcon: icon)
             

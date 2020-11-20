@@ -9,26 +9,34 @@ import Foundation
 
 struct WTData: Codable {
     
-    let name: String
-    let main: Main
-    let weather: [Weather]
-    let wind: Wind
-}
+    let time: Date
+    
 
-struct Main: Codable {
-    let temp: Double
-}
-
-struct Weather: Codable {
-    let description: String
-    let icon: String
-    let main: String
-}
-
-struct Wind: Codable {
+    
     let speed: Double
+    let temp:Double
+    
+    let icon: String
+    let description: String
+    let name: String
+    
 }
 
+extension WTData: JSONDecodable {
+    
+    init(decoder: JSONDecoder) throws {
+        self.icon = try decoder.decode(key: "icon")
+        self.speed = try decoder.decode(key: "speed")
+        self.description = try decoder.decode(key: "description")
+        self.name = try decoder.decode(key: "name")
+        self.temp = try decoder.decode(key: "temp")
+        let time: Double = try decoder.decode(key: "dt")
+                self.time = Date(timeIntervalSince1970: time)
+    }
+    
+    
+}
+    
 
 
 /*
@@ -121,6 +129,36 @@ struct Wind: Codable {
      "cod": 200
  }
  
+ 
+ 
+ struct WTData: Codable {
+     
+     let list: [List]
+ }
+     
+ struct List: Codable {
+     
+     let name: String
+     let main: Main
+     let weather: [Weather]
+     let wind: Wind
+ }
+
+ struct Main: Codable {
+     let temp: Double
+ }
+
+ struct Weather: Codable {
+     let description: String
+     let icon: String
+     let main: String
+ }
+
+ struct Wind: Codable {
+     let speed: Double
+ }
+
+
  
  
  
