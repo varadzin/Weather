@@ -7,23 +7,36 @@
 
 import Foundation
 
-struct WTData: Codable {
-    
-    let time: Date
-    
-
-    
-    let speed: Double
-    let temp:Double
-    
-    let icon: String
-    let description: String
-    let name: String
-    
+struct cityDetail: Decodable {
+    var city: cityName
 }
 
+struct lists: Decodable {
+    var list:[listDetail]
+}
 
-    
+struct listDetail: Decodable {
+    var main: mainDetail
+    var weather: weatherDetail
+    var wind: windDetail
+}
+
+struct mainDetail: Decodable {
+    var temp: Double
+}
+
+struct weatherDetail: Decodable {
+    var description: String
+    var icon: String
+}
+
+struct windDetail: Decodable {
+    var speed: Double
+}
+
+struct cityName: Decodable {
+    var name: String
+}
 
 
 /*
@@ -69,6 +82,23 @@ struct WTData: Codable {
              },
              "dt_txt": "2020-11-20 21:00:00"
          },
+ 
+ 
+ ],
+     "city": {
+         "id": 2643743,
+         "name": "London",
+         "coord": {
+             "lat": 51.5085,
+             "lon": -0.1257
+         },
+         "country": "GB",
+         "population": 1000000,
+         "timezone": 0,
+         "sunrise": 1605857261,
+         "sunset": 1605888305
+     }
+ }
  
  WEATHER
  
