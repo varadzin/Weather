@@ -22,20 +22,7 @@ struct WTData: Codable {
     
 }
 
-extension WTData: JSONDecodable {
-    
-    init(decoder: JSONDecoder) throws {
-        self.icon = try decoder.decode(key: "icon")
-        self.speed = try decoder.decode(key: "speed")
-        self.description = try decoder.decode(key: "description")
-        self.name = try decoder.decode(key: "name")
-        self.temp = try decoder.decode(key: "temp")
-        let time: Double = try decoder.decode(key: "dt")
-                self.time = Date(timeIntervalSince1970: time)
-    }
-    
-    
-}
+
     
 
 
