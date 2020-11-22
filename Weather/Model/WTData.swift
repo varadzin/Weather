@@ -7,36 +7,75 @@
 
 import Foundation
 
-struct cityDetail: Decodable {
-    var city: cityName
+struct HolidayResponse: Decodable {
+    var list: [Holidays]
 }
 
-struct lists: Decodable {
-    var list:[listDetail]
+
+
+struct Holidays: Decodable {
+    var main: HolidayDetail
+    var weather: HolidayDetail2
+    var wind: HolidayDetail3
 }
 
-struct listDetail: Decodable {
-    var main: mainDetail
-    var weather: weatherDetail
-    var wind: windDetail
-}
 
-struct mainDetail: Decodable {
+struct HolidayDetail: Decodable {
     var temp: Double
+    var feels_like: Double
+    
 }
 
-struct weatherDetail: Decodable {
+struct HolidayDetail2 : Decodable {
     var description: String
     var icon: String
 }
 
-struct windDetail: Decodable {
+struct HolidayDetail3 : Decodable {
     var speed: Double
 }
 
-struct cityName: Decodable {
+struct WeatherCity: Decodable {
+    var city: CityDetail
+}
+
+struct CityDetail: Decodable {
     var name: String
 }
+
+
+
+
+//struct cityDetail: Decodable {
+//    var city: cityName
+//}
+//
+//struct lists: Decodable {
+//    var list:[listDetail]
+//}
+//
+//struct listDetail: Decodable {
+//    var main: mainDetail
+//    var weather: weatherDetail
+//    var wind: windDetail
+//}
+//
+//struct mainDetail: Decodable {
+//    var temp: Double
+//}
+//
+//struct weatherDetail: Decodable {
+//    var description: String
+//    var icon: String
+//}
+//
+//struct windDetail: Decodable {
+//    var speed: Double
+//}
+//
+//struct cityName: Decodable {
+//    var name: String
+//}
 
 
 /*

@@ -25,28 +25,33 @@ struct WTManager {
        }
        
        func performRequest(with urlString: String) {
-           if let url = URL(string: urlString) {
-               let session =  URLSession(configuration: .default)
-               let task = session.dataTask(with: url) { (data, response, error) in
-                   if error != nil {
-                       self.delegate?.didFailWithError(error: error!)
-                       return
-                   }
-                   if let safeData = data {
-                       if let weather = self.parseJSON(safeData) {
-                           self.delegate?.didUpdateWeather(self, weather: weather)
-                       }
-                   }
-               }
-               task.resume()
-           }
-       }
-       
+        
+        
+        
+        
+        
+//           if let url = URL(string: urlString) {
+//               let session =  URLSession(configuration: .default)
+//               let task = session.dataTask(with: url) { (data, response, error) in
+//                   if error != nil {
+//                       self.delegate?.didFailWithError(error: error!)
+//                       return
+//                   }
+//                   if let safeData = data {
+//                       if let weather = self.parseJSON(safeData) {
+//                           self.delegate?.didUpdateWeather(self, weather: weather)
+//                       }
+//                   }
+//               }
+//               task.resume()
+//           }
+//       }
+//
        func parseJSON(_ weatherData: Data) -> WTModel? {
            let decoder = JSONDecoder()
            
            do {
-               let decodedData = try decoder.decode(WTData.self, from: weatherData)
+               let decodedData = try decoder.decode(lists.self, from: weatherData)
         
             let temp = decodedData.list.main.temp
             let name = decodedData.list.name
