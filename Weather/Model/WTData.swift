@@ -10,24 +10,49 @@ import Foundation
 struct WTData: Codable {
     
     let name: String
-    let main: Main
-    let weather: [Weather]
-    let wind: Wind
-}
-
-struct Main: Codable {
+    let main: String
+    let weather: String
+    let wind: String
+    let speed: Double
+    let icon: String
+    let description: String
     let temp: Double
 }
 
+//struct Main: Codable {
+//    let temp: Double
+//}
+//
+//struct Weather: Codable {
+//    let description: String
+//    let icon: String
+//    let main: String
+//}
+//
+//struct Wind: Codable {
+//    let speed: Double
+//}
+
+
+/*
+ 
+ let name: String
+ let main: Main
+ let weather: [Weather]
+ let wind: Wind
+}
+
+struct Main: Codable {
+ let temp: Double
+}
+
 struct Weather: Codable {
-    let description: String
-    let icon: String
-    let main: String
+ let description: String
+ let icon: String
+ let main: String
 }
 
 struct Wind: Codable {
-    let speed: Double
+ let speed: Double
 }
-
-
-
+ */
