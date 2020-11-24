@@ -11,16 +11,13 @@ struct FCModel {
     
     let forecastDay: String
     let forecastIcon: String
-    let forecastTemperature: Double
+    let forecastTemp: Double
     
     
-//
-//    var temperatureString: String {
-//        return String(format: "%.1f", temperature)
-//    }
-//
-//    var windSpeedString: String {
-//        return String(format: "%.1f", windSpeed)
-//    }
-//
+
+    var forecastTemperature: String {
+        return String(format: "%.1f", forecastTemp)
+    }
+
+
 }

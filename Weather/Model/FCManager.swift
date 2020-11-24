@@ -21,7 +21,7 @@ protocol FCManagerDelegate {
 
 struct FCManager {
 
-let forecastURL = "https://api.openweathermap.org/data/2.5/forecast?appid=1513074b04afcac9adc59f2ce25f6755&units=metric&q=london"
+let forecastURL = "https://api.openweathermap.org/data/2.5/forecast?appid=1513074b04afcac9adc59f2ce25f6755&units=metric"
 
 
 var delegate: FCManagerDelegate?
@@ -40,7 +40,7 @@ func performFCRequest(with urlString: String) {
                 return
             }
             if let safeData = data {
-                if let forecast = self.parseJSON(safeData) {
+                if let forecast = self.parse2JSON(safeData) {
                     self.delegate?.didUpdateForecast(self, forecast: forecast)
                 }
             }
@@ -49,17 +49,19 @@ func performFCRequest(with urlString: String) {
     }
 }
 
-func parseJSON(_ forecastData: Data) -> FCModel? {
+func parse2JSON(_ forecastData: Data) -> FCModel? {
     let decoder = JSONDecoder()
     
     do {
         let decodedData = try decoder.decode(FCData.self, from: forecastData)
       
         let FCday = "day"
-        let FCicon = decodedData.weather[0].icon
-        let FCtemp = decodedData.main.temp
-        let forecast = FCModel(forecastDay: FCday, forecastIcon: FCicon, forecastTemperature: FCtemp)
+        let FCicon = decodedData.list[0].weather[0].icon
+        let FCtemp = decodedData.list[0].main.temp
+        let forecast = FCModel(forecastDay: FCday, forecastIcon: FCicon, forecastTemp: FCtemp)
         
+        
+        print(FCicon, FCtemp)
         return forecast
     } catch {
         delegate?.didFailWithError2(error: error)
@@ -70,9 +72,6 @@ func parseJSON(_ forecastData: Data) -> FCModel? {
 
 }
 
-//let forecastTemperature: Double
-//let forecastIcon: String
-//let forecastDay: String
 
 
 

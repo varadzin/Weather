@@ -45,6 +45,7 @@ class WTSearchVC: UIViewController {
         super.viewDidLoad()
         
         weatherManager.delegate = self
+        forecastManager.delegate = self
         searchTF.delegate = self
         welcomeScreen()
         configureScreen()
@@ -460,7 +461,8 @@ extension WTSearchVC: FCManagerDelegate {
    
 func didUpdateForecast(_ forecastManager: FCManager, forecast: FCModel) {
     DispatchQueue.main.async {
-        self.dayTempLabel1.text = "\(forecast.forecastTemperature)"
+        self.dayTempLabel1.text = "\(forecast.forecastTemperature)°C"
+        self.dayWTImage1.image = UIImage(named: forecast.forecastIcon)
     }
     
     
