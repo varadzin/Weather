@@ -19,7 +19,9 @@ protocol FCManagerDelegate {
     func didFailWithError2(error: Error)
 }
 
-let forecastURL = "https://api.openweathermap.org/data/2.5/forecast?appid=1513074b04afcac9adc59f2ce25f6755&units=metric&q=\(cityName)"
+struct FCManager {
+
+let forecastURL = "https://api.openweathermap.org/data/2.5/forecast?appid=1513074b04afcac9adc59f2ce25f6755&units=metric&q=london"
 
 
 var delegate: FCManagerDelegate?
@@ -47,16 +49,16 @@ func performFCRequest(with urlString: String) {
     }
 }
 
-func parseJSON(_ weatherData: Data) -> WTModel? {
+func parseJSON(_ forecastData: Data) -> FCModel? {
     let decoder = JSONDecoder()
     
     do {
-        let decodedData = try decoder.decode(WTData.self, from: weatherData)
-        let FCtemp = decodedData.main.temp
-    let FCday = "day"
+        let decodedData = try decoder.decode(FCData.self, from: forecastData)
+      
+        let FCday = "day"
         let FCicon = decodedData.weather[0].icon
-        
-        let forecast = FCModel( forecastDay: FCday, forecastTemperature: FCtemp,  forecastIcon: FCicon)
+        let FCtemp = decodedData.main.temp
+        let forecast = FCModel(forecastDay: FCday, forecastIcon: FCicon, forecastTemperature: FCtemp)
         
         return forecast
     } catch {
@@ -66,7 +68,7 @@ func parseJSON(_ weatherData: Data) -> WTModel? {
     }
 }
 
-
+}
 
 //let forecastTemperature: Double
 //let forecastIcon: String

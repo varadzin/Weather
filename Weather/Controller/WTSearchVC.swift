@@ -14,7 +14,7 @@ class WTSearchVC: UIViewController {
     var weatherImage = UIImageView()
     var cityAndTempLabel = WTCityLabel()
     var conditionLabel = WTConditionLabel()
-    var dayLabel = WTDayLabel(text: "Mon", fontSize: 14)
+    var dayLabel = WTDayLabel()
     var dayLabel2 = WTDayLabel(text: "Tue", fontSize: 14)
     var dayLabel3 = WTDayLabel(text: "Wed", fontSize: 14)
     var dayLabel4 = WTDayLabel(text: "Thu", fontSize: 14)
@@ -39,6 +39,7 @@ class WTSearchVC: UIViewController {
     var smallTempLabel = UILabel()
     let defaults = UserDefaults.standard //declaration for using Userdefaults 
     var weatherManager = WTManager()
+    var forecastManager = FCManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -421,7 +422,7 @@ extension WTSearchVC: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         if let city = searchTF.text {
             weatherManager.fetchWeather(cityName: city)
-            
+            forecastManager.fetchForecast(cityName: city)
             
         }
         searchTF.text = ""
@@ -449,22 +450,27 @@ extension WTSearchVC: WTManagerDelegate {
         print(error)
     }
    
-    func didUpdateForecast(_ forecastManager: FCManager, forecast: FCModel) {
-        DispatchQueue.main.async {
-            self.dayTempLabel1.text = "\(forecast.forecastTemperature)"
-        }
-        
-        
-    }
-
-    func didFailWithError2(error: Error) {
-        print(error)
-    }
+  
     
     
     
 }
 
+extension WTSearchVC: FCManagerDelegate {
+   
+func didUpdateForecast(_ forecastManager: FCManager, forecast: FCModel) {
+    DispatchQueue.main.async {
+        self.dayTempLabel1.text = "\(forecast.forecastTemperature)"
+    }
+    
+    
+}
+
+func didFailWithError2(error: Error) {
+    print(error)
+}
+
+        }
 //MARK: - Name of Day
 //
 //extension Date {

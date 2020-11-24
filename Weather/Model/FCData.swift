@@ -7,25 +7,25 @@
 
 import Foundation
 
-struct WeatherAllConditions: Decodable  {
+struct FCData: Codable  {
     var list: [WeatherConditions]
  
 }
 
 
-struct WeatherConditions: Decodable  {
+struct WeatherConditions: Codable  {
     var main: WeatherDetail
     var weather: [WeatherDetail2]
     var dt_txt: String
     
 }
 
-struct WeatherDetail: Decodable {
+struct WeatherDetail: Codable {
     var temp: Double
 }
 
 
-struct WeatherDetail2: Decodable {
+struct WeatherDetail2: Codable {
     var icon: String
 }
 

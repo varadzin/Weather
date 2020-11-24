@@ -9,9 +9,9 @@ import Foundation
 
 struct FCModel {
     
-    let forecastTemperature: Double
-    let forecastIcon: String
     let forecastDay: String
+    let forecastIcon: String
+    let forecastTemperature: Double
     
     
 //
