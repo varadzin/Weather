@@ -25,6 +25,7 @@
 		C68D7A7B2553331E0051BE09 /* Follower.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68D7A7A2553331E0051BE09 /* Follower.swift */; };
 		C6D97CC3256C542C00CD90BD /* FCData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D97CC2256C542C00CD90BD /* FCData.swift */; };
 		C6D97CCB256C588200CD90BD /* FCManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D97CCA256C588200CD90BD /* FCManager.swift */; };
+		C6D97CD3256DB87600CD90BD /* FCModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D97CD2256DB87600CD90BD /* FCModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		C68D7A7A2553331E0051BE09 /* Follower.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Follower.swift; sourceTree = "<group>"; };
 		C6D97CC2256C542C00CD90BD /* FCData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCData.swift; sourceTree = "<group>"; };
 		C6D97CCA256C588200CD90BD /* FCManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCManager.swift; sourceTree = "<group>"; };
+		C6D97CD2256DB87600CD90BD /* FCModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 		C6516B13254EB3350043FFAC = {
 			isa = PBXGroup;
 			children = (
+				C6D97CD2256DB87600CD90BD /* FCModel.swift */,
 				C6516B1E254EB3350043FFAC /* Weather */,
 				C6516B1D254EB3350043FFAC /* Products */,
 			);
@@ -222,6 +225,7 @@
 				C678BAA2254EFCAC002F2A62 /* WTConditionLabel.swift in Sources */,
 				C678BA9F254EDAFA002F2A62 /* WTCityLabel.swift in Sources */,
 				C6516B43254ECCBA0043FFAC /* WTSearchBTN.swift in Sources */,
+				C6D97CD3256DB87600CD90BD /* FCModel.swift in Sources */,
 				C678BAAE254F0CF1002F2A62 /* WTManager.swift in Sources */,
 				C6516B37254EC4740043FFAC /* WTSearchVC.swift in Sources */,
 				C678BAA8254F0349002F2A62 /* WTData.swift in Sources */,

@@ -449,7 +449,13 @@ extension WTSearchVC: WTManagerDelegate {
         print(error)
     }
    
-    func didupdateForecast(_ forecastManager: )
+    func didupdateForecast(_ forecastManager: FCManager, forecast: FCModel) {
+        DispatchQueue.main.async {
+            <#code#>
+        }
+        
+        
+    }
 
     
     
