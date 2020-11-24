@@ -278,7 +278,7 @@ class WTSearchVC: UIViewController {
     func configureDayWTImage1() {
         view.addSubview(dayWTImage1)
         
-        dayWTImage1.image = UIImage(named: "01d")
+     
         dayWTImage1.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
@@ -462,6 +462,7 @@ extension WTSearchVC: FCManagerDelegate {
    
 func didUpdateForecast(_ forecastManager: FCManager, forecast: FCModel) {
     DispatchQueue.main.async {
+        self.dayLabel.text = forecast.forecastDay
         self.dayTempLabel1.text = "\(forecast.forecastTemperature)°C"
         self.dayWTImage1.image = UIImage(named: forecast.forecastIcon)
     }

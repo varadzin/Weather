@@ -55,13 +55,13 @@ func parse2JSON(_ forecastData: Data) -> FCModel? {
     do {
         let decodedData = try decoder.decode(FCData.self, from: forecastData)
       
-        let FCday = "day"
+        let FCday = decodedData.list[0].dt_txt
         let FCicon = decodedData.list[0].weather[0].icon
         let FCtemp = decodedData.list[0].main.temp
         let forecast = FCModel(forecastDay: FCday, forecastIcon: FCicon, forecastTemp: FCtemp)
         
         
-        print(FCicon, FCtemp)
+        print(FCicon, FCtemp, FCday)
         return forecast
     } catch {
         delegate?.didFailWithError2(error: error)
