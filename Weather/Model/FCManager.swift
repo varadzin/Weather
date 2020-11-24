@@ -13,6 +13,12 @@ enum DataError: Error {
     
 }
 
+protocol FCManagerDelegate {
+    func didUpdateForecast(_ forecastManager: FCManager, forecast: FCModel)
+    func didFailWithError2(error: Error)
+}
+
+
 struct FCManager {
     let resourceURL: URL
     let API_KEY = "1513074b04afcac9adc59f2ce25f6755"
@@ -23,7 +29,7 @@ struct FCManager {
         
         guard let resourceURL = URL(string: resourceString) else { fatalError() }
         self.resourceURL = resourceURL
-        
+        var delegate: FCManagerDelegate?
         
     }
     

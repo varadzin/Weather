@@ -66,7 +66,6 @@
 		C6516B13254EB3350043FFAC = {
 			isa = PBXGroup;
 			children = (
-				C6D97CD2256DB87600CD90BD /* FCModel.swift */,
 				C6516B1E254EB3350043FFAC /* Weather */,
 				C6516B1D254EB3350043FFAC /* Products */,
 			);
@@ -106,6 +105,7 @@
 		C6516B3D254EC8F90043FFAC /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				C6D97CD2256DB87600CD90BD /* FCModel.swift */,
 				C6D97CC2256C542C00CD90BD /* FCData.swift */,
 				C6D97CCA256C588200CD90BD /* FCManager.swift */,
 				C678BAA7254F0349002F2A62 /* WTData.swift */,

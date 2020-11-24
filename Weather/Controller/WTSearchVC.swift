@@ -22,7 +22,7 @@ class WTSearchVC: UIViewController {
     var dayWTImage2 = UIImageView()
     var dayWTImage3 = UIImageView()
     var dayWTImage4 = UIImageView()
-    var dayTempLabel1 = WTDayLabel(text: "24°C", fontSize: 10)
+    var dayTempLabel1 = WTDayLabel()
     var dayTempLabel2 = WTDayLabel(text: "24°C", fontSize: 10)
     var dayTempLabel3 = WTDayLabel(text: "24°C", fontSize: 10)
     var dayTempLabel4 = WTDayLabel(text: "24°C", fontSize: 10)
@@ -449,15 +449,17 @@ extension WTSearchVC: WTManagerDelegate {
         print(error)
     }
    
-    func didupdateForecast(_ forecastManager: FCManager, forecast: FCModel) {
+    func didUpdateForecast(_ forecastManager: FCManager, forecast: FCModel) {
         DispatchQueue.main.async {
-            <#code#>
+            self.dayTempLabel1.text = "\(forecast.forecastDay)"
         }
         
         
     }
 
-    
+    func didFailWithError2(error: Error) {
+        print(error)
+    }
     
     
     
