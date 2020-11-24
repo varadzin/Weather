@@ -451,7 +451,7 @@ extension WTSearchVC: WTManagerDelegate {
    
     func didUpdateForecast(_ forecastManager: FCManager, forecast: FCModel) {
         DispatchQueue.main.async {
-            self.dayTempLabel1.text = "\(forecast.forecastDay)"
+            self.dayTempLabel1.text = "\(forecast.forecastTemperature)"
         }
         
         
