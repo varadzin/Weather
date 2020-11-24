@@ -421,6 +421,8 @@ extension WTSearchVC: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         if let city = searchTF.text {
             weatherManager.fetchWeather(cityName: city)
+            
+            
         }
         searchTF.text = ""
     }
@@ -446,7 +448,8 @@ extension WTSearchVC: WTManagerDelegate {
     func didFailWithError(error: Error) {
         print(error)
     }
-    
+   
+    func didupdateForecast(_ forecastManager: )
 
     
     
