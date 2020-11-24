@@ -336,8 +336,9 @@ class WTSearchVC: UIViewController {
     }
     func configureTempLabel1() {
         view.addSubview(dayTempLabel1)
-        
+        dayTempLabel1.font = UIFont.systemFont(ofSize: 10)
         dayTempLabel1.translatesAutoresizingMaskIntoConstraints = false
+       
         
         NSLayoutConstraint.activate([
             dayTempLabel1.bottomAnchor.constraint(equalTo: favButton.topAnchor, constant: -40),
