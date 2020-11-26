@@ -52,7 +52,9 @@ func performFCRequest(with urlString: String) {
 func parse2JSON(_ forecastData: Data) -> FCModel? {
     let decoder = JSONDecoder()
     
-    do {
+    do { let
+        
+        
         let decodedData = try decoder.decode(FCData.self, from: forecastData)
       
         let FCday = decodedData.list[0].dt_txt
