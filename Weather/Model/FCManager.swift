@@ -52,7 +52,7 @@ func performFCRequest(with urlString: String) {
 func parse2JSON(_ forecastData: Data) -> FCModel? {
     let decoder = JSONDecoder()
     
-    do { let
+    do {
         
         
         let decodedData = try decoder.decode(FCData.self, from: forecastData)
@@ -64,6 +64,11 @@ func parse2JSON(_ forecastData: Data) -> FCModel? {
         
         
         print(FCicon, FCtemp, FCday)
+        
+        
+        print("hallo")
+        
+        
         return forecast
     } catch {
         delegate?.didFailWithError2(error: error)
