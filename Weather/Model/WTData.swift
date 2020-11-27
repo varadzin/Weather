@@ -1,18 +1,23 @@
 //
-//  WTData.swift
-//  Weather
+//  WTData.swift
+//  Weather
 //
-//  Created by Frantisek Varadzin on 01/11/2020.
+//  Created by Frantisek Varadzin on 01/11/2020.
 //
 
 import Foundation
 
 struct WTData: Codable {
     
-    let name: String
+    let list: [List]
+    let city: City
+}
+
+struct List: Codable {
     let main: Main
-    let weather: [Weather]
+    let weather: Weather
     let wind: Wind
+    let dt_txt: String
 }
 
 struct Main: Codable {
@@ -20,9 +25,12 @@ struct Main: Codable {
 }
 
 struct Weather: Codable {
-    let description: String
     let icon: String
-    let main: String
+    let description: String
+}
+
+struct City: Codable {
+    let city: String
 }
 
 struct Wind: Codable {
