@@ -14,18 +14,18 @@ class WTSearchVC: UIViewController {
     var weatherImage = UIImageView()
     var cityAndTempLabel = WTCityLabel()
     var conditionLabel = WTConditionLabel()
-    var dayLabel = WTDayLabel()
-    var dayLabel2 = WTDayLabel(text: "Tue", fontSize: 14)
-    var dayLabel3 = WTDayLabel(text: "Wed", fontSize: 14)
-    var dayLabel4 = WTDayLabel(text: "Thu", fontSize: 14)
+    var dayLabel = WTDayLabel(fontSize: 14)
+    var dayLabel2 = WTDayLabel(fontSize: 14)
+    var dayLabel3 = WTDayLabel(fontSize: 14)
+    var dayLabel4 = WTDayLabel(fontSize: 14)
     var dayWTImage1 = UIImageView()
     var dayWTImage2 = UIImageView()
     var dayWTImage3 = UIImageView()
     var dayWTImage4 = UIImageView()
     var dayTempLabel1 = WTDayLabel()
-    var dayTempLabel2 = WTDayLabel(text: "24°C", fontSize: 10)
-    var dayTempLabel3 = WTDayLabel(text: "24°C", fontSize: 10)
-    var dayTempLabel4 = WTDayLabel(text: "24°C", fontSize: 10)
+    var dayTempLabel2 = WTDayLabel(fontSize: 10)
+    var dayTempLabel3 = WTDayLabel(fontSize: 10)
+    var dayTempLabel4 = WTDayLabel(fontSize: 10)
     var favButton = WTSearchBTN(backgroundColor: .systemBackground, title: "Add to Favorites", titleColor: .systemBlue)
     //    var clearButton = WTSearchBTN(backgroundColor: .systemBackground, title: "Clear Favorites", titleColor: .systemPink)
     var cityToFavorites = String()
@@ -39,13 +39,15 @@ class WTSearchVC: UIViewController {
     var smallTempLabel = UILabel()
     let defaults = UserDefaults.standard //declaration for using Userdefaults 
     var weatherManager = WTManager()
-    var forecastManager = FCManager()
+    var actualWeekDay = String()
+    var day = Int()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         weatherManager.delegate = self
-        forecastManager.delegate = self
+    
         searchTF.delegate = self
         welcomeScreen()
         configureScreen()
@@ -70,7 +72,44 @@ class WTSearchVC: UIViewController {
         configureTempLabel2()
         configureTempLabel3()
         configureTempLabel4()
+        actualDay()
     }
+    
+    func actualDay() {
+        
+        let date = Date()
+        let calendar = Calendar.current
+        let day = calendar.component(.weekday, from: date)
+        let hour = calendar.component(.hour, from: date)
+        
+        print(date, day,hour, actualWeekDay)
+    }
+     
+    func actualWeekDayFunc() {
+      
+        switch day {
+        case 1:
+            actualWeekDay = "Sun"
+        case 2:
+            actualWeekDay = "Mon"
+        case 3:
+            actualWeekDay = "Tue"
+        case 4:
+            actualWeekDay = "Wed"
+        case 5:
+            actualWeekDay = "Thu"
+        case 6:
+            actualWeekDay = "Fri"
+        case 7:
+            actualWeekDay = "Sat"
+        default:
+            actualWeekDay = "N/A"
+        }
+        
+        print(actualWeekDay)
+        
+    }
+    
     
     func configureScreen() {
         view.backgroundColor = .systemBackground
@@ -293,7 +332,7 @@ class WTSearchVC: UIViewController {
     func configureDayWTImage2() {
         view.addSubview(dayWTImage2)
         
-        dayWTImage2.image = UIImage(named: "01d")
+       
         dayWTImage2.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
@@ -308,7 +347,7 @@ class WTSearchVC: UIViewController {
     func configureDayWTImage3() {
         view.addSubview(dayWTImage3)
         
-        dayWTImage3.image = UIImage(named: "01d")
+   
         dayWTImage3.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
@@ -323,7 +362,7 @@ class WTSearchVC: UIViewController {
     func configureDayWTImage4() {
         view.addSubview(dayWTImage4)
         
-        dayWTImage4.image = UIImage(named: "01d")
+    
         dayWTImage4.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
@@ -424,7 +463,7 @@ extension WTSearchVC: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         if let city = searchTF.text {
             weatherManager.fetchWeather(cityName: city)
-            forecastManager.fetchForecast(cityName: city)
+actualDay()
             
         }
         searchTF.text = ""
@@ -437,6 +476,8 @@ extension WTSearchVC: UITextFieldDelegate {
 //MARK: - WTManagerDelegate
 
 extension WTSearchVC: WTManagerDelegate {
+
+
     func didUpdateWeather(_ weatherManager: WTManager, weather: WTModel) {
         DispatchQueue.main.async {
             self.weatherImage.image = UIImage(named: weather.weatherIcon)
@@ -445,36 +486,34 @@ extension WTSearchVC: WTManagerDelegate {
             self.temperatureLabel = "\(weather.temperatureString)°C"
             self.conditionLabel.text = "\(weather.weatherDescription),  wind: \(weather.windSpeedString) m/s"
             self.cityToFavorites = weather.cityName
+            self.dayLabel.text = "+6h"
+            self.dayTempLabel1.text = "\(weather.forecastTemperature1)°C"
+            self.dayWTImage1.image = UIImage(named: weather.forecastIcon1)
+            
+            self.dayLabel2.text = "+12h"
+            self.dayTempLabel2.text = "\(weather.forecastTemperature2)°C"
+            self.dayWTImage2.image = UIImage(named: weather.forecastIcon2)
+            
+            self.dayLabel3.text = "+18h"
+            self.dayTempLabel3.text = "\(weather.forecastTemperature3)°C"
+            self.dayWTImage3.image = UIImage(named: weather.forecastIcon3)
+            
+            self.dayLabel4.text = "+24h"
+            self.dayTempLabel4.text = "\(weather.forecastTemperature4)°C"
+            self.dayWTImage4.image = UIImage(named: weather.forecastIcon4)
+            
+}
+            
         }
-    }
+            
     
+        
+        
+ 
     func didFailWithError(error: Error) {
         print(error)
     }
-   
-  
-    
-    
-    
 }
-
-extension WTSearchVC: FCManagerDelegate {
-   
-func didUpdateForecast(_ forecastManager: FCManager, forecast: FCModel) {
-    DispatchQueue.main.async {
-        self.dayLabel.text = forecast.forecastDay
-        self.dayTempLabel1.text = "\(forecast.forecastTemperature)°C"
-        self.dayWTImage1.image = UIImage(named: forecast.forecastIcon)
-    }
-    
-    
-}
-
-func didFailWithError2(error: Error) {
-    print(error)
-}
-
-        }
 //MARK: - Name of Day
 //
 //extension Date {
