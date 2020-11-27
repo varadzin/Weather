@@ -15,7 +15,7 @@ struct WTData: Codable {
 
 struct List: Codable {
     let main: Main
-    let weather: Weather
+    let weather: [Weather]
     let wind: Wind
     let dt_txt: String
 }
@@ -30,7 +30,7 @@ struct Weather: Codable {
 }
 
 struct City: Codable {
-    let city: String
+    let name: String
 }
 
 struct Wind: Codable {
