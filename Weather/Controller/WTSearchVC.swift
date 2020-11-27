@@ -14,10 +14,16 @@ class WTSearchVC: UIViewController {
     var weatherImage = UIImageView()
     var cityAndTempLabel = WTCityLabel()
     var conditionLabel = WTConditionLabel()
-    var dayLabel = WTDayLabel(fontSize: 14)
+    var dayLabel1 = WTDayLabel(fontSize: 14)
+ 
     var dayLabel2 = WTDayLabel(fontSize: 14)
     var dayLabel3 = WTDayLabel(fontSize: 14)
     var dayLabel4 = WTDayLabel(fontSize: 14)
+    var dayTimeLabel1 = WTDayLabel(fontSize: 8)
+    var dayTimeLabel2 = WTDayLabel(fontSize: 8)
+    var dayTimeLabel3 = WTDayLabel(fontSize: 8)
+    var dayTimeLabel4 = WTDayLabel(fontSize: 8)
+    
     var dayWTImage1 = UIImageView()
     var dayWTImage2 = UIImageView()
     var dayWTImage3 = UIImageView()
@@ -41,6 +47,8 @@ class WTSearchVC: UIViewController {
     var weatherManager = WTManager()
     var actualWeekDay = String()
     var day = Int()
+    var hour = Int()
+    var updatedHour = Int()
 
     
     override func viewDidLoad() {
@@ -60,10 +68,15 @@ class WTSearchVC: UIViewController {
         configureFavButton()
         //        configureClearButton()
         loadArrays()
-        configureDayLabel()
+        configureDayLabel1()
+      
         configureDayLabel2()
         configureDayLabel3()
         configureDayLabel4()
+        configureDayTimeLabel1()
+        configureDayTimeLabel2()
+        configureDayTimeLabel3()
+        configureDayTimeLabel4()
         configureDayWTImage1()
         configureDayWTImage2()
         configureDayWTImage3()
@@ -79,15 +92,22 @@ class WTSearchVC: UIViewController {
         
         let date = Date()
         let calendar = Calendar.current
-        let day = calendar.component(.weekday, from: date)
+       day = calendar.component(.weekday, from: date)
         let hour = calendar.component(.hour, from: date)
         
-        print(date, day,hour, actualWeekDay)
+        print("date:\(date) day:\(day) hour: \(hour)")
+        
+        updatedHour = hour + 6
     }
      
     func actualWeekDayFunc() {
       
+     
+        
         switch day {
+        
+        case 0:
+            actualWeekDay = "0"
         case 1:
             actualWeekDay = "Sun"
         case 2:
@@ -109,6 +129,24 @@ class WTSearchVC: UIViewController {
         print(actualWeekDay)
         
     }
+    
+    func newDay() {
+        switch updatedHour {
+        case 0...23:
+            print("Same day")
+        case 24...47:
+            
+            day = day + 1
+            updatedHour = updatedHour - 24
+            print("day:\(day) updatedHour:\(updatedHour)")
+        default:
+            print("something wrong")
+                
+        }
+    }
+    
+   
+    
     
     
     func configureScreen() {
@@ -266,17 +304,30 @@ class WTSearchVC: UIViewController {
             }
         }
     }
-    func configureDayLabel() {
-        view.addSubview(dayLabel)
+    func configureDayLabel1() {
+        view.addSubview(dayLabel1)
         
-        dayLabel.translatesAutoresizingMaskIntoConstraints = false
+        dayLabel1.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            dayLabel.bottomAnchor.constraint(equalTo: favButton.topAnchor, constant: -100),
-            dayLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 60),
-            dayLabel.widthAnchor.constraint(equalToConstant: 40)
+            dayLabel1.bottomAnchor.constraint(equalTo: favButton.topAnchor, constant: -100),
+            dayLabel1.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 60),
+            dayLabel1.widthAnchor.constraint(equalToConstant: 40)
         ])
     }
+    
+    func configureDayTimeLabel1() {
+        view.addSubview(dayTimeLabel1)
+        
+        dayTimeLabel1.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            dayTimeLabel1.bottomAnchor.constraint(equalTo: favButton.topAnchor, constant: -85),
+            dayTimeLabel1.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 60),
+            dayTimeLabel1.widthAnchor.constraint(equalToConstant: 40)
+        ])
+    }
+    
     
     func configureDayLabel2() {
         view.addSubview(dayLabel2)
@@ -289,7 +340,17 @@ class WTSearchVC: UIViewController {
             dayLabel2.widthAnchor.constraint(equalToConstant: 40)
         ])
     }
-    
+    func configureDayTimeLabel2() {
+        view.addSubview(dayTimeLabel2)
+        
+        dayTimeLabel2.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            dayTimeLabel2.bottomAnchor.constraint(equalTo: favButton.topAnchor, constant: -85),
+            dayTimeLabel2.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 138),
+            dayTimeLabel2.widthAnchor.constraint(equalToConstant: 40)
+        ])
+    }
     func configureDayLabel3() {
         view.addSubview(dayLabel3)
         
@@ -301,6 +362,19 @@ class WTSearchVC: UIViewController {
             dayLabel3.widthAnchor.constraint(equalToConstant: 40)
         ])
     }
+    
+    func configureDayTimeLabel3() {
+        view.addSubview(dayTimeLabel3)
+        
+        dayTimeLabel3.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            dayTimeLabel3.bottomAnchor.constraint(equalTo: favButton.topAnchor, constant: -85),
+            dayTimeLabel3.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -125),
+            dayTimeLabel3.widthAnchor.constraint(equalToConstant: 40)
+        ])
+    }
+    
     
     func configureDayLabel4() {
         view.addSubview(dayLabel4)
@@ -314,6 +388,19 @@ class WTSearchVC: UIViewController {
         ])
     }
     
+    func configureDayTimeLabel4() {
+        view.addSubview(dayTimeLabel4)
+        
+        dayTimeLabel4.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            dayTimeLabel4.bottomAnchor.constraint(equalTo: favButton.topAnchor, constant: -85),
+            dayTimeLabel4.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
+            dayTimeLabel4.widthAnchor.constraint(equalToConstant: 40)
+        ])
+    }
+    
+    
     func configureDayWTImage1() {
         view.addSubview(dayWTImage1)
         
@@ -321,10 +408,10 @@ class WTSearchVC: UIViewController {
         dayWTImage1.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            dayWTImage1.bottomAnchor.constraint(equalTo: favButton.topAnchor, constant: -60),
+            dayWTImage1.bottomAnchor.constraint(equalTo: favButton.topAnchor, constant: -50),
             dayWTImage1.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 60),
-            dayWTImage1.widthAnchor.constraint(equalToConstant: 30),
-            dayWTImage1.heightAnchor.constraint(equalToConstant: 30)
+            dayWTImage1.widthAnchor.constraint(equalToConstant: 35),
+            dayWTImage1.heightAnchor.constraint(equalToConstant: 35)
         ])
         
     }
@@ -336,7 +423,7 @@ class WTSearchVC: UIViewController {
         dayWTImage2.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            dayWTImage2.bottomAnchor.constraint(equalTo: favButton.topAnchor, constant: -60),
+            dayWTImage2.bottomAnchor.constraint(equalTo: favButton.topAnchor, constant: -50),
             dayWTImage2.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 135),
             dayWTImage2.widthAnchor.constraint(equalToConstant: 30),
             dayWTImage2.heightAnchor.constraint(equalToConstant: 30)
@@ -351,10 +438,10 @@ class WTSearchVC: UIViewController {
         dayWTImage3.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            dayWTImage3.bottomAnchor.constraint(equalTo: favButton.topAnchor, constant: -60),
+            dayWTImage3.bottomAnchor.constraint(equalTo: favButton.topAnchor, constant: -50),
             dayWTImage3.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -135),
-            dayWTImage3.widthAnchor.constraint(equalToConstant: 30),
-            dayWTImage3.heightAnchor.constraint(equalToConstant: 30)
+            dayWTImage3.widthAnchor.constraint(equalToConstant: 35),
+            dayWTImage3.heightAnchor.constraint(equalToConstant: 35)
         ])
         
     }
@@ -366,7 +453,7 @@ class WTSearchVC: UIViewController {
         dayWTImage4.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            dayWTImage4.bottomAnchor.constraint(equalTo: favButton.topAnchor, constant: -60),
+            dayWTImage4.bottomAnchor.constraint(equalTo: favButton.topAnchor, constant: -50),
             dayWTImage4.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -60),
             dayWTImage4.widthAnchor.constraint(equalToConstant: 30),
             dayWTImage4.heightAnchor.constraint(equalToConstant: 30)
@@ -380,7 +467,7 @@ class WTSearchVC: UIViewController {
        
         
         NSLayoutConstraint.activate([
-            dayTempLabel1.bottomAnchor.constraint(equalTo: favButton.topAnchor, constant: -40),
+            dayTempLabel1.bottomAnchor.constraint(equalTo: favButton.topAnchor, constant: -30),
             dayTempLabel1.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 60),
             dayTempLabel1.widthAnchor.constraint(equalToConstant: 40)
         ])
@@ -392,7 +479,7 @@ class WTSearchVC: UIViewController {
         dayTempLabel2.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            dayTempLabel2.bottomAnchor.constraint(equalTo: favButton.topAnchor, constant: -40),
+            dayTempLabel2.bottomAnchor.constraint(equalTo: favButton.topAnchor, constant: -30),
             dayTempLabel2.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 140),
             dayTempLabel2.widthAnchor.constraint(equalToConstant: 40)
         ])
@@ -404,7 +491,7 @@ class WTSearchVC: UIViewController {
         dayTempLabel3.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            dayTempLabel3.bottomAnchor.constraint(equalTo: favButton.topAnchor, constant: -40),
+            dayTempLabel3.bottomAnchor.constraint(equalTo: favButton.topAnchor, constant: -30),
             dayTempLabel3.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -125),
             dayTempLabel3.widthAnchor.constraint(equalToConstant: 40)
         ])
@@ -416,7 +503,7 @@ class WTSearchVC: UIViewController {
         dayTempLabel4.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            dayTempLabel4.bottomAnchor.constraint(equalTo: favButton.topAnchor, constant: -40),
+            dayTempLabel4.bottomAnchor.constraint(equalTo: favButton.topAnchor, constant: -30),
             dayTempLabel4.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
             dayTempLabel4.widthAnchor.constraint(equalToConstant: 40)
         ])
@@ -464,7 +551,8 @@ extension WTSearchVC: UITextFieldDelegate {
         if let city = searchTF.text {
             weatherManager.fetchWeather(cityName: city)
 actualDay()
-            
+    newDay()
+            actualWeekDayFunc()
         }
         searchTF.text = ""
     }
@@ -486,19 +574,23 @@ extension WTSearchVC: WTManagerDelegate {
             self.temperatureLabel = "\(weather.temperatureString)°C"
             self.conditionLabel.text = "\(weather.weatherDescription),  wind: \(weather.windSpeedString) m/s"
             self.cityToFavorites = weather.cityName
-            self.dayLabel.text = "+6h"
+            self.dayLabel1.text = "\(self.actualWeekDay)"
+            self.dayTimeLabel1.text = "\(self.updatedHour):00"
             self.dayTempLabel1.text = "\(weather.forecastTemperature1)°C"
             self.dayWTImage1.image = UIImage(named: weather.forecastIcon1)
             
-            self.dayLabel2.text = "+12h"
+            self.dayLabel2.text = "\(self.actualWeekDay)"
+            self.dayTimeLabel2.text = "\(self.updatedHour):00"
             self.dayTempLabel2.text = "\(weather.forecastTemperature2)°C"
             self.dayWTImage2.image = UIImage(named: weather.forecastIcon2)
             
-            self.dayLabel3.text = "+18h"
+            self.dayLabel3.text = "\(self.actualWeekDay)"
+            self.dayTimeLabel3.text = "\(self.updatedHour):00"
             self.dayTempLabel3.text = "\(weather.forecastTemperature3)°C"
             self.dayWTImage3.image = UIImage(named: weather.forecastIcon3)
             
-            self.dayLabel4.text = "+24h"
+            self.dayLabel4.text = "\(self.actualWeekDay)"
+            self.dayTimeLabel4.text = "\(self.updatedHour):00"
             self.dayTempLabel4.text = "\(weather.forecastTemperature4)°C"
             self.dayWTImage4.image = UIImage(named: weather.forecastIcon4)
             
