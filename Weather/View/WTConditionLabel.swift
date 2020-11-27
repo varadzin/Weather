@@ -22,7 +22,7 @@ class WTConditionLabel: UILabel {
     private func configure() {
         textColor = .label
         font = UIFont.preferredFont(forTextStyle: .body)
-        print("nepodvadzaj k")
+  
     }
     
 }

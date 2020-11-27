@@ -66,7 +66,7 @@ func parse2JSON(_ forecastData: Data) -> FCModel? {
         print(FCicon, FCtemp, FCday)
         
         
-        print("hallo")
+   
         
         
         return forecast
