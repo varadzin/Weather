@@ -311,7 +311,7 @@ class WTSearchVC: UIViewController {
         
         NSLayoutConstraint.activate([
             dayLabel1.bottomAnchor.constraint(equalTo: favButton.topAnchor, constant: -100),
-            dayLabel1.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 60),
+            dayLabel1.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 63),
             dayLabel1.widthAnchor.constraint(equalToConstant: 40)
         ])
     }
@@ -323,7 +323,7 @@ class WTSearchVC: UIViewController {
         
         NSLayoutConstraint.activate([
             dayTimeLabel1.bottomAnchor.constraint(equalTo: favButton.topAnchor, constant: -85),
-            dayTimeLabel1.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 60),
+            dayTimeLabel1.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 63),
             dayTimeLabel1.widthAnchor.constraint(equalToConstant: 40)
         ])
     }
@@ -358,7 +358,7 @@ class WTSearchVC: UIViewController {
         
         NSLayoutConstraint.activate([
             dayLabel3.bottomAnchor.constraint(equalTo: favButton.topAnchor, constant: -100),
-            dayLabel3.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -125),
+            dayLabel3.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -123),
             dayLabel3.widthAnchor.constraint(equalToConstant: 40)
         ])
     }
@@ -370,7 +370,7 @@ class WTSearchVC: UIViewController {
         
         NSLayoutConstraint.activate([
             dayTimeLabel3.bottomAnchor.constraint(equalTo: favButton.topAnchor, constant: -85),
-            dayTimeLabel3.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -125),
+            dayTimeLabel3.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -123),
             dayTimeLabel3.widthAnchor.constraint(equalToConstant: 40)
         ])
     }
@@ -383,7 +383,7 @@ class WTSearchVC: UIViewController {
         
         NSLayoutConstraint.activate([
             dayLabel4.bottomAnchor.constraint(equalTo: favButton.topAnchor, constant: -100),
-            dayLabel4.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
+            dayLabel4.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -47),
             dayLabel4.widthAnchor.constraint(equalToConstant: 40)
         ])
     }
@@ -395,7 +395,7 @@ class WTSearchVC: UIViewController {
         
         NSLayoutConstraint.activate([
             dayTimeLabel4.bottomAnchor.constraint(equalTo: favButton.topAnchor, constant: -85),
-            dayTimeLabel4.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
+            dayTimeLabel4.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -47),
             dayTimeLabel4.widthAnchor.constraint(equalToConstant: 40)
         ])
     }
@@ -410,8 +410,8 @@ class WTSearchVC: UIViewController {
         NSLayoutConstraint.activate([
             dayWTImage1.bottomAnchor.constraint(equalTo: favButton.topAnchor, constant: -50),
             dayWTImage1.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 60),
-            dayWTImage1.widthAnchor.constraint(equalToConstant: 35),
-            dayWTImage1.heightAnchor.constraint(equalToConstant: 35)
+            dayWTImage1.widthAnchor.constraint(equalToConstant: 30),
+            dayWTImage1.heightAnchor.constraint(equalToConstant: 30)
         ])
         
     }
@@ -440,8 +440,8 @@ class WTSearchVC: UIViewController {
         NSLayoutConstraint.activate([
             dayWTImage3.bottomAnchor.constraint(equalTo: favButton.topAnchor, constant: -50),
             dayWTImage3.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -135),
-            dayWTImage3.widthAnchor.constraint(equalToConstant: 35),
-            dayWTImage3.heightAnchor.constraint(equalToConstant: 35)
+            dayWTImage3.widthAnchor.constraint(equalToConstant: 30),
+            dayWTImage3.heightAnchor.constraint(equalToConstant: 30)
         ])
         
     }
@@ -492,7 +492,7 @@ class WTSearchVC: UIViewController {
         
         NSLayoutConstraint.activate([
             dayTempLabel3.bottomAnchor.constraint(equalTo: favButton.topAnchor, constant: -30),
-            dayTempLabel3.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -125),
+            dayTempLabel3.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -123),
             dayTempLabel3.widthAnchor.constraint(equalToConstant: 40)
         ])
     }
@@ -504,7 +504,7 @@ class WTSearchVC: UIViewController {
         
         NSLayoutConstraint.activate([
             dayTempLabel4.bottomAnchor.constraint(equalTo: favButton.topAnchor, constant: -30),
-            dayTempLabel4.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
+            dayTempLabel4.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -47),
             dayTempLabel4.widthAnchor.constraint(equalToConstant: 40)
         ])
     }
