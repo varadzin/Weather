@@ -49,7 +49,11 @@ class WTSearchVC: UIViewController {
     var day = Int()
     var hour = Int()
     var updatedHour = Int()
-
+    var updatedDay = Int()
+    var newHour = Int()
+    var timeEntries : [Int] = [6,12,18,24]
+    var newTimeEntries : [Int] = []
+    var newDayEntries : [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,59 +89,70 @@ class WTSearchVC: UIViewController {
         configureTempLabel2()
         configureTempLabel3()
         configureTempLabel4()
-        actualDay()
+      
     }
     
     
 
     
-    
+    //what weekday is today
+    //what hour do we have now
     func actualDay() {
         
         let date = Date()
         let calendar = Calendar.current
        day = calendar.component(.weekday, from: date)
-        let hour = calendar.component(.hour, from: date)
-        
-        print("date:\(date) day:\(day) hour: \(hour)")
-        
-        
+        hour = calendar.component(.hour, from: date)
+        timeEntriesFunc()
     }
     
     
-    func newTime(updatedTime: Int) {
+    //take actual hour and update it +6, +12, +18, +24 hours
+    func timeEntriesFunc() {
+        newTimeEntries = []
+        newDayEntries = []
         
-        updatedHour = hour + updatedTime
-        
-        
-    }
-     
-    
-    func newDay() {
-        switch updatedHour {
-        case 0...23:
-            print("Same day")
-        case 24...47:
-            
-            day = day + 1
-            updatedHour = updatedHour - 24
-            print("day:\(day) updatedHour:\(updatedHour)")
-        default:
-            print("something wrong")
-                
+        for timeEnter in timeEntries {
+            updatedHour = hour + timeEnter
+            newDay(updatedHour: updatedHour)
+             
         }
     }
     
-
     
-    func actualWeekDayFunc() {
-      
+
      
+    //take today week day and update it +6, +12, +18, +24 hours
+    // if new day starts update hour -24 hours and append it in Array
+    
+    func newDay(updatedHour: Int) {
+        updatedDay = 0
         
-        switch day {
+        switch updatedHour {
+        case 0...23:
+                  newHour = updatedHour
+            updatedDay = day
+        case 24...47:
+            
+            updatedDay = day + 1
+             newHour = updatedHour - 24
+            
+        default:
+            print("something wrong")
+         
+        }
+        actualWeekDayFunc(updatedDay: updatedDay)
+        newTimeEntries.append(newHour)
+          }
+    
+
+    //take actual weekday and append it in Array (today or tommorow)
+    func actualWeekDayFunc(updatedDay: Int) {
+      
+        switch updatedDay {
         
         case 0:
-            actualWeekDay = ""
+            actualWeekDay = "0"
         case 1:
             actualWeekDay = "Sun"
         case 2:
@@ -152,12 +167,14 @@ class WTSearchVC: UIViewController {
             actualWeekDay = "Fri"
         case 7:
             actualWeekDay = "Sat"
+        case 8:
+            actualWeekDay = "Sun"
+            
         default:
-            actualWeekDay = ""
+            actualWeekDay = "default"
         }
-        
-        print(actualWeekDay)
-        
+         newDayEntries.append(actualWeekDay)
+   
     }
     
    
@@ -373,7 +390,7 @@ class WTSearchVC: UIViewController {
         
         NSLayoutConstraint.activate([
             dayLabel3.bottomAnchor.constraint(equalTo: favButton.topAnchor, constant: -100),
-            dayLabel3.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -123),
+            dayLabel3.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -125),
             dayLabel3.widthAnchor.constraint(equalToConstant: 40)
         ])
     }
@@ -398,7 +415,7 @@ class WTSearchVC: UIViewController {
         
         NSLayoutConstraint.activate([
             dayLabel4.bottomAnchor.constraint(equalTo: favButton.topAnchor, constant: -100),
-            dayLabel4.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -47),
+            dayLabel4.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -49),
             dayLabel4.widthAnchor.constraint(equalToConstant: 40)
         ])
     }
@@ -566,12 +583,7 @@ extension WTSearchVC: UITextFieldDelegate {
         if let city = searchTF.text {
             weatherManager.fetchWeather(cityName: city)
             actualDay()
-            newTime(updatedTime: 6)
-            newTime(updatedTime: 12)
-            newTime(updatedTime: 18)
-            newTime(updatedTime: 24)
-                        newDay()
-            actualWeekDayFunc()
+          
         }
         searchTF.text = ""
     }
@@ -593,23 +605,23 @@ extension WTSearchVC: WTManagerDelegate {
             self.temperatureLabel = "\(weather.temperatureString)°C"
             self.conditionLabel.text = "\(weather.weatherDescription),  wind: \(weather.windSpeedString) m/s"
             self.cityToFavorites = weather.cityName
-            self.dayLabel1.text = "\(self.actualWeekDay)"
-            self.dayTimeLabel1.text = "\(self.updatedHour):00"
+            self.dayLabel1.text = "\(self.newDayEntries[0])"
+            self.dayTimeLabel1.text = "\(self.newTimeEntries[0]):00"
             self.dayTempLabel1.text = "\(weather.forecastTemperature1)°C"
             self.dayWTImage1.image = UIImage(named: weather.forecastIcon1)
             
-            self.dayLabel2.text = "\(self.actualWeekDay)"
-            self.dayTimeLabel2.text = "\(self.updatedHour):00"
+            self.dayLabel2.text = "\(self.newDayEntries[1])"
+            self.dayTimeLabel2.text = "\(self.newTimeEntries[1]):00"
             self.dayTempLabel2.text = "\(weather.forecastTemperature2)°C"
             self.dayWTImage2.image = UIImage(named: weather.forecastIcon2)
             
-            self.dayLabel3.text = "\(self.actualWeekDay)"
-            self.dayTimeLabel3.text = "\(self.updatedHour):00"
+            self.dayLabel3.text = "\(self.newDayEntries[2])"
+            self.dayTimeLabel3.text = "\(self.newTimeEntries[2]):00"
             self.dayTempLabel3.text = "\(weather.forecastTemperature3)°C"
             self.dayWTImage3.image = UIImage(named: weather.forecastIcon3)
             
-            self.dayLabel4.text = "\(self.actualWeekDay)"
-            self.dayTimeLabel4.text = "\(self.updatedHour):00"
+            self.dayLabel4.text = "\(self.newDayEntries[3])"
+            self.dayTimeLabel4.text = "\(self.newTimeEntries[3]):00"
             self.dayTempLabel4.text = "\(weather.forecastTemperature4)°C"
             self.dayWTImage4.image = UIImage(named: weather.forecastIcon4)
             

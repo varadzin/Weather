@@ -21,7 +21,7 @@ class WTSearchBTN: UIButton {
     
     init(backgroundColor: UIColor, title: String, titleColor: UIColor) {
         super.init(frame: .zero)
-        self.backgroundColor = backgroundColor
+        self.backgroundColor = .systemBlue
         self.setTitle(title, for: .normal)
         self.setTitleColor(titleColor, for: .normal)
         configure()
@@ -34,9 +34,10 @@ class WTSearchBTN: UIButton {
         layer.borderColor = UIColor.systemBlue.cgColor
         layer.borderWidth = 1
         titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
-        setTitleColor(.white, for: .highlighted)
+        setTitleColor(.white, for: .normal)
+        setTitleColor(.systemBlue, for: .highlighted)
         
-        setBackgroundColor(color: .systemBlue, forState: .highlighted)
+        setBackgroundColor(color: .systemBackground, forState: .highlighted)
         
     }
     
