@@ -50,19 +50,19 @@ class WTCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        weatherImage.frame = CGRect(x: 5,
-                                    y:0,
-                                    width: contentView.frame.size.width-10,
+        weatherImage.frame = CGRect(x: 10,
+                                    y:20,
+                                    width: contentView.frame.size.width-15,
                                     height: contentView.frame.size.height-50)
         
-        cityLabel.frame = CGRect(x: 5,
-                                 y: contentView.frame.size.height-60,
-                                 width: contentView.frame.size.width-10,
+        cityLabel.frame = CGRect(x: 10,
+                                 y: contentView.frame.size.height-45,
+                                 width: contentView.frame.size.width-15,
                                  height: 50)
         
-        temperatureLabel.frame = CGRect(x: 5,
-                                        y: contentView.frame.size.height-45,
-                                        width: contentView.frame.size.width-10,
+        temperatureLabel.frame = CGRect(x: 10,
+                                        y: contentView.frame.size.height-30,
+                                        width: contentView.frame.size.width-15,
                                         height: 50)
     }
     

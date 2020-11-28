@@ -65,10 +65,16 @@ class WTFavoritesVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         layout.minimumLineSpacing = 1
         layout.minimumInteritemSpacing = 1
         layout.itemSize = CGSize(width: (view.frame.size.width/3)-4, height: (view.frame.size.width/3)-4)
+
+       
+        
         
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView?.backgroundColor = .systemBackground
         
+        collectionView?.translatesAutoresizingMaskIntoConstraints = false
+        
+    
         guard let collectionView = collectionView else {
             return
         }
