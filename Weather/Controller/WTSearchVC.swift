@@ -88,6 +88,10 @@ class WTSearchVC: UIViewController {
         actualDay()
     }
     
+    
+
+    
+    
     func actualDay() {
         
         let date = Date()
@@ -97,9 +101,35 @@ class WTSearchVC: UIViewController {
         
         print("date:\(date) day:\(day) hour: \(hour)")
         
-        updatedHour = hour + 6
+        
+    }
+    
+    
+    func newTime(updatedTime: Int) {
+        
+        updatedHour = hour + updatedTime
+        
+        
     }
      
+    
+    func newDay() {
+        switch updatedHour {
+        case 0...23:
+            print("Same day")
+        case 24...47:
+            
+            day = day + 1
+            updatedHour = updatedHour - 24
+            print("day:\(day) updatedHour:\(updatedHour)")
+        default:
+            print("something wrong")
+                
+        }
+    }
+    
+
+    
     func actualWeekDayFunc() {
       
      
@@ -107,7 +137,7 @@ class WTSearchVC: UIViewController {
         switch day {
         
         case 0:
-            actualWeekDay = "0"
+            actualWeekDay = ""
         case 1:
             actualWeekDay = "Sun"
         case 2:
@@ -123,26 +153,11 @@ class WTSearchVC: UIViewController {
         case 7:
             actualWeekDay = "Sat"
         default:
-            actualWeekDay = "N/A"
+            actualWeekDay = ""
         }
         
         print(actualWeekDay)
         
-    }
-    
-    func newDay() {
-        switch updatedHour {
-        case 0...23:
-            print("Same day")
-        case 24...47:
-            
-            day = day + 1
-            updatedHour = updatedHour - 24
-            print("day:\(day) updatedHour:\(updatedHour)")
-        default:
-            print("something wrong")
-                
-        }
     }
     
    
@@ -550,8 +565,12 @@ extension WTSearchVC: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         if let city = searchTF.text {
             weatherManager.fetchWeather(cityName: city)
-actualDay()
-    newDay()
+            actualDay()
+            newTime(updatedTime: 6)
+            newTime(updatedTime: 12)
+            newTime(updatedTime: 18)
+            newTime(updatedTime: 24)
+                        newDay()
             actualWeekDayFunc()
         }
         searchTF.text = ""
