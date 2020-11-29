@@ -10,7 +10,7 @@ import UIKit
 class WTSearchVC: UIViewController {
     
     var searchTF = WTSearchTF()
-    var searchBtn = WTSearchBTN(backgroundColor: .systemBackground, title: "Search", titleColor: .systemBlue)
+    var searchBtn = WTSearchBTN(backgroundColor: .systemBlue, title: "Search", titleColor: .systemBlue, borderColor: .systemBlue)
     var weatherImage = UIImageView()
     var cityAndTempLabel = WTCityLabel()
     var conditionLabel = WTConditionLabel()
@@ -32,14 +32,15 @@ class WTSearchVC: UIViewController {
     var dayTempLabel2 = WTDayLabel(fontSize: 10)
     var dayTempLabel3 = WTDayLabel(fontSize: 10)
     var dayTempLabel4 = WTDayLabel(fontSize: 10)
-    var favButton = WTSearchBTN(backgroundColor: .systemBackground, title: "Add to Favorites", titleColor: .systemBlue)
-        var clearButton = WTSearchBTN(backgroundColor: .systemBackground, title: "Clear Favorites", titleColor: .systemPink)
+    var favButton = WTSearchBTN(backgroundColor: .systemGreen, title: "Add to Favorites", titleColor: .systemBlue, borderColor: .systemGreen)
+    var clearButton = WTSearchBTN(backgroundColor: .systemRed, title: "Clear Favorites", titleColor: .white, borderColor: .systemRed)
     var cityToFavorites = String()
     var favoritesArray : [String] = []
     var temperatureLabel = String()
     var tempArray : [String] = []
     var iconArray : [String] = []
     var icon = String()
+    var forecastName = String()
     var textFieldNotEmpty = Bool()
     var iconImage = UIImageView()
     var smallTempLabel = UILabel()
@@ -55,13 +56,15 @@ class WTSearchVC: UIViewController {
     var timeEntries : [Int] = [6,12,18,24]
     var newTimeEntries : [Int] = []
     var newDayEntries : [String] = []
+    var citiesToRefresh : [String] = []
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         weatherManager.delegate = self
         forecastManager.delegate = self
-    
+        loadArrays()
         searchTF.delegate = self
         welcomeScreen()
         configureScreen()
@@ -72,9 +75,7 @@ class WTSearchVC: UIViewController {
         
         configureConditionLabel()
         configureFavButton()
-    
-        loadArrays()
-        fetchFavorites()
+  
         configureDayLabel1()
       
         configureDayLabel2()
@@ -93,10 +94,29 @@ class WTSearchVC: UIViewController {
         configureTempLabel3()
         configureTempLabel4()
         configureClearButton()
+        createDismissKeyboardTapGesture()
+        
           }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        citiesToRefresh = favoritesArray
+        tempArray.removeAll()
+        iconArray.removeAll()
+        favoritesArray.removeAll()
+        
+            fetchFavorites()
+        
+    }
     
-
+    
+    
+    
+    
+    func createDismissKeyboardTapGesture() {
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))  //tu nastavujes skrytie klavesky
+        view.addGestureRecognizer(tap)
+    } //tu nastavujes ze kdekolvek vo view tapnes tak sa skryje klaveska
     
     //what weekday is today
     //what hour do we have now
@@ -268,8 +288,8 @@ class WTSearchVC: UIViewController {
         
         NSLayoutConstraint.activate([
             favButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
-            favButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            favButton.widthAnchor.constraint(equalToConstant: 150),
+            favButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
+            favButton.widthAnchor.constraint(equalToConstant: 120),
             favButton.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
@@ -287,9 +307,10 @@ class WTSearchVC: UIViewController {
             clearButton.translatesAutoresizingMaskIntoConstraints = false
     
             NSLayoutConstraint.activate([
-                clearButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -30),
-                clearButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-                clearButton.widthAnchor.constraint(equalToConstant: 20)
+                clearButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+                clearButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
+                clearButton.widthAnchor.constraint(equalToConstant: 120),
+                clearButton.heightAnchor.constraint(equalToConstant: 40)
             ])
         }
     
@@ -303,7 +324,8 @@ class WTSearchVC: UIViewController {
         
         favoritesArray = defaults.object(forKey: "SavedArray") as? [String] ?? [String]()
         
-      
+        citiesToRefresh = favoritesArray
+           
 //
 //        tempArray = defaults.object(forKey: "SavedTempArray") as? [String] ?? [String]()
 //
@@ -313,10 +335,24 @@ class WTSearchVC: UIViewController {
     }
     
     
+    func simpleAlert(title: String, message: String) {
+    
+    let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+    
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+
+            self.present(alert, animated: true, completion: nil)
+        }
+    
     @objc func favBtnPressed() {
         if textFieldNotEmpty == false {
             searchTF.placeholder = "Type something"
         } else {
+            
+            if favoritesArray.count >= 10 {
+        simpleAlert(title: "Thats enogh!", message: "You have reached maximum favorites cities")
+            } else {
+            
             
             if favoritesArray.contains(cityToFavorites) {
                 showAlert()
@@ -341,6 +377,7 @@ class WTSearchVC: UIViewController {
                 
                 //                navigationController?.pushViewController(favoritesVC, animated: true)
                 
+            }
             }
         }
     }
@@ -549,17 +586,35 @@ class WTSearchVC: UIViewController {
         ])
     }
     
+    func alertWindow(title: String, message: String) {
+        let refreshAlert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
 
+        refreshAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
+              print("Handle Ok logic here")
+            self.favoritesArray.removeAll()
+            self.tempArray.removeAll()
+            self.iconArray.removeAll()
+            self.citiesToRefresh.removeAll()
+        
+            self.defaults.removeObject(forKey: "SavedArray")
+            self.defaults.removeObject(forKey: "SavedTempArray")
+            self.defaults.removeObject(forKey: "SavedIconArray")
+        }))
+
+        refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+              print("Handle Cancel Logic here")
+        }))
+
+        present(refreshAlert, animated: true, completion: nil)
+        
+    }
+    
 
     @objc func clearFavorites() {
        
-        favoritesArray.removeAll()
-        tempArray.removeAll()
-        iconArray.removeAll()
+        alertWindow(title: "Delete", message: "Delete all favorites Cities, are You sure?")
         
-        defaults.removeObject(forKey: "SavedArray")
-        defaults.removeObject(forKey: "SavedTempArray")
-        defaults.removeObject(forKey: "SavedIconArray")
+      
 
     }
     
@@ -607,10 +662,10 @@ extension WTSearchVC: UITextFieldDelegate {
     
     func fetchFavorites() {
         
- print("fetching favorites")
-        print(favoritesArray.count)
+ print("fetching in search")
+        print(citiesToRefresh.count)
         
-            for value in favoritesArray {
+            for value in citiesToRefresh {
                 forecastManager.fetchWeather(cityName: value)
                
                 
@@ -626,14 +681,16 @@ extension WTSearchVC: ForecastManagerDelegate {
             
             self.icon = "\(weather.weatherIcon)"
             self.temperatureLabel = "\(weather.temperatureString)°C"
-            
+            self.forecastName = "\(weather.cityName)"
           
                 self.tempArray.append(self.temperatureLabel)
                 self.iconArray.append(self.icon)
-                print("TempArray is \(self.tempArray) and IconArray is \(self.iconArray)")
+            self.favoritesArray.append(self.forecastName)
+            
+                print("TempArray is \(self.tempArray) and IconArray is \(self.iconArray) and city is \(self.favoritesArray)")
             self.defaults.set(self.tempArray, forKey: "SavedTempArray")
             self.defaults.set(self.iconArray, forKey: "SavedIconArray")
-            
+            self.defaults.set(self.favoritesArray, forKey: "SavedArray")
           
         }
        

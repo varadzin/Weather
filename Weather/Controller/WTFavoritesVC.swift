@@ -12,7 +12,7 @@ class WTFavoritesVC: UIViewController, UICollectionViewDataSource, UICollectionV
 
     var weatherImage = UIImageView()
     var temperature = String()
-
+var cityName2 = String()
     let defaults = UserDefaults.standard
     var savedArray : [String] = []
     var savedTempArray : [String] = []
@@ -24,7 +24,7 @@ class WTFavoritesVC: UIViewController, UICollectionViewDataSource, UICollectionV
     var cityName = String()
     var icon = String()
     let dispatchGroup = DispatchGroup()
-
+    var citiesToRefresh : [String] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,10 +37,16 @@ class WTFavoritesVC: UIViewController, UICollectionViewDataSource, UICollectionV
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-
-
         savedArray = defaults.object(forKey: "SavedArray") as? [String] ?? [String]()
+        
+print("SavedArray ma pocet \(savedArray)")
+        print("citiesToRefresh ma pocet \(citiesToRefresh)")
+
+        citiesToRefresh = savedArray
+
+        print("po zmene citiesToRefresh ma pocet \(citiesToRefresh)")
+        
+   
 
 
         savedTempArray = defaults.object(forKey: "SavedTempArray") as? [String] ?? [String]()
@@ -95,7 +101,7 @@ class WTFavoritesVC: UIViewController, UICollectionViewDataSource, UICollectionV
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
-        return savedArray.count
+        return citiesToRefresh.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -122,23 +128,24 @@ class WTFavoritesVC: UIViewController, UICollectionViewDataSource, UICollectionV
     
     func fetchAllValues() {
       
-
+print(citiesToRefresh)
+        savedArray.removeAll()
         savedTempArray.removeAll()
         savedIconArray.removeAll()
         
-            for value in savedArray {
-                weatherManager.fetchWeather(cityName: value)
-               
+            for value in citiesToRefresh {
+               weatherManager.fetchWeather(cityName: value)
+                print("fetching in favorites")
                 
             }
-        dispatchGroup.notify(queue: .main) {
+ 
             self.reloadCV()
-        }
+      
         }
     
     func reloadCV() {
         
-        run(after: 1) {
+        run(after: 2) {
             if self.savedArray.count == self.savedTempArray.count {
                 self.collectionView?.reloadData()
         } else {
@@ -167,21 +174,23 @@ extension WTFavoritesVC: WTManagerDelegate {
     
     func didUpdateWeather(_ weatherManager: WTManager, weather: WTModel) {
 
-        dispatchGroup.enter()
+       
         DispatchQueue.main.async {
 
 
             self.temperature = "\(weather.temperatureString)°C"
             self.icon = "\(weather.weatherIcon)"
+            self.cityName2 = "\(weather.cityName)"
             print(self.temperature, self.icon)
             self.savedTempArray.append(self.temperature)
             self.savedIconArray.append(self.icon)
+            self.savedArray.append(self.cityName2)
             print("savedTempArray \(self.savedTempArray)")
             print("savedIconArray \(self.savedIconArray)")
-
+            print("savedCityArray \(self.savedArray)")
 
         }
-        dispatchGroup.leave()
+    
         }
 
 
