@@ -9,7 +9,7 @@ import UIKit
 
 class WTSearchVC: UIViewController {
     
-    var favoritesIsEmpty = Bool()
+    var favoritesIsEmpty = false
     var searchTF = WTSearchTF()
     var searchBtn = WTSearchBTN(backgroundColor: .systemBlue, title: "Search", titleColor: .systemBlue, titleColorHighlighted: .systemBlue, borderColor: .systemBlue)
     var weatherImage = UIImageView()
@@ -106,7 +106,7 @@ class WTSearchVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        print("favorite is Empty in Search \(favoritesIsEmpty)")
+        print("favorite is Empty in Search \(favoritesIsEmpty) a citytoRefresh hore je \(citiesToRefresh)")
         
         
         
@@ -123,7 +123,8 @@ class WTSearchVC: UIViewController {
         favoritesArray.removeAll()
         
             fetchFavorites()
-        
+        favoritesIsEmpty = false
+        self.defaults.set(self.favoritesIsEmpty, forKey: "FavoritesDeleted")
     }
     
     
@@ -338,7 +339,7 @@ class WTSearchVC: UIViewController {
     }
     //MARK: - Loading saved arrays in UserDefaults
     func loadArrays() {
-     
+      defaults.set(favoritesIsEmpty, forKey: "FavoritesDeleted")
             
             favoritesArray = defaults.object(forKey: "SavedArray") as? [String] ?? [String]()
         citiesToRefresh = favoritesArray
