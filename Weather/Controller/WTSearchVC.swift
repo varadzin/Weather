@@ -9,8 +9,9 @@ import UIKit
 
 class WTSearchVC: UIViewController {
     
+    var favoritesIsEmpty = Bool()
     var searchTF = WTSearchTF()
-    var searchBtn = WTSearchBTN(backgroundColor: .systemBlue, title: "Search", titleColor: .systemBlue, borderColor: .systemBlue)
+    var searchBtn = WTSearchBTN(backgroundColor: .systemBlue, title: "Search", titleColor: .systemBlue, titleColorHighlighted: .systemBlue, borderColor: .systemBlue)
     var weatherImage = UIImageView()
     var cityAndTempLabel = WTCityLabel()
     var conditionLabel = WTConditionLabel()
@@ -32,8 +33,8 @@ class WTSearchVC: UIViewController {
     var dayTempLabel2 = WTDayLabel(fontSize: 10)
     var dayTempLabel3 = WTDayLabel(fontSize: 10)
     var dayTempLabel4 = WTDayLabel(fontSize: 10)
-    var favButton = WTSearchBTN(backgroundColor: .systemGreen, title: "Add to Favorites", titleColor: .systemBlue, borderColor: .systemGreen)
-    var clearButton = WTSearchBTN(backgroundColor: .systemRed, title: "Clear Favorites", titleColor: .white, borderColor: .systemRed)
+    var favButton = WTSearchBTN(backgroundColor: .systemBlue, title: "Add to Favorites", titleColor: .white, titleColorHighlighted: .systemBlue,  borderColor: .systemBlue)
+//    var clearButton = WTSearchBTN(backgroundColor: .systemRed, title: "Clear Favorites", titleColor: .white, titleColorHighlighted: .systemRed,  borderColor: .systemRed)
     var cityToFavorites = String()
     var favoritesArray : [String] = []
     var temperatureLabel = String()
@@ -93,15 +94,31 @@ class WTSearchVC: UIViewController {
         configureTempLabel2()
         configureTempLabel3()
         configureTempLabel4()
-        configureClearButton()
+//        configureClearButton()
         createDismissKeyboardTapGesture()
+        
+   
+        
+       
         
           }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        print("favorite is Empty in Search \(favoritesIsEmpty)")
+        
+        
+        
+        favoritesIsEmpty = defaults.object(forKey: "FavoritesDeleted") as? Bool ?? Bool()
+        
+        if favoritesIsEmpty == false {
+        
         citiesToRefresh = favoritesArray
-        tempArray.removeAll()
+        } else {
+            citiesToRefresh.removeAll()
+        }
+         tempArray.removeAll()
         iconArray.removeAll()
         favoritesArray.removeAll()
         
@@ -288,7 +305,7 @@ class WTSearchVC: UIViewController {
         
         NSLayoutConstraint.activate([
             favButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
-            favButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
+            favButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             favButton.widthAnchor.constraint(equalToConstant: 120),
             favButton.heightAnchor.constraint(equalToConstant: 40)
         ])
@@ -300,20 +317,20 @@ class WTSearchVC: UIViewController {
         
     }
     
-        func configureClearButton() {
-            view.addSubview(clearButton)
-    
-            clearButton.addTarget(self, action: #selector(clearFavorites), for: .touchUpInside)
-            clearButton.translatesAutoresizingMaskIntoConstraints = false
-    
-            NSLayoutConstraint.activate([
-                clearButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
-                clearButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
-                clearButton.widthAnchor.constraint(equalToConstant: 120),
-                clearButton.heightAnchor.constraint(equalToConstant: 40)
-            ])
-        }
-    
+//        func configureClearButton() {
+//            view.addSubview(clearButton)
+//
+//            clearButton.addTarget(self, action: #selector(clearFavorites), for: .touchUpInside)
+//            clearButton.translatesAutoresizingMaskIntoConstraints = false
+//
+//            NSLayoutConstraint.activate([
+//                clearButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+//                clearButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
+//                clearButton.widthAnchor.constraint(equalToConstant: 120),
+//                clearButton.heightAnchor.constraint(equalToConstant: 40)
+//            ])
+//        }
+//
     
     func showAlert() {
         print("error")
@@ -321,9 +338,9 @@ class WTSearchVC: UIViewController {
     }
     //MARK: - Loading saved arrays in UserDefaults
     func loadArrays() {
-        
-        favoritesArray = defaults.object(forKey: "SavedArray") as? [String] ?? [String]()
-        
+     
+            
+            favoritesArray = defaults.object(forKey: "SavedArray") as? [String] ?? [String]()
         citiesToRefresh = favoritesArray
            
 //
@@ -349,8 +366,8 @@ class WTSearchVC: UIViewController {
             searchTF.placeholder = "Type something"
         } else {
             
-            if favoritesArray.count >= 10 {
-        simpleAlert(title: "Thats enogh!", message: "You have reached maximum favorites cities")
+            if favoritesArray.count >= 20 {
+        simpleAlert(title: "Thats enough!", message: "You have reached maximum favorites cities")
             } else {
             
             
@@ -586,37 +603,7 @@ class WTSearchVC: UIViewController {
         ])
     }
     
-    func alertWindow(title: String, message: String) {
-        let refreshAlert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-
-        refreshAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
-              print("Handle Ok logic here")
-            self.favoritesArray.removeAll()
-            self.tempArray.removeAll()
-            self.iconArray.removeAll()
-            self.citiesToRefresh.removeAll()
-        
-            self.defaults.removeObject(forKey: "SavedArray")
-            self.defaults.removeObject(forKey: "SavedTempArray")
-            self.defaults.removeObject(forKey: "SavedIconArray")
-        }))
-
-        refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
-              print("Handle Cancel Logic here")
-        }))
-
-        present(refreshAlert, animated: true, completion: nil)
-        
-    }
-    
-
-    @objc func clearFavorites() {
-       
-        alertWindow(title: "Delete", message: "Delete all favorites Cities, are You sure?")
-        
-      
-
-    }
+   
     
     func run(after seconds: Int, completion: @escaping () -> Void) {
         let deadline = DispatchTime.now() + .seconds(seconds)

@@ -10,6 +10,7 @@ import UIKit
 
 class WTFavoritesVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate  {
 
+    var favoritesIsEmpty = Bool()
     var weatherImage = UIImageView()
     var temperature = String()
 var cityName2 = String()
@@ -28,10 +29,11 @@ var cityName2 = String()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.setNavigationBarHidden(true, animated: true)
+//        navigationController?.setNavigationBarHidden(true, animated: true)
         weatherManager.delegate = self
-
-
+clearBarButton()
+     
+   
 
     }
 
@@ -62,7 +64,46 @@ print("SavedArray ma pocet \(savedArray)")
 
     }
 
+    func clearBarButton() {
+        let clearButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(clearFavorites))
+        self.navigationItem.rightBarButtonItem = clearButton
+        
+    }
+    
+    func alertWindow(title: String, message: String) {
+        let refreshAlert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
 
+        refreshAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
+            
+            self.citiesToRefresh.removeAll()
+        
+            self.defaults.removeObject(forKey: "SavedArray")
+            self.defaults.removeObject(forKey: "SavedTempArray")
+            self.defaults.removeObject(forKey: "SavedIconArray")
+            self.favoritesIsEmpty = true
+            self.defaults.set(self.favoritesIsEmpty, forKey: "FavoritesDeleted")
+            print("favorite is Empty in favorites \(self.favoritesIsEmpty)")
+            self.didPullToRefresh()
+            
+        }))
+
+        refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+              print("Handle Cancel Logic here")
+        }))
+
+        present(refreshAlert, animated: true, completion: nil)
+        
+    }
+    
+
+    @objc func clearFavorites() {
+       
+        alertWindow(title: "Delete", message: "Delete all favorites Cities, are You sure?")
+        
+      
+
+    }
+    
     func configureCollectionView() {
 
 
@@ -107,9 +148,15 @@ print("SavedArray ma pocet \(savedArray)")
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WTCell.identifier, for: indexPath) as! WTCell
 
+        if citiesToRefresh.count == savedArray.count && citiesToRefresh.count == savedTempArray.count {
+        
         cell.configureCellLabel(label: savedArray[indexPath.row])
+        
+
+        
         cell.configureTempLabel(tempLabel: savedTempArray[indexPath.row])
             cell.configureWeatherImage(imageView: (UIImage(named: savedIconArray[indexPath.row])!))
+        }
         return cell
     }
     
@@ -145,7 +192,7 @@ print(citiesToRefresh)
     
     func reloadCV() {
         
-        run(after: 2) {
+        run(after: 1) {
             if self.savedArray.count == self.savedTempArray.count {
                 self.collectionView?.reloadData()
         } else {

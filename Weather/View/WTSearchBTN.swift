@@ -19,11 +19,12 @@ class WTSearchBTN: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(backgroundColor: UIColor, title: String, titleColor: UIColor, borderColor: UIColor) {
+    init(backgroundColor: UIColor, title: String, titleColor: UIColor, titleColorHighlighted: UIColor, borderColor: UIColor) {
         super.init(frame: .zero)
         self.backgroundColor = backgroundColor
         self.setTitle(title, for: .normal)
         self.setTitleColor(titleColor, for: .normal)
+        self.setTitleColor(titleColorHighlighted, for: .highlighted)
         self.layer.borderColor = borderColor.cgColor
         configure()
     }
@@ -32,11 +33,11 @@ class WTSearchBTN: UIButton {
     private func configure() {
         
         layer.cornerRadius = 10
-        layer.borderColor = UIColor.systemBackground.cgColor
+       
         layer.borderWidth = 1
         titleLabel?.font = UIFont.systemFont(ofSize: 14)
         setTitleColor(.white, for: .normal)
-        setTitleColor(.systemBlue, for: .highlighted)
+   
         
         setBackgroundColor(color: .systemBackground, forState: .highlighted)
         
