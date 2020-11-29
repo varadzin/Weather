@@ -33,7 +33,7 @@ class WTSearchVC: UIViewController {
     var dayTempLabel3 = WTDayLabel(fontSize: 10)
     var dayTempLabel4 = WTDayLabel(fontSize: 10)
     var favButton = WTSearchBTN(backgroundColor: .systemBackground, title: "Add to Favorites", titleColor: .systemBlue)
-    //    var clearButton = WTSearchBTN(backgroundColor: .systemBackground, title: "Clear Favorites", titleColor: .systemPink)
+        var clearButton = WTSearchBTN(backgroundColor: .systemBackground, title: "Clear Favorites", titleColor: .systemPink)
     var cityToFavorites = String()
     var favoritesArray : [String] = []
     var temperatureLabel = String()
@@ -89,6 +89,7 @@ class WTSearchVC: UIViewController {
         configureTempLabel2()
         configureTempLabel3()
         configureTempLabel4()
+        configureClearButton()
       
     }
     
@@ -277,18 +278,18 @@ class WTSearchVC: UIViewController {
         
     }
     
-    //    func configureClearButton() {
-    //        view.addSubview(clearButton)
-    //
-    //        clearButton.addTarget(self, action: #selector(clearFavorites), for: .touchUpInside)
-    //        clearButton.translatesAutoresizingMaskIntoConstraints = false
-    //
-    //        NSLayoutConstraint.activate([
-    //            clearButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -30),
-    //            clearButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
-    //            clearButton.widthAnchor.constraint(equalToConstant: 150)
-    //        ])
-    //    }
+        func configureClearButton() {
+            view.addSubview(clearButton)
+    
+            clearButton.addTarget(self, action: #selector(clearFavorites), for: .touchUpInside)
+            clearButton.translatesAutoresizingMaskIntoConstraints = false
+    
+            NSLayoutConstraint.activate([
+                clearButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -30),
+                clearButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+                clearButton.widthAnchor.constraint(equalToConstant: 20)
+            ])
+        }
     
     
     func showAlert() {
@@ -301,7 +302,7 @@ class WTSearchVC: UIViewController {
         favoritesArray = defaults.object(forKey: "SavedArray") as? [String] ?? [String]()
         
         tempArray = defaults.object(forKey: "SavedTempArray") as? [String] ?? [String]()
-        
+
         iconArray = defaults.object(forKey: "SavedIconArray") as? [String] ?? [String]()
         
         print("savedArray: \(favoritesArray), savedTempArray: \(tempArray), savedIconArray\(iconArray)")
@@ -322,12 +323,15 @@ class WTSearchVC: UIViewController {
                 
                 
                 //MARK: - append value to array
-                favoritesArray.append(cityToFavorites)
+                
+       
+                
+                    favoritesArray.append(cityToFavorites)
                 tempArray.append(temperatureLabel)
                 iconArray.append(icon)
                 
                 //MARK: - saving arrays to UserDefaults "Memory"
-                defaults.set(favoritesArray, forKey: "SavedArray")
+                    defaults.set(favoritesArray, forKey: "SavedArray") 
                 defaults.set(tempArray, forKey: "SavedTempArray")
                 defaults.set(iconArray, forKey: "SavedIconArray")
                 
@@ -541,18 +545,20 @@ class WTSearchVC: UIViewController {
         ])
     }
     
+
+
+    @objc func clearFavorites() {
+       
+        favoritesArray.removeAll()
+        tempArray.removeAll()
+        iconArray.removeAll()
+        
+        defaults.removeObject(forKey: "SavedArray")
+        defaults.removeObject(forKey: "SavedTempArray")
+        defaults.removeObject(forKey: "SavedIconArray")
+
+    }
 }
-
-//    @objc func clearFavorites() {
-//        defaults.dictionaryRepresentation().keys.forEach(defaults.removeObject(forKey:))
-//        favoritesArray.removeAll()
-//        tempArray.removeAll()
-//        iconArray.removeAll()
-//
-//
-//
-//    }
-
 
 
 //MARK: - UITextFieldDelegate
@@ -637,23 +643,6 @@ extension WTSearchVC: WTManagerDelegate {
         print(error)
     }
 }
-//MARK: - Name of Day
-//
-//extension Date {
-//
-//    func dayNameOfWeek() -> String {
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "EEEE"
-//        return dateFormatter.string(from: self)
-//
-//    }
-//
-//}
-
-
-
-//
-
 
 
 
