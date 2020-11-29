@@ -45,6 +45,7 @@ class WTSearchVC: UIViewController {
     var smallTempLabel = UILabel()
     let defaults = UserDefaults.standard //declaration for using Userdefaults 
     var weatherManager = WTManager()
+    var forecastManager = ForecastManager()
     var actualWeekDay = String()
     var day = Int()
     var hour = Int()
@@ -59,6 +60,7 @@ class WTSearchVC: UIViewController {
         super.viewDidLoad()
         
         weatherManager.delegate = self
+        forecastManager.delegate = self
     
         searchTF.delegate = self
         welcomeScreen()
@@ -70,8 +72,9 @@ class WTSearchVC: UIViewController {
         
         configureConditionLabel()
         configureFavButton()
-        //        configureClearButton()
+    
         loadArrays()
+        fetchFavorites()
         configureDayLabel1()
       
         configureDayLabel2()
@@ -90,8 +93,7 @@ class WTSearchVC: UIViewController {
         configureTempLabel3()
         configureTempLabel4()
         configureClearButton()
-      fetchFavorites()
-    }
+          }
     
     
 
@@ -301,9 +303,11 @@ class WTSearchVC: UIViewController {
         
         favoritesArray = defaults.object(forKey: "SavedArray") as? [String] ?? [String]()
         
-        tempArray = defaults.object(forKey: "SavedTempArray") as? [String] ?? [String]()
-
-        iconArray = defaults.object(forKey: "SavedIconArray") as? [String] ?? [String]()
+      
+//
+//        tempArray = defaults.object(forKey: "SavedTempArray") as? [String] ?? [String]()
+//
+//        iconArray = defaults.object(forKey: "SavedIconArray") as? [String] ?? [String]()
         
         print("savedArray: \(favoritesArray), savedTempArray: \(tempArray), savedIconArray\(iconArray)")
     }
@@ -558,6 +562,13 @@ class WTSearchVC: UIViewController {
         defaults.removeObject(forKey: "SavedIconArray")
 
     }
+    
+    func run(after seconds: Int, completion: @escaping () -> Void) {
+        let deadline = DispatchTime.now() + .seconds(seconds)
+        DispatchQueue.main.asyncAfter(deadline: deadline) {
+            completion()
+        }
+    }
 }
 
 
@@ -596,31 +607,50 @@ extension WTSearchVC: UITextFieldDelegate {
     
     func fetchFavorites() {
         
-      tempArray.removeAll()
-      iconArray.removeAll()
+ print("fetching favorites")
+        print(favoritesArray.count)
         
             for value in favoritesArray {
-                weatherManager.fetchWeather(cityName: value)
+                forecastManager.fetchWeather(cityName: value)
                
-                tempArray.append(temperatureLabel)
-                iconArray.append(icon)
+                
             }
-        
-    }
-    func didUpdateFavorites(_ weatherManager: WTManager, weather: WTModel)  {
-        DispatchQueue.main.async {
-            self.icon = "\(weather.weatherIcon)"
-            self.temperatureLabel = "\(weather.temperatureString)°C"
+    
     }
     
 }
 
+extension WTSearchVC: ForecastManagerDelegate {
+    func didUpdateForecast(_ forecastManager: ForecastManager, weather: WTModel) {
+        DispatchQueue.main.async {
+            
+            self.icon = "\(weather.weatherIcon)"
+            self.temperatureLabel = "\(weather.temperatureString)°C"
+            
+          
+                self.tempArray.append(self.temperatureLabel)
+                self.iconArray.append(self.icon)
+                print("TempArray is \(self.tempArray) and IconArray is \(self.iconArray)")
+         
+            
+          
+        }
+       
+    }
+    
+    func didFailWithErrorForecast(error: Error) {
+        print(error)
+    }
+    
+}
+    
 //MARK: - WTManagerDelegate
 
 extension WTSearchVC: WTManagerDelegate {
 
     
-  
+    
+    
     
 
     func didUpdateWeather(_ weatherManager: WTManager, weather: WTModel) {
@@ -669,4 +699,4 @@ extension WTSearchVC: WTManagerDelegate {
 }
 
 
-}
+

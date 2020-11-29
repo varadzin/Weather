@@ -23,6 +23,7 @@
 		C68D7A73255094AC0051BE09 /* WTDayLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68D7A72255094AC0051BE09 /* WTDayLabel.swift */; };
 		C68D7A782551B8FC0051BE09 /* WTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68D7A772551B8FC0051BE09 /* WTCell.swift */; };
 		C68D7A7B2553331E0051BE09 /* Follower.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68D7A7A2553331E0051BE09 /* Follower.swift */; };
+		C68EFB092573C36500C27AE6 /* ForecastManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68EFB082573C36500C27AE6 /* ForecastManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		C68D7A72255094AC0051BE09 /* WTDayLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WTDayLabel.swift; sourceTree = "<group>"; };
 		C68D7A772551B8FC0051BE09 /* WTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WTCell.swift; sourceTree = "<group>"; };
 		C68D7A7A2553331E0051BE09 /* Follower.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Follower.swift; sourceTree = "<group>"; };
+		C68EFB082573C36500C27AE6 /* ForecastManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 				C678BAA7254F0349002F2A62 /* WTData.swift */,
 				C678BAAA254F0779002F2A62 /* WTModel.swift */,
 				C678BAAD254F0CF1002F2A62 /* WTManager.swift */,
+				C68EFB082573C36500C27AE6 /* ForecastManager.swift */,
 				C68D7A7A2553331E0051BE09 /* Follower.swift */,
 			);
 			path = Model;
@@ -215,6 +218,7 @@
 				C68D7A73255094AC0051BE09 /* WTDayLabel.swift in Sources */,
 				C678BAA2254EFCAC002F2A62 /* WTConditionLabel.swift in Sources */,
 				C678BA9F254EDAFA002F2A62 /* WTCityLabel.swift in Sources */,
+				C68EFB092573C36500C27AE6 /* ForecastManager.swift in Sources */,
 				C6516B43254ECCBA0043FFAC /* WTSearchBTN.swift in Sources */,
 				C678BAAE254F0CF1002F2A62 /* WTManager.swift in Sources */,
 				C6516B37254EC4740043FFAC /* WTSearchVC.swift in Sources */,

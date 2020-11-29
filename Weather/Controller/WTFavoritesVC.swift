@@ -213,6 +213,7 @@ class WTFavoritesVC: UIViewController, UICollectionViewDataSource, UICollectionV
 
         savedTempArray = defaults.object(forKey: "SavedTempArray") as? [String] ?? [String]()
         savedIconArray = defaults.object(forKey: "SavedIconArray") as? [String] ?? [String]()
+      
         configureCollectionView()
         print("savedArray: \(savedArray), savedTempArray: \(savedTempArray), savedIconArray\(savedIconArray)")
 

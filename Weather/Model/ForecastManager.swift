@@ -1,16 +1,17 @@
 //
-//  WTManager.swift
+//  ForecastManager.swift
 //  Weather
 //
-//  Created by Frantisek Varadzin on 01/11/2020.
+//  Created by Frantisek Varadzin on 29/11/2020.
 //
+
 
 import UIKit
 
-protocol WTManagerDelegate {
+protocol ForecastManagerDelegate {
 
-    func didUpdateWeather(_ weatherManager: WTManager, weather: WTModel)
-    func didFailWithError(error: Error)
+    func didUpdateForecast(_ forecastManager: ForecastManager, weather: WTModel)
+    func didFailWithErrorForecast(error: Error)
     
     
     
@@ -18,11 +19,12 @@ protocol WTManagerDelegate {
 
 
 
-struct WTManager {
+
+struct ForecastManager {
     
     let weatherURL = "https://api.openweathermap.org/data/2.5/forecast?appid=1513074b04afcac9adc59f2ce25f6755&units=metric"
     
-      var delegate: WTManagerDelegate?
+      var delegate: ForecastManagerDelegate?
     
     func fetchWeather(cityName: String) {
         let urlString = "\(weatherURL)&q=\(cityName)"
@@ -34,12 +36,12 @@ struct WTManager {
             let session =  URLSession(configuration: .default)
             let task = session.dataTask(with: url) { (data, response, error) in
                 if error != nil {
-                    self.delegate?.didFailWithError(error: error!)
+                    self.delegate?.didFailWithErrorForecast(error: error!)
                     return
                 }
                 if let safeData = data {
                     if let weather = self.parseJSON(safeData) {
-                        self.delegate?.didUpdateWeather(self, weather: weather)
+                        self.delegate?.didUpdateForecast(self, weather: weather)
                     }
                 }
             }
@@ -60,9 +62,6 @@ struct WTManager {
             let speed = decodedData.list[0].wind.speed
             let icon = decodedData.list[0].weather[0].icon
             
-          
-            
-          //Weather forecast - small images
             
             let FCicon1 = decodedData.list[2].weather[0].icon
             let FCtemp1 = decodedData.list[2].main.temp
@@ -83,11 +82,13 @@ struct WTManager {
                                   forecastIcon3: FCicon3, forecastTemp3: FCtemp3,
                                   forecastIcon4: FCicon4, forecastTemp4: FCtemp4)
             
+          
+            
             
             
             return weather
         } catch {
-            delegate?.didFailWithError(error: error)
+            delegate?.didFailWithErrorForecast(error: error)
             return nil
             
         }
