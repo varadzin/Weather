@@ -622,7 +622,7 @@ extension WTSearchVC: UITextFieldDelegate {
 
 extension WTSearchVC: ForecastManagerDelegate {
     func didUpdateForecast(_ forecastManager: ForecastManager, weather: WTModel) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.sync {
             
             self.icon = "\(weather.weatherIcon)"
             self.temperatureLabel = "\(weather.temperatureString)°C"
@@ -631,7 +631,8 @@ extension WTSearchVC: ForecastManagerDelegate {
                 self.tempArray.append(self.temperatureLabel)
                 self.iconArray.append(self.icon)
                 print("TempArray is \(self.tempArray) and IconArray is \(self.iconArray)")
-         
+            self.defaults.set(self.tempArray, forKey: "SavedTempArray")
+            self.defaults.set(self.iconArray, forKey: "SavedIconArray")
             
           
         }
