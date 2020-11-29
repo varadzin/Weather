@@ -90,7 +90,7 @@ class WTSearchVC: UIViewController {
         configureTempLabel3()
         configureTempLabel4()
         configureClearButton()
-      
+      fetchFavorites()
     }
     
     
@@ -594,7 +594,24 @@ extension WTSearchVC: UITextFieldDelegate {
         searchTF.text = ""
     }
     
-    
+    func fetchFavorites() {
+        
+      tempArray.removeAll()
+      iconArray.removeAll()
+        
+            for value in favoritesArray {
+                weatherManager.fetchWeather(cityName: value)
+               
+                tempArray.append(temperatureLabel)
+                iconArray.append(icon)
+            }
+        
+    }
+    func didUpdateFavorites(_ weatherManager: WTManager, weather: WTModel)  {
+        DispatchQueue.main.async {
+            self.icon = "\(weather.weatherIcon)"
+            self.temperatureLabel = "\(weather.temperatureString)°C"
+    }
     
 }
 
@@ -602,9 +619,16 @@ extension WTSearchVC: UITextFieldDelegate {
 
 extension WTSearchVC: WTManagerDelegate {
 
+    
+  
+    
 
     func didUpdateWeather(_ weatherManager: WTManager, weather: WTModel) {
         DispatchQueue.main.async {
+            
+            
+            
+            
             self.weatherImage.image = UIImage(named: weather.weatherIcon)
             self.icon = "\(weather.weatherIcon)"
             self.cityAndTempLabel.text = "\(weather.cityName) \(weather.temperatureString)°C"
@@ -645,4 +669,4 @@ extension WTSearchVC: WTManagerDelegate {
 }
 
 
-
+}

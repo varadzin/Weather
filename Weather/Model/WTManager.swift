@@ -8,8 +8,12 @@
 import UIKit
 
 protocol WTManagerDelegate {
+
     func didUpdateWeather(_ weatherManager: WTManager, weather: WTModel)
     func didFailWithError(error: Error)
+    
+    
+    
 }
 
 struct WTManager {

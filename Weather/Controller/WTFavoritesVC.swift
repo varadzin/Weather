@@ -191,6 +191,7 @@ class WTFavoritesVC: UIViewController, UICollectionViewDataSource, UICollectionV
 
     var cityName = String()
     var icon = String()
+    let dispatchGroup = DispatchGroup()
 
 
     override func viewDidLoad() {
@@ -250,6 +251,12 @@ class WTFavoritesVC: UIViewController, UICollectionViewDataSource, UICollectionV
         collectionView.delegate = self
         view.addSubview(collectionView)
         collectionView.frame = view.bounds
+        
+        //refresh
+        
+        collectionView.refreshControl = UIRefreshControl()
+        collectionView.refreshControl?.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
+        
 
     }
 
@@ -267,24 +274,67 @@ class WTFavoritesVC: UIViewController, UICollectionViewDataSource, UICollectionV
         return cell
     }
     
-    func fetchAllValues() {
+    @objc func didPullToRefresh() {
+        //re-fetch data
+        print("start refreshing")
+        
+        DispatchQueue.main.async {
+            self.collectionView?.refreshControl?.endRefreshing()
+            self.fetchAllValues()
      
+            
+        }
+        
+    }
+    
+    func fetchAllValues() {
+      
+
+        savedTempArray.removeAll()
+        savedIconArray.removeAll()
+        
             for value in savedArray {
                 weatherManager.fetchWeather(cityName: value)
                
                 
             }
-    
-    
+        dispatchGroup.notify(queue: .main) {
+            self.reloadCV()
         }
+        }
+    
+    func reloadCV() {
+        
+        run(after: 1) {
+            if self.savedArray.count == self.savedTempArray.count {
+                self.collectionView?.reloadData()
+        } else {
+            print("Error: not enough data")
+           
+        }
+        }
+            
+            
+       
+       
+ 
+     
+    }
+    func run(after seconds: Int, completion: @escaping () -> Void) {
+        let deadline = DispatchTime.now() + .seconds(seconds)
+        DispatchQueue.main.asyncAfter(deadline: deadline) {
+            completion()
+        }
+    }
+    
+    
 }
  
 extension WTFavoritesVC: WTManagerDelegate {
-
-
+    
     func didUpdateWeather(_ weatherManager: WTManager, weather: WTModel) {
 
-
+        dispatchGroup.enter()
         DispatchQueue.main.async {
 
 
@@ -298,7 +348,7 @@ extension WTFavoritesVC: WTManagerDelegate {
 
 
         }
-
+        dispatchGroup.leave()
         }
 
 
