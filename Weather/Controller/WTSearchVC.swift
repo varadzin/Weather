@@ -34,7 +34,7 @@ class WTSearchVC: UIViewController {
     var dayTempLabel3 = WTDayLabel(fontSize: 10)
     var dayTempLabel4 = WTDayLabel(fontSize: 10)
     var favButton = WTSearchBTN(backgroundColor: .systemBlue, title: "Add to Favorites", titleColor: .white, titleColorHighlighted: .systemBlue,  borderColor: .systemBlue)
-//    var clearButton = WTSearchBTN(backgroundColor: .systemRed, title: "Clear Favorites", titleColor: .white, titleColorHighlighted: .systemRed,  borderColor: .systemRed)
+
     var cityToFavorites = String()
     var favoritesArray : [String] = []
     var temperatureLabel = String()
@@ -318,20 +318,7 @@ class WTSearchVC: UIViewController {
         
     }
     
-//        func configureClearButton() {
-//            view.addSubview(clearButton)
-//
-//            clearButton.addTarget(self, action: #selector(clearFavorites), for: .touchUpInside)
-//            clearButton.translatesAutoresizingMaskIntoConstraints = false
-//
-//            NSLayoutConstraint.activate([
-//                clearButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
-//                clearButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
-//                clearButton.widthAnchor.constraint(equalToConstant: 120),
-//                clearButton.heightAnchor.constraint(equalToConstant: 40)
-//            ])
-//        }
-//
+
     
     func showAlert() {
         print("error")
