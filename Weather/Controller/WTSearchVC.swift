@@ -380,8 +380,7 @@ class WTSearchVC: UIViewController {
                 defaults.set(tempArray, forKey: "SavedTempArray")
                 defaults.set(iconArray, forKey: "SavedIconArray")
                 
-                //                navigationController?.pushViewController(favoritesVC, animated: true)
-                
+                         
             }
             }
         }
