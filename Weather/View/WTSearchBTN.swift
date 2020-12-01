@@ -33,14 +33,10 @@ class WTSearchBTN: UIButton {
     private func configure() {
         
         layer.cornerRadius = 10
-       
         layer.borderWidth = 1
         titleLabel?.font = UIFont.systemFont(ofSize: 14)
         setTitleColor(.white, for: .normal)
-   
-        
         setBackgroundColor(color: .systemBackground, forState: .highlighted)
-        
     }
     
 }

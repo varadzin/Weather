@@ -18,11 +18,9 @@ class WTConditionLabel: UILabel {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     private func configure() {
         textColor = .label
         font = UIFont.preferredFont(forTextStyle: .body)
-  
     }
     
 }
