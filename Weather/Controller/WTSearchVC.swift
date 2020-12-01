@@ -61,17 +61,12 @@ class WTSearchVC: UIViewController {
     var updatedDay = Int()
     var newHour = Int()
     
-    
-    
     //Variables for Delegate
     var weatherManager = WTManager()
     var forecastManager = ForecastManager()
     
     //Other variables
     var textFieldNotEmpty = Bool()
-    
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -241,9 +236,7 @@ class WTSearchVC: UIViewController {
                     defaults.set(favoritesArray, forKey: "SavedArray") 
                     defaults.set(tempArray, forKey: "SavedTempArray")
                     defaults.set(iconArray, forKey: "SavedIconArray")
-                    
-                    
-                }
+                                    }
             }
         }
     }
@@ -255,7 +248,6 @@ class WTSearchVC: UIViewController {
     }
     
     
-    
     //MARK: Delay to wait till API Data load
     func run(after seconds: Int, completion: @escaping () -> Void) {
         let deadline = DispatchTime.now() + .seconds(seconds)
@@ -264,8 +256,7 @@ class WTSearchVC: UIViewController {
         }
     }
     
-    
-    //MARK: - Other fcions - Dismiss Keyboard, Alert, Welcome screen
+        //MARK: - Other fcions - Dismiss Keyboard, Alert, Welcome screen
     func createDismissKeyboardTapGesture() {
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tap)
@@ -286,8 +277,7 @@ class WTSearchVC: UIViewController {
         print("error")
     }
     
-    
-    //MARK: - Configuring Labels, images, Fields, Buttons on screen
+        //MARK: - Configuring Labels, images, Fields, Buttons on screen
     
     func configureScreen() {
         view.backgroundColor = .systemBackground
