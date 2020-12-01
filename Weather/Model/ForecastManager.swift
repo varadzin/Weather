@@ -13,12 +13,7 @@ protocol ForecastManagerDelegate {
     func didUpdateForecast(_ forecastManager: ForecastManager, weather: WTModel)
     func didFailWithErrorForecast(error: Error)
     
-    
-    
 }
-
-
-
 
 struct ForecastManager {
     
@@ -81,10 +76,6 @@ struct ForecastManager {
                                   forecastIcon2: FCicon2, forecastTemp2: FCtemp2,
                                   forecastIcon3: FCicon3, forecastTemp3: FCtemp3,
                                   forecastIcon4: FCicon4, forecastTemp4: FCtemp4)
-            
-          
-            
-            
             
             return weather
         } catch {

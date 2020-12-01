@@ -12,12 +12,7 @@ protocol WTManagerDelegate {
     func didUpdateWeather(_ weatherManager: WTManager, weather: WTModel)
     func didFailWithError(error: Error)
     
-    
-    
 }
-
-
-
 struct WTManager {
     
     let weatherURL = "https://api.openweathermap.org/data/2.5/forecast?appid=1513074b04afcac9adc59f2ce25f6755&units=metric"
