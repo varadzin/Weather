@@ -36,3 +36,5 @@ struct City: Codable {
 struct Wind: Codable {
     let speed: Double
 }
+
+
