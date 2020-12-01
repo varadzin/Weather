@@ -270,9 +270,6 @@ class WTSearchVC: UIViewController {
         ])
     }
     
-    
-    
-    
     func configureConditionLabel() {
         view.addSubview(conditionLabel)
         
@@ -285,8 +282,7 @@ class WTSearchVC: UIViewController {
         ])
     }
     
-    
-    func configureFavButton() {
+        func configureFavButton() {
         view.addSubview(favButton)
         
         favButton.addTarget(self, action: #selector(favBtnPressed), for: .touchUpInside)
@@ -303,10 +299,7 @@ class WTSearchVC: UIViewController {
     func welcomeScreen() {
         cityAndTempLabel.text = "Weather Today"
         conditionLabel.text = "in your favorites cities"
-        
-    }
-    
-    
+            }
     
     func showAlert() {
         print("error")
@@ -318,14 +311,7 @@ class WTSearchVC: UIViewController {
         
         favoritesArray = defaults.object(forKey: "SavedArray") as? [String] ?? [String]()
         citiesToRefresh = favoritesArray
-        
-        //
-        //        tempArray = defaults.object(forKey: "SavedTempArray") as? [String] ?? [String]()
-        //
-        //        iconArray = defaults.object(forKey: "SavedIconArray") as? [String] ?? [String]()
-        
-        print("savedArray: \(favoritesArray), savedTempArray: \(tempArray), savedIconArray\(iconArray)")
-    }
+                       }
     
     
     func simpleAlert(title: String, message: String) {
@@ -586,10 +572,16 @@ class WTSearchVC: UIViewController {
             completion()
         }
     }
+    
+    func fetchFavorites() {
+          for value in citiesToRefresh {
+            forecastManager.fetchWeather(cityName: value)
+                    }
+            }
 }
 
 
-//MARK: - UITextFieldDelegate
+//MARK: - UITextFieldDelegate - Magic happens after Tap search Button
 
 extension WTSearchVC: UITextFieldDelegate {
     
@@ -617,25 +609,12 @@ extension WTSearchVC: UITextFieldDelegate {
         if let city = searchTF.text {
             weatherManager.fetchWeather(cityName: city)
             actualDay()
-            
-        }
+                    }
         searchTF.text = ""
     }
-    
-    func fetchFavorites() {
-        
-        print("fetching in search")
-        print(citiesToRefresh.count)
-        
-        for value in citiesToRefresh {
-            forecastManager.fetchWeather(cityName: value)
-            
-            
         }
-        
-    }
-    
-}
+
+//MARK: - ForecastDelegate - data from API - JSON - Forecast
 
 extension WTSearchVC: ForecastManagerDelegate {
     func didUpdateForecast(_ forecastManager: ForecastManager, weather: WTModel) {
@@ -653,32 +632,20 @@ extension WTSearchVC: ForecastManagerDelegate {
             self.defaults.set(self.tempArray, forKey: "SavedTempArray")
             self.defaults.set(self.iconArray, forKey: "SavedIconArray")
             self.defaults.set(self.favoritesArray, forKey: "SavedArray")
-            
-        }
-        
-    }
+                    }
+            }
     
     func didFailWithErrorForecast(error: Error) {
         print(error)
     }
-    
-}
+    }
 
-//MARK: - WTManagerDelegate
+//MARK: - WTManagerDelegate - data from API - JSON
 
 extension WTSearchVC: WTManagerDelegate {
     
-    
-    
-    
-    
-    
     func didUpdateWeather(_ weatherManager: WTManager, weather: WTModel) {
         DispatchQueue.main.async {
-            
-            
-            
-            
             self.weatherImage.image = UIImage(named: weather.weatherIcon)
             self.icon = "\(weather.weatherIcon)"
             self.cityAndTempLabel.text = "\(weather.cityName) \(weather.temperatureString)°C"
@@ -704,14 +671,8 @@ extension WTSearchVC: WTManagerDelegate {
             self.dayTimeLabel4.text = "\(self.newTimeEntries[3]):00"
             self.dayTempLabel4.text = "\(weather.forecastTemperature4)°C"
             self.dayWTImage4.image = UIImage(named: weather.forecastIcon4)
-            
-        }
-        
-    }
-    
-    
-    
-    
+                    }
+            }
     
     func didFailWithError(error: Error) {
         print(error)
