@@ -622,6 +622,8 @@ extension WTSearchVC: ForecastManagerDelegate {
     }
 }
 
+//test
+
 //MARK: - WTManagerDelegate - data from API - JSON
 
 extension WTSearchVC: WTManagerDelegate {
