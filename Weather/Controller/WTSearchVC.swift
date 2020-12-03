@@ -622,7 +622,7 @@ extension WTSearchVC: ForecastManagerDelegate {
     }
 }
 
-//test
+//test[srjgpeortepj
 
 //MARK: - WTManagerDelegate - data from API - JSON
 
