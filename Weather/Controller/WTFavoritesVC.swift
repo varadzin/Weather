@@ -194,3 +194,23 @@ extension WTFavoritesVC: WTManagerDelegate {
     }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Test
+
